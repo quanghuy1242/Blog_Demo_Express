@@ -1,0 +1,11 @@
+extends layout
+
+block b1
+  if (currentUser && currentUser.id === user.id)
+    a(href="/edit") Edit your profile
+
+  .card.m-2
+    .card-body
+      h5.card-title= user.name() 
+      h6.card-subtitle.mb-2.text-muted= date
+      p.card-text= user.bio ? user.bio : ""

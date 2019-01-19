@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title= !title ? "missing title" : title
+    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css")
+  body
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href="/") Learn About Me
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarTogglerDemo01', aria-controls='navbarTogglerDemo01', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarTogglerDemo01.collapse.navbar-collapse
+        ul.navbar-nav.mt-2.mt-lg-0.ml-auto
+          if (currentUser)
+            li.nav-item
+              a.nav-link(href='/edit') Hello, #{currentUser.name()}
+            li.nav-item
+              a.nav-link(href='/logout') Log out
+          else
+            li.nav-item
+              a.nav-link(href='/signin') Sign in
+            li.nav-item
+              a.nav-link(href='/signup') Sign up
+    
+    .container
+      .m-2
+        each error in errors
+          .alert.alert-danger.alert-dismissible.fade.show(role='alert')
+            span= error
+            button.close(type='button', data-dismiss='alert', aria-label='Close')
+              span(aria-hidden='true') ×
+
+
+          
+        each info in infos
+          .alert.alert-warning.alert-dismissible.fade.show(role='alert')
+            span= info
+            button.close(type='button', data-dismiss='alert', aria-label='Close')
+              span(aria-hidden='true') ×
+
+
+      block b1
+      
+        
+      script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js')
+      script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js')
