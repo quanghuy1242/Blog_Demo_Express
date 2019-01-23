@@ -3,6 +3,8 @@ const passport = require('passport');
 
 const User = require('../models/user.model');
 
+const authenticate = require('../middlewares/auth.middleware');
+
 const router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -63,5 +65,15 @@ router.post('/signup', function(req, res, next) {
   failureRedirect: '/signup',
   failureFlash: true
 }));
+
+router.get('/edit', authenticate.ensureAuthenticated, function (req, res, next) {
+  res.render('edit', {
+    title: 'Edit your infomation'
+  })
+});
+
+router.post('/edit',authenticate.ensureAuthenticated, function (req, res, next) {
+
+})
 
 module.exports = router;
