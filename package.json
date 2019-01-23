@@ -21,7 +21,8 @@
     "mongoose": "^5.4.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "tern-node-express": "^0.4.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"

@@ -6,25 +6,6 @@ const Blog = require('../models/blog.model');
 
 const router = express.Router();
 
-let content1 = `
-# Nguyen Quang Huy
-## 16011941
-- Ahaha
-- Ahuhu
-`;
-
-let content2 = `
-# Nguyen Minh Khanh
-## Khong hoc truong nay
-- Ehehe
-- Uhuhu
-`;
-
-let listBlog = [content1, content2];
-let htmlBlog = listBlog.map((item) => {
-	return md.render(item).split('\n').join('')
-})
-
 router.get('/', function(req, res, next) {
 	Blog.find()
 		.sort({ dateCreated: "descending" })
@@ -42,6 +23,25 @@ router.get('/', function(req, res, next) {
 				title: 'Blog'
 			});
 		})
+});
+
+router.get('/add', (req, res, next) => {
+	res.render('newBlog', {
+		title: "Thêm bài viết mới"
+	});
+});
+
+router.post('/add', (req, res, next) => {
+	let title = req.body.title;
+	let content = req.body.content;
+
+	let newBlog = new Blog({
+		title: title,
+		content: content
+	});
+	newBlog.save(next);
+	
+	res.redirect('/blog');
 });
 
 module.exports = router;
