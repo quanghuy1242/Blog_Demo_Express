@@ -2,7 +2,7 @@ extends layout
 
 block b1
   .card.m-2
+    .card-header.font-weight-bold= blog.title
     .card-body
-      h5.card-title= blog.title
       h6.card-subtitle.mb-2.text-muted= blog.time
-      p.card-text!= blog.content
+      .card-text.markdown-body!= blog.content
