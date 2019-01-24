@@ -17,29 +17,19 @@ router.get('/', function(req, res, next) {
 		.sort({ dateCreated: "descending" })
 		.exec((err, blogs) => {
 			if (err) return next(err);
+			
 			let blogModified = blogs.slice(start, end);
-			let htmledBlog = blogModified.map(function(elem) {
-				return {
-					title: elem.title,
-					dateCreated: moment(elem.dateCreated).format("DD/MM/YYYY"),
-					content: md.render(elem.content).split('\n').join(''),
-					_id: elem._id
-				}
-			})
-
-			page = Math.ceil(blogs.length / perPage);
-			let prev = p - 1;
-			let ne = p + 1;
-			if (prev === 0) prev = -1;
-			if (ne > page) ne = -1;
-
+			for (let i in blogModified) {
+				blogModified[i].time = moment(blogModified[i].dateCreated).format("DD/MM/YYYY");
+				blogModified[i].content = md.render(blogModified[i].content).split('\n').join('')
+			}
 			res.render('blog', {
-				msg: htmledBlog,
+				msg: blogModified,
 				title: 'Blog',
 				page: {
-					prev: prev,
+					prev: (p - 1) === 0 ? -1 : p - 1,
 					now: p,
-					next: ne
+					next: (p + 1) > Math.ceil(blogs.length / perPage) ? -1 : p + 1
 				}
 			});
 		})
@@ -68,14 +58,11 @@ router.get('/:blogId', function (req, res, next) {
 	let blogId = req.params.blogId;
 	Blog.findById(blogId, (err, blog) => {
 		if (err) return next(err);
-
+		blog.time = moment(blog.dateCreated).format("DD/MM/YYYY");
+		blog.content = md.render(blog.content).split('\n').join('');
 		res.render('blogDetail', {
 			title: blog.title,
-			blog: {
-				title: blog.title,
-				dateCreated: moment(blog.dateCreated).format("DD/MM/YYYY"),
-				content: md.render(blog.content).split('\n').join(''),
-			}
+			blog: blog
 		})
 	})
 })
