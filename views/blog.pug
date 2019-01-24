@@ -7,3 +7,22 @@ block b1
         h5.card-title= blog.title
         h6.card-subtitle.mb-2.text-muted= blog.dateCreated
         p.card-text!= blog.content
+        a(href="/blog/" + blog._id) View
+
+  .container-flud
+    nav.d-flex.justify-content-center
+      ul.pagination
+        if (page.prev !== -1)
+          li.page-item
+            a.page-link(href="/blog?page=" + page.prev) Trước
+        else 
+          li.page-item.disabled
+            span.page-link Trước
+        li.page-item.active
+          a.page-link(href="/blog?page=" + page.now)= page.now
+        if (page.next !== -1)
+          li.page-item
+            a.page-link(href="/blog?page=" + page.next) Sau
+        else 
+          li.page-item.disabled
+            span.page-link Sau

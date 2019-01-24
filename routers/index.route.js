@@ -73,7 +73,13 @@ router.get('/edit', authenticate.ensureAuthenticated, function (req, res, next) 
 });
 
 router.post('/edit',authenticate.ensureAuthenticated, function (req, res, next) {
-
+  req.user.displayName = req.body.displayName;
+  req.user.bio = req.body.bio;
+  req.user.save((err) => {
+    if (err) { next(err); return; }
+    req.flash("info", "Thông tin được update!");
+    res.redirect('/');
+  });
 })
 
 module.exports = router;

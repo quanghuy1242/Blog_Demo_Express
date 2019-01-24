@@ -1,0 +1,8 @@
+extends layout
+
+block b1
+  .card.m-2
+    .card-body
+      h5.card-title= blog.title
+      h6.card-subtitle.mb-2.text-muted= blog.dateCreated
+      p.card-text!= blog.content
