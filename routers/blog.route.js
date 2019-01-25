@@ -67,4 +67,38 @@ router.get('/:blogId', function (req, res, next) {
 	})
 })
 
+router.get('/edit/:blogId', function (req, res, next) {
+	Blog.findById(req.params.blogId, (err, foundBlog) => {
+		if (err) return next(err);
+		res.render("editBlog", {
+			title: "Edit your content",
+			blog: foundBlog
+		})
+	});
+});
+
+router.post('/edit/:blogId', function (req, res, next) {
+	Blog.updateOne(
+		{ _id: req.params.blogId },
+		{
+			$set: {
+				title: req.body.title,
+				content: req.body.content
+			}
+		},
+		function (err, response) {
+			if (err) return next(err);
+			Blog.findById(req.params.blogId, (err, blog) => {
+				if (err) return next(err);
+				blog.time = moment(blog.dateCreated).format("DD/MM/YYYY");
+				blog.content = md.render(blog.content).split('\n').join('');
+				res.render('blogDetail', {
+					title: blog.title,
+					blog: blog
+				})
+			})
+		}
+	);
+});
+
 module.exports = router;
