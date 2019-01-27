@@ -1,11 +1,17 @@
 extends layout
 
 block b1
-  form(action="/blog/edit/" + blog._id, method="POST")
-    .form-group
-      label(for='exampleInputEmail1') Title
-      input#exampleInputEmail1.form-control(type='text', placeholder='Tiêu đề', required="true", autofocus="true", name="title", value=blog.title)
-    .form-group
-      label(for='content') Content
-      textarea#content.form-control(placeholder='Nhập nội dung...', required="true", name="content", rows=15)= blog.content
-    button.btn.btn-primary(type='submit') Update
+  .container
+    .row
+      .col-6
+        form(action="/blog/edit/" + blog._id, method="POST")
+          .form-group
+            label(for='exampleInputEmail1') Title
+            input#exampleInputEmail1.form-control(type='text', placeholder='Tiêu đề', required="true", autofocus="true", name="title", value=blog.title)
+          .form-group
+            label(for='content') Content (markdown support)
+            textarea#content.form-control(placeholder='Nhập nội dung...', required="true", name="content", rows=15)= blog.content
+          button.btn.btn-primary(type='submit') Update
+
+      .col-6
+        #preview.markdown-body

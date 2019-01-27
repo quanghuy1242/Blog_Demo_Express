@@ -51,6 +51,7 @@ router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 	});
 	newBlog.save(next);
 	
+	req.flash("info", "Đã thêm Blog mới!");
 	res.redirect('/blog');
 });
 
@@ -67,7 +68,7 @@ router.get('/:blogId', function (req, res, next) {
 	})
 })
 
-router.get('/edit/:blogId', function (req, res, next) {
+router.get('/edit/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {
 	Blog.findById(req.params.blogId, (err, foundBlog) => {
 		if (err) return next(err);
 		res.render("editBlog", {
@@ -77,7 +78,7 @@ router.get('/edit/:blogId', function (req, res, next) {
 	});
 });
 
-router.post('/edit/:blogId', function (req, res, next) {
+router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {
 	Blog.updateOne(
 		{ _id: req.params.blogId },
 		{
@@ -99,6 +100,14 @@ router.post('/edit/:blogId', function (req, res, next) {
 			})
 		}
 	);
+});
+
+router.post('/delete/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {
+	Blog.remove({ _id: req.params.blogId }, function (err, response) {
+		if (err) return next(err);
+		req.flash("info", "Blog đã được xoá thành công!");
+		res.redirect('/blog');
+	})
 });
 
 module.exports = router;

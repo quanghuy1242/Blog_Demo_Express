@@ -1,0 +1,9 @@
+#preview {
+    border: 1px solid #ced4da;
+    height: 100%;
+    padding: 10px;
+}
+
+#content {
+    resize: none;
+}

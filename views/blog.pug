@@ -8,7 +8,10 @@ block b1
         h6.card-subtitle.mb-2.text-muted= blog.time
         .card-text.markdown-body!= blog.content
           
-        a(href="/blog/" + blog._id) View
+        a.btn.btn-secondary.mr-1.float-left(href="/blog/" + blog._id) View
+        if (currentUser)
+          form(action="/blog/delete/" + blog._id, method="post")
+            input.btn.btn-secondary(type="submit", value="Delete")
 
   .container-flud
     nav.d-flex.justify-content-center
