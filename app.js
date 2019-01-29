@@ -13,7 +13,7 @@ const userRoute = require('./routers/user.route');
 const blogRoute = require('./routers/blog.route');
 
 const app = express();
-mongoose.connect("mongodb://localhost:27017/test");
+mongoose.connect("mongodb://localhost:27017/test", { useNewUrlParser: true, useCreateIndex: true });
 setupPassport();
 
 app.set('port', process.env.PORT || 3000);

@@ -19,7 +19,12 @@ html(lang="en")
             a.nav-link(href='/blog') Blog
           li.nav-item
             a.nav-link(href='/blog/add') New Blog
-        ul.navbar-nav.mt-2.mt-lg-0.ml-auto
+
+        form.form-inline.ml-auto(action="/blog/search/s", method="GET")
+          input.form-control.mr-2(type="text",name="q", placeholder="Search blog", required="true")
+          input.btn.btn-primary(type="submit", value="Search")
+
+        ul.navbar-nav.mt-2.mt-lg-0
           if (currentUser)
             li.nav-item
               a.nav-link(href='/edit') Hello, #{currentUser.name()}
@@ -30,6 +35,7 @@ html(lang="en")
               a.nav-link(href='/signin') Sign in
             li.nav-item
               a.nav-link(href='/signup') Sign up
+        
 
     
     .container

@@ -110,4 +110,25 @@ router.post('/delete/:blogId', authenticate.ensureAuthenticated, function (req, 
 	})
 });
 
+router.get('/search/s', function (req, res, next) {
+	let q = req.query.q;
+	Blog.find()
+		.sort({ dateCreated: "descending" })
+		.exec((err, blogs) => {
+			if (err) return next(err);
+
+			let matchBlog = blogs.filter(blog => blog.title.toLowerCase().indexOf(q.toLowerCase()) != -1)
+
+			for (let i in matchBlog) {
+				matchBlog[i].time = moment(matchBlog[i].dateCreated).format("DD/MM/YYYY");
+				matchBlog[i].content = md.render(matchBlog[i].content).split('\n').join('')
+			}
+			res.render('blog', {
+				msg: matchBlog,
+				title: "Kết quả",
+				query: q
+			})
+		});
+});
+
 module.exports = router;

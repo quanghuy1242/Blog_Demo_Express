@@ -1,32 +1,39 @@
 extends layout
 
 block b1
+  if (query) 
+    h3 Các kết quả cho từ khoá "#{query}"
+  
+  if (!msg.length)
+    span Không tìm thấy kết quả nào
   each blog in msg
     .card.m-2
       .card-header.font-weight-bold= blog.title
       .card-body
         h6.card-subtitle.mb-2.text-muted= blog.time
-        .card-text.markdown-body!= blog.content
+        .card-text.markdown-body.mb-3!= blog.content
           
         a.btn.btn-secondary.mr-1.float-left(href="/blog/" + blog._id) View
         if (currentUser)
           form(action="/blog/delete/" + blog._id, method="post")
-            input.btn.btn-secondary(type="submit", value="Delete")
+            input.btn.btn-secondary.mr-1.float-left(type="submit", value="Delete")
+          a.btn.btn-secondary(href="/blog/edit/" + blog._id) Edit
 
-  .container-flud
-    nav.d-flex.justify-content-center
-      ul.pagination
-        if (page.prev !== -1)
-          li.page-item
-            a.page-link(href="/blog?page=" + page.prev) Trước
-        else 
-          li.page-item.disabled
-            span.page-link Trước
-        li.page-item.active
-          a.page-link(href="/blog?page=" + page.now)= page.now
-        if (page.next !== -1)
-          li.page-item
-            a.page-link(href="/blog?page=" + page.next) Sau
-        else 
-          li.page-item.disabled
-            span.page-link Sau
+  if (page)
+    .container-flud
+      nav.d-flex.justify-content-center
+        ul.pagination
+          if (page.prev !== -1)
+            li.page-item
+              a.page-link(href="/blog?page=" + page.prev) Trước
+          else 
+            li.page-item.disabled
+              span.page-link Trước
+          li.page-item.active
+            a.page-link(href="/blog?page=" + page.now)= page.now
+          if (page.next !== -1)
+            li.page-item
+              a.page-link(href="/blog?page=" + page.next) Sau
+          else 
+            li.page-item.disabled
+              span.page-link Sau
