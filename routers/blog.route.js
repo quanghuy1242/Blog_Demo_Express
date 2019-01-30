@@ -1,6 +1,5 @@
 const express = require('express');
-const md = require('markdown-it')();
-const moment = require('moment');
+const ConverttoMarkdown = require('../Utilities/ConverttoMarkdown');
 
 const authenticate = require('../middlewares/auth.middleware');
 
@@ -8,28 +7,24 @@ const Blog = require('../models/blog.model');
 
 const router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', async function (req, res, next) {
 	let p = parseInt(req.query.page) || 1;
 	let perPage = 4;
-	let start = (p - 1) * perPage;
-	let end = p * perPage;
+	let blogsCount = await Blog.countDocuments();
 	Blog.find()
 		.sort({ dateCreated: "descending" })
+		.skip((p - 1) * perPage)
+		.limit(perPage)
 		.exec((err, blogs) => {
 			if (err) return next(err);
-			
-			let blogModified = blogs.slice(start, end);
-			for (let i in blogModified) {
-				blogModified[i].time = moment(blogModified[i].dateCreated).format("DD/MM/YYYY");
-				blogModified[i].content = md.render(blogModified[i].content).split('\n').join('')
-			}
+			ConverttoMarkdown.ConverttoMarkdown(blogs);
 			res.render('blog', {
 				msg: blogModified,
 				title: 'Blog',
 				page: {
 					prev: (p - 1) === 0 ? -1 : p - 1,
 					now: p,
-					next: (p + 1) > Math.ceil(blogs.length / perPage) ? -1 : p + 1
+					next: (p + 1) > Math.ceil(blogsCount / perPage) ? -1 : p + 1
 				}
 			});
 		})
@@ -55,19 +50,6 @@ router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 	res.redirect('/blog');
 });
 
-router.get('/:blogId', function (req, res, next) {
-	let blogId = req.params.blogId;
-	Blog.findById(blogId, (err, blog) => {
-		if (err) return next(err);
-		blog.time = moment(blog.dateCreated).format("DD/MM/YYYY");
-		blog.content = md.render(blog.content).split('\n').join('');
-		res.render('blogDetail', {
-			title: blog.title,
-			blog: blog
-		})
-	})
-})
-
 router.get('/edit/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {
 	Blog.findById(req.params.blogId, (err, foundBlog) => {
 		if (err) return next(err);
@@ -91,8 +73,7 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
 			if (err) return next(err);
 			Blog.findById(req.params.blogId, (err, blog) => {
 				if (err) return next(err);
-				blog.time = moment(blog.dateCreated).format("DD/MM/YYYY");
-				blog.content = md.render(blog.content).split('\n').join('');
+				ConverttoMarkdown.ConverttoMarkdown(blog);
 				res.render('blogDetail', {
 					title: blog.title,
 					blog: blog
@@ -110,7 +91,7 @@ router.post('/delete/:blogId', authenticate.ensureAuthenticated, function (req, 
 	})
 });
 
-router.get('/search/s', function (req, res, next) {
+router.get('/search', function (req, res, next) {
 	let q = req.query.q;
 	Blog.find()
 		.sort({ dateCreated: "descending" })
@@ -119,10 +100,7 @@ router.get('/search/s', function (req, res, next) {
 
 			let matchBlog = blogs.filter(blog => blog.title.toLowerCase().indexOf(q.toLowerCase()) != -1)
 
-			for (let i in matchBlog) {
-				matchBlog[i].time = moment(matchBlog[i].dateCreated).format("DD/MM/YYYY");
-				matchBlog[i].content = md.render(matchBlog[i].content).split('\n').join('')
-			}
+			ConverttoMarkdown.ConverttoMarkdown(blogs);
 			res.render('blog', {
 				msg: matchBlog,
 				title: "Kết quả",
@@ -130,5 +108,17 @@ router.get('/search/s', function (req, res, next) {
 			})
 		});
 });
+
+router.get('/:blogId', function (req, res, next) {
+	let blogId = req.params.blogId;
+	Blog.findById(blogId, (err, blog) => {
+		if (err) return next(err);
+		ConverttoMarkdown.ConverttoMarkdown(blog);
+		res.render('blogDetail', {
+			title: blog.title,
+			blog: blog
+		})
+	})
+})
 
 module.exports = router;

@@ -20,7 +20,7 @@ html(lang="en")
           li.nav-item
             a.nav-link(href='/blog/add') New Blog
 
-        form.form-inline.ml-auto(action="/blog/search/s", method="GET")
+        form.form-inline.ml-auto(action="/blog/search", method="GET")
           input.form-control.mr-2(type="text",name="q", placeholder="Search blog", required="true")
           input.btn.btn-primary(type="submit", value="Search")
 

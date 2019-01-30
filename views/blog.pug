@@ -16,7 +16,7 @@ block b1
         a.btn.btn-secondary.mr-1.float-left(href="/blog/" + blog._id) View
         if (currentUser)
           form(action="/blog/delete/" + blog._id, method="post")
-            input.btn.btn-secondary.mr-1.float-left(type="submit", value="Delete")
+            input.btn.btn-secondary.mr-1.float-left(type="submit", value="Delete", onClick="return confirm('Có chắc chắn xoá?')")
           a.btn.btn-secondary(href="/blog/edit/" + blog._id) Edit
 
   if (page)
