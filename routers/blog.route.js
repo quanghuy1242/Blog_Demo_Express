@@ -87,7 +87,7 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
 router.post('/:pinState/:blogId', async (req, res, next) => {
 	let pinState = req.params.pinState;
 
-	let pinBlogCount = await Blog.find({ isPin: true }).count();
+	let pinBlogCount = await Blog.find({ isPin: true }).countDocuments();
 	if (pinBlogCount !== 0 && pinState === 'pin') {
 		req.flash("info", "Không thể pin hai post một lượt, hãy gỡ pin bài đăng hiện tại và chọn lại bài đăng cần pin!");
 		res.redirect('/blog');
