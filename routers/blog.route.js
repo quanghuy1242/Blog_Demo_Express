@@ -19,7 +19,7 @@ router.get('/', async function (req, res, next) {
 			if (err) return next(err);
 			ConverttoMarkdown.ConverttoMarkdown(blogs);
 			res.render('blog', {
-				msg: blogModified,
+				msg: blogs,
 				title: 'Blog',
 				page: {
 					prev: (p - 1) === 0 ? -1 : p - 1,
@@ -77,8 +77,8 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
 				res.render('blogDetail', {
 					title: blog.title,
 					blog: blog
-				})
-			})
+				});
+			});
 		}
 	);
 });
@@ -88,25 +88,20 @@ router.post('/delete/:blogId', authenticate.ensureAuthenticated, function (req, 
 		if (err) return next(err);
 		req.flash("info", "Blog đã được xoá thành công!");
 		res.redirect('/blog');
-	})
+	});
 });
 
 router.get('/search', function (req, res, next) {
 	let q = req.query.q;
-	Blog.find()
-		.sort({ dateCreated: "descending" })
-		.exec((err, blogs) => {
-			if (err) return next(err);
-
-			let matchBlog = blogs.filter(blog => blog.title.toLowerCase().indexOf(q.toLowerCase()) != -1)
-
-			ConverttoMarkdown.ConverttoMarkdown(blogs);
-			res.render('blog', {
-				msg: matchBlog,
-				title: "Kết quả",
-				query: q
-			})
+	Blog.find({ title: new RegExp(q, 'i') }, (err, blogs) => {
+		if (err) return next(err);
+		ConverttoMarkdown.ConverttoMarkdown(blogs);
+		res.render('blog', {
+			msg: blogs,
+			title: "Kết quả tìm kiếm",
+			query: q
 		});
+	});
 });
 
 router.get('/:blogId', function (req, res, next) {
