@@ -18,8 +18,9 @@ router.get('/', async function (req, res, next) {
 		.exec((err, blogs) => {
 			if (err) return next(err);
 			ConverttoMarkdown.ConverttoMarkdown(blogs);
+			let pinBlog = blogs.filter(b => b.isPin);
 			res.render('blog', {
-				msg: blogs,
+				msg: [...pinBlog, ...blogs],
 				title: 'Blog',
 				page: {
 					prev: (p - 1) === 0 ? -1 : p - 1,
@@ -83,8 +84,24 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
 	);
 });
 
+router.post('/:pinState/:blogId', (req, res, next) => {
+	let pinState = req.params.pinState;
+	Blog.updateOne(
+		{ _id: req.params.blogId },
+		{
+			$set: {
+				isPin: pinState === 'pin' ? true : false
+			}
+		},
+		function (err, response) {
+			if (err) return next(err);
+		}
+	);
+	res.redirect('/blog');
+});
+
 router.post('/delete/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {
-	Blog.remove({ _id: req.params.blogId }, function (err, response) {
+	Blog.deleteOne({ _id: req.params.blogId }, function (err, response) {
 		if (err) return next(err);
 		req.flash("info", "Blog đã được xoá thành công!");
 		res.redirect('/blog');

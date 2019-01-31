@@ -17,7 +17,13 @@ block b1
         if (currentUser)
           form(action="/blog/delete/" + blog._id, method="post")
             input.btn.btn-secondary.mr-1.float-left(type="submit", value="Delete", onClick="return confirm('Có chắc chắn xoá?')")
-          a.btn.btn-secondary(href="/blog/edit/" + blog._id) Edit
+          a.btn.btn-secondary.float-left.mr-1(href="/blog/edit/" + blog._id) Edit
+          if (!blog.isPin)
+            form(action="/blog/pin/" + blog._id, method="post")
+              input.btn.btn-secondary(type="submit", value="Pin")
+          else
+            form(action="/blog/unpin/" + blog._id, method="post")
+              input.btn.btn-danger(type="submit", value="Unpin")
 
   if (page)
     .container-flud
