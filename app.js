@@ -47,6 +47,12 @@ app.use('/', indexRoute);
 app.use('/users', userRoute);
 app.use('/blog', blogRoute)
 
+app.use(function (req, res) {
+  res.status(404).render('404', {
+    title: 'Không tìm thấy'
+  })
+});
+
 app.listen(app.get('port'), function() {
   console.log(`Server is running under port ${app.get('port')}`);
 });
