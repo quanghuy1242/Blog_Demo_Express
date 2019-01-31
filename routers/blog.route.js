@@ -11,16 +11,16 @@ router.get('/', async function (req, res, next) {
 	let p = parseInt(req.query.page) || 1;
 	let perPage = 4;
 	let blogsCount = await Blog.countDocuments();
+	let pinBlogs = await Blog.find({ isPin: true });
 	Blog.find()
 		.sort({ dateCreated: "descending" })
 		.skip((p - 1) * perPage)
 		.limit(perPage)
 		.exec((err, blogs) => {
 			if (err) return next(err);
-			ConverttoMarkdown.ConverttoMarkdown(blogs);
-			let pinBlog = blogs.filter(b => b.isPin);
+			ConverttoMarkdown.ConverttoMarkdown([...pinBlogs, ...blogs]);
 			res.render('blog', {
-				msg: [...pinBlog, ...blogs],
+				msg: [...pinBlogs, ...blogs],
 				title: 'Blog',
 				page: {
 					prev: (p - 1) === 0 ? -1 : p - 1,
@@ -84,8 +84,16 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
 	);
 });
 
-router.post('/:pinState/:blogId', (req, res, next) => {
+router.post('/:pinState/:blogId', async (req, res, next) => {
 	let pinState = req.params.pinState;
+
+	let pinBlogCount = await Blog.find({ isPin: true }).count();
+	if (pinBlogCount !== 0 && pinState === 'pin') {
+		req.flash("info", "Không thể pin hai post một lượt, hãy gỡ pin bài đăng hiện tại và chọn lại bài đăng cần pin!");
+		res.redirect('/blog');
+		return;
+	}
+
 	Blog.updateOne(
 		{ _id: req.params.blogId },
 		{

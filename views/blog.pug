@@ -8,7 +8,7 @@ block b1
     span Không tìm thấy kết quả nào
   each blog in msg
     .card.m-2
-      .card-header.font-weight-bold= blog.title
+      .card-header.font-weight-bold= blog.title + (blog.isPin ? " (Pinned)" : "")
       .card-body
         h6.card-subtitle.mb-2.text-muted= blog.time
         .card-text.markdown-body.mb-3!= blog.content
