@@ -132,7 +132,7 @@ router.get('/search', function (req, res, next) {
 router.get('/:blogId', function (req, res, next) {
 	let blogId = req.params.blogId;
 	Blog.findById(blogId, (err, blog) => {
-		if (err) return next(err);
+		if (err) return next();
 		ConverttoMarkdown.ConverttoMarkdown(blog);
 		res.render('blogDetail', {
 			title: blog.title,
