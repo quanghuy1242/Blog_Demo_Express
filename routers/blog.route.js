@@ -45,7 +45,7 @@ router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 		title: title,
 		content: content
 	});
-	newBlog.save(next);
+	newBlog.save();
 	
 	req.flash("info", "Đã thêm Blog mới!");
 	res.redirect('/blog');
@@ -53,7 +53,7 @@ router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 
 router.get('/edit/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {
 	Blog.findById(req.params.blogId, (err, foundBlog) => {
-		if (err) return next(err);
+		if (err) return next();
 		res.render("editBlog", {
 			title: "Edit your content",
 			blog: foundBlog
@@ -84,6 +84,14 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
 	);
 });
 
+router.post('/delete/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {
+	Blog.deleteOne({ _id: req.params.blogId }, function (err, response) {
+		if (err) return next(err);
+		req.flash("info", "Blog đã được xoá thành công!");
+		res.redirect('/blog');
+	});
+});
+
 router.post('/:pinState/:blogId', async (req, res, next) => {
 	let pinState = req.params.pinState;
 
@@ -106,14 +114,6 @@ router.post('/:pinState/:blogId', async (req, res, next) => {
 		}
 	);
 	res.redirect('/blog');
-});
-
-router.post('/delete/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {
-	Blog.deleteOne({ _id: req.params.blogId }, function (err, response) {
-		if (err) return next(err);
-		req.flash("info", "Blog đã được xoá thành công!");
-		res.redirect('/blog');
-	});
 });
 
 router.get('/search', function (req, res, next) {
