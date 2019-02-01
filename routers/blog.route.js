@@ -1,5 +1,6 @@
 const express = require('express');
-const ConverttoMarkdown = require('../Utilities/ConverttoMarkdown');
+const ConverttoMarkdown = require('../util/ConverttoMarkdown');
+const mongoose = require('mongoose');
 
 const authenticate = require('../middlewares/auth.middleware');
 
@@ -137,8 +138,54 @@ router.get('/:blogId', function (req, res, next) {
 		res.render('blogDetail', {
 			title: blog.title,
 			blog: blog
-		})
-	})
-})
+		});
+	});
+});
+
+router.get('/:year/:month?/:day?/:blogId?', async function (req, res, next) {
+	let { year, month, day, blogId } = req.params;
+	let filter = { $match: { "year": parseInt(year), "month": parseInt(month), "day": parseInt(day), "_id": mongoose.Types.ObjectId(blogId) } };
+	if (!blogId) filter = { $match: { "year": parseInt(year), "month": parseInt(month), "day": parseInt(day) } };
+	if (!day) filter = { $match: { "year": parseInt(year), "month": parseInt(month) } };
+	if (!month) filter = { $match: { "year": parseInt(year) } };
+	// if (!year) filter = { $match: {  } }
+	let blogs = await Blog.aggregate(
+		[
+			{
+				$project: 
+					{
+						year: { $year: "$dateCreated" },
+						month: { $month: "$dateCreated" },
+						day: { $dayOfMonth: "$dateCreated" },
+						title: "$title",
+						content: "$content",
+						isPin: "$isPin",
+						dateCreated: "$dateCreated"
+					}
+			},
+			filter,
+			{ $sort: { dateCreated: -1 } }
+		]
+	);
+
+	// Todos: An Array:
+	let xyz = [
+		{
+			2019: [
+				{ 1: [ 25, 26, 29 ] },
+				{ 6: [ 1, 3, 7 ] }
+			],
+			2020: [
+				{ 1: [ 1, 2, 7 ] }
+			]
+		}
+	]
+
+	ConverttoMarkdown.ConverttoMarkdown(blogs);
+	res.render('blog', {
+		title: "Kết quả lọc", 
+		msg: blogs
+	});
+});
 
 module.exports = router;

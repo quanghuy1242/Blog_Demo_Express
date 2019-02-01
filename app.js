@@ -7,13 +7,17 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const setupPassport = require('./setupPassport');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const indexRoute = require('./routers/index.route');
 const userRoute = require('./routers/user.route');
 const blogRoute = require('./routers/blog.route');
 
 const app = express();
-mongoose.connect("mongodb://localhost:27017/test", { useNewUrlParser: true, useCreateIndex: true });
+
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true });
 setupPassport();
 
 app.set('port', process.env.PORT || 3000);
@@ -26,7 +30,7 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-  secret: "ghvgBYU8*^*^*VYVJ5)_R@_35",
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true
 }));
