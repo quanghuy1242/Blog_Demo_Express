@@ -1,17 +1,24 @@
 extends layout
 
 block b1
+  .container.mb-3
+    .text-center-cus New POST
+    .row
+      .col-3
+      .col-6
+        .input-group
+          input#inputTitleLamMau.form-control.mr-2(type="text", placeholder="Input title...", required="true", maxlength="100")
+          button#btnLamMau.btn.btn-primary Đăng
   .container
     .row
-      .col-6
+      .col-6(style="padding-right: 0.5rem")
         form(action="/blog/edit/" + blog._id, method="POST")
-          .form-group
-            label(for='exampleInputEmail1') Title
-            input#exampleInputEmail1.form-control(type='text', placeholder='Tiêu đề', required="true", autofocus="true", name="title", value=blog.title)
-          .form-group
-            label(for='content') Content (markdown support)
-            textarea#content.form-control(placeholder='Nhập nội dung...', required="true", name="content", rows=15)= blog.content
-          button.btn.btn-primary(type='submit') Update
+          input#inputTitleForm.form-control(type='hidden', name="title", required="true", value=blog.title)
+          textarea#content.form-control(placeholder='Nhập nội dung...', required="true", name="content", rows=15)= blog.content
+          button#btnForm.btn.btn-primary.d-none(type='submit') Update
 
-      .col-6
+      .col-6(style="padding-left: 0.5rem")
         #preview.markdown-body
+
+  script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')
+  script(src="/javascript/newBlog.js")

@@ -7,27 +7,33 @@ block b1
   if (!msg.length)
     span Không tìm thấy kết quả nào
   each blog in msg
-    .card.m-2
-      .card-header.font-weight-bold= blog.title + (blog.isPin ? " (Pinned)" : "")
-      .card-body
+    .card.mb-3
+      .card-body.pb-1
+        a.card-title.font-weight-bold(href="/blog/" + blog._id)
+          = blog.title
+          if (blog.isPin)
+            i.material-icons.pinTag local_offer
+        .dropdown
+          i.more_vert.material-icons(data-toggle="dropdown") more_vert
+          .dropdown-menu.dropdown-menu-right
+            a.dropdown-item(href="/blog/" + blog._id) View
+            if (currentUser)
+              a.dropdown-item(href="/blog/edit/" + blog._id) Edit
+              form(action="/blog/delete/" + blog._id, method="post")
+                input.dropdown-item(type="submit", value="Delete", onClick="return confirm('Có chắc chắn xoá?')")
+              if (!blog.isPin)
+                form(action="/blog/pin/" + blog._id, method="post")
+                  input.dropdown-item(type="submit", value="Pin")
+              else
+                form(action="/blog/unpin/" + blog._id, method="post")
+                  input.dropdown-item(type="submit", value="Unpin")
+
         h6.card-subtitle.mb-2.text-muted= blog.time
         .card-text.markdown-body.mb-3!= blog.content
-          
-        a.btn.btn-secondary.mr-1.float-left(href="/blog/" + blog._id) View
-        if (currentUser)
-          form(action="/blog/delete/" + blog._id, method="post")
-            input.btn.btn-secondary.mr-1.float-left(type="submit", value="Delete", onClick="return confirm('Có chắc chắn xoá?')")
-          a.btn.btn-secondary.float-left.mr-1(href="/blog/edit/" + blog._id) Edit
-          if (!blog.isPin)
-            form(action="/blog/pin/" + blog._id, method="post")
-              input.btn.btn-secondary(type="submit", value="Pin")
-          else
-            form(action="/blog/unpin/" + blog._id, method="post")
-              input.btn.btn-danger(type="submit", value="Unpin")
 
   if (page)
     .container-flud
-      nav.d-flex.justify-content-center
+      nav.d-flex.justify-content-center.align-items-center
         ul.pagination
           if (page.prev !== -1)
             li.page-item

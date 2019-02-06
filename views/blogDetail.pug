@@ -1,10 +1,21 @@
 extends layout
 
 block b1
-  if (currentUser)
-    a(href="/blog/edit/" + blog._id) Edit this blog
-  .card.m-2
-    .card-header.font-weight-bold= blog.title
+  .card.mb-3
     .card-body
+      h5.card-title.font-weight-bold= blog.title
+      if (currentUser)
+        .dropdown
+          i.more_vert.material-icons(data-toggle="dropdown") more_vert
+          .dropdown-menu.dropdown-menu-right
+            a.dropdown-item(href="/blog/edit/" + blog._id) Edit
+            form(action="/blog/delete/" + blog._id, method="post")
+              input.dropdown-item(type="submit", value="Delete", onClick="return confirm('Có chắc chắn xoá?')")
+            if (!blog.isPin)
+              form(action="/blog/pin/" + blog._id, method="post")
+                input.dropdown-item(type="submit", value="Pin")
+            else
+              form(action="/blog/unpin/" + blog._id, method="post")
+                input.dropdown-item(type="submit", value="Unpin")
       h6.card-subtitle.mb-2.text-muted= blog.time
       .card-text.markdown-body!= blog.content

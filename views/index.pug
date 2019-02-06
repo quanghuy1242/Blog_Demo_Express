@@ -4,6 +4,7 @@ block b1
   each user in users
     .card.m-2
       .card-body
-        h5.card-title= user.name() 
-        p.card-text= user.bio 
-        a.card-link(href='/users/' + user.username) More infomation
+        a(href='/users/' + user.username)
+          h5.card-title= user.name() 
+        if (user.bio)
+          p.card-text= user.bio 

@@ -130,6 +130,23 @@ router.get('/search', function (req, res, next) {
 	});
 });
 
+router.get('/demo', function (req, res, next) {
+	Blog.aggregate(
+		[
+			{
+				$group: {
+					_id: { year: { $year: "$dateCreated" }, month: { $month: "$dateCreated" } },
+					count: { $sum: 1 }
+				}
+			}
+		],
+		function(err, rs) {
+			if (err) return next(err);
+			res.json(rs);
+		}
+	);
+});
+
 router.get('/:blogId', function (req, res, next) {
 	let blogId = req.params.blogId;
 	Blog.findById(blogId, (err, blog) => {
@@ -144,12 +161,26 @@ router.get('/:blogId', function (req, res, next) {
 
 router.get('/:year/:month?/:day?/:blogId?', async function (req, res, next) {
 	let { year, month, day, blogId } = req.params;
-	let filter = { $match: { "year": parseInt(year), "month": parseInt(month), "day": parseInt(day), "_id": mongoose.Types.ObjectId(blogId) } };
+
+	let p = parseInt(req.query.page) || 1;
+	let perPage = 4;
+	let blogsCount = await Blog.countDocuments();
+
+	let o_id;
+	try {
+		o_id = mongoose.Types.ObjectId(blogId);
+	} catch (error) {
+		return next();
+	}
+
+	if (year.toString().length >= 6) return next();
+
+	let filter = { $match: { "year": parseInt(year), "month": parseInt(month), "day": parseInt(day), "_id": o_id } };
 	if (!blogId) filter = { $match: { "year": parseInt(year), "month": parseInt(month), "day": parseInt(day) } };
 	if (!day) filter = { $match: { "year": parseInt(year), "month": parseInt(month) } };
 	if (!month) filter = { $match: { "year": parseInt(year) } };
 	// if (!year) filter = { $match: {  } }
-	let blogs = await Blog.aggregate(
+	Blog.aggregate(
 		[
 			{
 				$project: 
@@ -164,28 +195,27 @@ router.get('/:year/:month?/:day?/:blogId?', async function (req, res, next) {
 					}
 			},
 			filter,
-			{ $sort: { dateCreated: -1 } }
-		]
-	);
-
-	// Todos: An Array:
-	let xyz = [
-		{
-			2019: [
-				{ 1: [ 25, 26, 29 ] },
-				{ 6: [ 1, 3, 7 ] }
-			],
-			2020: [
-				{ 1: [ 1, 2, 7 ] }
-			]
+			{ $sort: { dateCreated: -1 } },
+			{ $skip: (p - 1) * perPage }, 
+			{ $limit: perPage }
+		],
+		function(err, blogs) {
+			if (err) { return next(); }
+			ConverttoMarkdown.ConverttoMarkdown(blogs);
+			res.render('blog', {
+				title: "Kết quả lọc", 
+				msg: blogs, 
+				page: {
+					prev: (p - 1) === 0 ? -1 : p - 1,
+					now: p,
+					next: (p + 1) > Math.ceil(blogsCount / perPage) ? -1 : p + 1
+				}
+			});
 		}
-	]
-
-	ConverttoMarkdown.ConverttoMarkdown(blogs);
-	res.render('blog', {
-		title: "Kết quả lọc", 
-		msg: blogs
-	});
+	);
+	console.log(req.protocol + "://" + req.get('host') + req.originalUrl);
+	
 });
+
 
 module.exports = router;

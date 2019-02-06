@@ -8,4 +8,5 @@ block b1
     .card-body
       h5.card-title= user.name() 
       h6.card-subtitle.mb-2.text-muted= date
-      p.card-text= user.bio ? user.bio : ""
+      if (user.bio)
+        p.card-text= user.bio ? user.bio : ""
