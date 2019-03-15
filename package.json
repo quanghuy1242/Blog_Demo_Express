@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --inspect app.js"
+    "test": "nodemon --inspect app.js",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
