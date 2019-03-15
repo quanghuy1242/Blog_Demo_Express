@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -17,7 +17,7 @@ const blogRoute = require('./routers/blog.route');
 
 const app = express();
 
-mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(process.env.MONGODB_URL, { useCreateIndex: true, useNewUrlParser: true });
 setupPassport();
 
 app.set('port', process.env.PORT || 3000);
