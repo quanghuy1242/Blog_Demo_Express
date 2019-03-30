@@ -1,5 +1,5 @@
 const express = require('express');
-const ConverttoMarkdown = require('../util/ConverttoMarkdown');
+const ModifiedPost = require('../util/ModifiedPost');
 const mongoose = require('mongoose');
 
 const authenticate = require('../middlewares/auth.middleware');
@@ -19,7 +19,7 @@ router.get('/', async function (req, res, next) {
 		.limit(perPage)
 		.exec((err, blogs) => {
 			if (err) return next(err);
-			ConverttoMarkdown.ConverttoMarkdown([...pinBlogs, ...blogs]);
+      ModifiedPost.addProperties([...pinBlogs, ...blogs]);
 			res.render('blog', {
 				msg: [...pinBlogs, ...blogs],
 				title: 'Blog',
@@ -75,7 +75,7 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
 			if (err) return next(err);
 			Blog.findById(req.params.blogId, (err, blog) => {
 				if (err) return next(err);
-				ConverttoMarkdown.ConverttoMarkdown(blog);
+				ModifiedPost.addProperties(blog);
 				res.render('blogDetail', {
 					title: blog.title,
 					blog: blog
@@ -121,7 +121,7 @@ router.get('/search', function (req, res, next) {
 	let q = req.query.q;
 	Blog.find({ title: new RegExp(q, 'i') }, (err, blogs) => {
 		if (err) return next(err);
-		ConverttoMarkdown.ConverttoMarkdown(blogs);
+    ModifiedPost.addProperties(blogs);
 		res.render('blog', {
 			msg: blogs,
 			title: "Kết quả tìm kiếm",
@@ -147,11 +147,14 @@ router.get('/demo', function (req, res, next) {
 	);
 });
 
-router.get('/:blogId', function (req, res, next) {
-	let blogId = req.params.blogId;
+router.get('/:name/:blogId', function (req, res, next) {
+	let { name, blogId } = req.params;
 	Blog.findById(blogId, (err, blog) => {
-		if (err) return next();
-		ConverttoMarkdown.ConverttoMarkdown(blog);
+    if (err) return next();
+		ModifiedPost.addProperties(blog);
+    if (name !== blog.titleWithoutAccentAndSpace) {
+      res.redirect(req.protocol + "://" + req.get('host') + '/blog/' + blog.titleWithoutAccentAndSpace + '/' + blogId);
+    }
 		res.render('blogDetail', {
 			title: blog.title,
 			blog: blog
@@ -201,7 +204,7 @@ router.get('/:year/:month?/:day?/:blogId?', async function (req, res, next) {
 		],
 		function(err, blogs) {
 			if (err) { return next(); }
-			ConverttoMarkdown.ConverttoMarkdown(blogs);
+      ModifiedPost.addProperties(blogs);
 			res.render('blog', {
 				title: "Kết quả lọc", 
 				msg: blogs, 

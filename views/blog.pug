@@ -9,14 +9,14 @@ block b1
   each blog in msg
     .card.mb-3
       .card-body.pb-1
-        a.card-title.font-weight-bold(href="/blog/" + blog._id)
+        a.card-title.font-weight-bold(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`)
           = blog.title
           if (blog.isPin)
             i.material-icons.pinTag local_offer
         .dropdown
           i.more_vert.material-icons(data-toggle="dropdown") more_vert
           .dropdown-menu.dropdown-menu-right
-            a.dropdown-item(href="/blog/" + blog._id) View
+            a.dropdown-item(href=href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`) View
             if (currentUser)
               a.dropdown-item(href="/blog/edit/" + blog._id) Edit
               form(action="/blog/delete/" + blog._id, method="post")
@@ -29,7 +29,7 @@ block b1
                   input.dropdown-item(type="submit", value="Unpin")
 
         h6.card-subtitle.mb-2.text-muted= blog.time
-        .card-text.markdown-body.mb-3!= blog.content
+        .card-text.markdown-body.mb-3!= blog.previewConent
 
   if (page)
     .container-flud
