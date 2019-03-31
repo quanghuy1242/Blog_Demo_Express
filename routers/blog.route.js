@@ -153,7 +153,7 @@ router.get('/:name/:blogId', function (req, res, next) {
     if (err) return next();
 		ModifiedPost.addProperties(blog);
     if (name !== blog.titleWithoutAccentAndSpace) {
-      res.redirect(req.protocol + "://" + req.get('host') + '/blog/' + blog.titleWithoutAccentAndSpace + '/' + blogId);
+      res.redirect('/blog/' + blog.titleWithoutAccentAndSpace + '/' + blogId);
     }
 		res.render('blogDetail', {
 			title: blog.title,
