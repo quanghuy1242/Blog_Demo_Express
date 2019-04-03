@@ -35,7 +35,7 @@ router.get('/', async function (req, res, next) {
 router.get('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 	res.render('newBlog', {
 		title: "Thêm bài viết mới"
-	});
+  });
 });
 
 router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
@@ -72,7 +72,7 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
 			}
 		},
 		function (err, response) {
-			if (err) return next(err);
+      if (err) return next(err);
 			Blog.findById(req.params.blogId, (err, blog) => {
 				if (err) return next(err);
 				ModifiedPost.addProperties(blog);

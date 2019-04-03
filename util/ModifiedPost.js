@@ -9,7 +9,7 @@ class ModifiedPost {
       blogsInProcess[i].time = moment(blogsInProcess[i].dateCreated).format("DD/MM/YYYY");
       blogsInProcess[i].content = md.render(blogsInProcess[i].content).split('\n').join('');
       blogsInProcess[i].titleWithoutAccentAndSpace = StringProcess.toUrlString(blogsInProcess[i].title);
-      blogsInProcess[i].previewConent = /[^[\>]+(?=<)/g.exec(blogsInProcess[i].content.split('\n')[0])[0] + '...';
+      blogsInProcess[i].previewConent = /[^[>]+(?=<)/g.exec(blogsInProcess[i].content.split('\n')[0])[0] + '...';
     }
   }
 }
