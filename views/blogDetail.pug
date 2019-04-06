@@ -4,7 +4,7 @@ block b1
   .card.mb-3
     .card-body
       h5.card-title.font-weight-bold= blog.title
-      if (currentUser)
+      if (currentUser && currentUser._id.toString() === blog.userId)
         .dropdown
           i.more_vert.material-icons(data-toggle="dropdown") more_vert
           .dropdown-menu.dropdown-menu-right

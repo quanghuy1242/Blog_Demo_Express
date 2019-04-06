@@ -17,7 +17,7 @@ block b1
           i.more_vert.material-icons(data-toggle="dropdown") more_vert
           .dropdown-menu.dropdown-menu-right
             a.dropdown-item(href=href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`) View
-            if (currentUser)
+            if (currentUser && currentUser._id.toString() === blog.userId)
               a.dropdown-item(href="/blog/edit/" + blog._id) Edit
               form(action="/blog/delete/" + blog._id, method="post")
                 input.dropdown-item(type="submit", value="Delete", onClick="return confirm('Có chắc chắn xoá?')")

@@ -9,6 +9,7 @@ const Blog = require('../models/blog.model');
 const router = express.Router();
 
 router.get('/', async function (req, res, next) {
+  console.log(res.locals.currentUser);
 	let p = parseInt(req.query.page) || 1;
 	let perPage = 4;
 	let blogsCount = await Blog.countDocuments();
@@ -44,7 +45,8 @@ router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 
 	let newBlog = new Blog({
 		title: title,
-		content: content
+    content: content,
+    userId: res.locals.currentUser._id
 	});
 	newBlog.save();
 	
