@@ -9,7 +9,6 @@ const Blog = require('../models/blog.model');
 const router = express.Router();
 
 router.get('/', async function (req, res, next) {
-  console.log(res.locals.currentUser);
 	let p = parseInt(req.query.page) || 1;
 	let perPage = 4;
 	let blogsCount = await Blog.countDocuments();
@@ -17,9 +16,10 @@ router.get('/', async function (req, res, next) {
 	Blog.find()
 		.sort({ dateCreated: "descending" })
 		.skip((p - 1) * perPage)
-		.limit(perPage)
+    .limit(perPage)
+    .populate('user')
 		.exec((err, blogs) => {
-			if (err) return next(err);
+      if (err) return next(err);
       ModifiedPost.addProperties([...pinBlogs, ...blogs]);
 			res.render('blog', {
 				msg: [...pinBlogs, ...blogs],
@@ -46,7 +46,7 @@ router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 	let newBlog = new Blog({
 		title: title,
     content: content,
-    userId: res.locals.currentUser._id
+    user: res.locals.currentUser._id
 	});
 	newBlog.save();
 	
@@ -78,10 +78,7 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
 			Blog.findById(req.params.blogId, (err, blog) => {
 				if (err) return next(err);
 				ModifiedPost.addProperties(blog);
-				res.render('blogDetail', {
-					title: blog.title,
-					blog: blog
-				});
+				res.redirect(`/blog/a/${blog._id}`)
 			});
 		}
 	);
@@ -132,36 +129,21 @@ router.get('/search', function (req, res, next) {
 	});
 });
 
-router.get('/demo', function (req, res, next) {
-	Blog.aggregate(
-		[
-			{
-				$group: {
-					_id: { year: { $year: "$dateCreated" }, month: { $month: "$dateCreated" } },
-					count: { $sum: 1 }
-				}
-			}
-		],
-		function(err, rs) {
-			if (err) return next(err);
-			res.json(rs);
-		}
-	);
-});
-
 router.get('/:name/:blogId', function (req, res, next) {
-	let { name, blogId } = req.params;
-	Blog.findById(blogId, (err, blog) => {
-    if (err) return next();
-		ModifiedPost.addProperties(blog);
-    if (name !== blog.titleWithoutAccentAndSpace) {
-      res.redirect('/blog/' + blog.titleWithoutAccentAndSpace + '/' + blogId);
-    }
-		res.render('blogDetail', {
-			title: blog.title,
-			blog: blog
-		});
-	});
+  let { name, blogId } = req.params;
+  Blog.findById(blogId)
+    .populate('user')
+    .exec((err, blog) => {
+      if (err) return next();
+      ModifiedPost.addProperties(blog);
+      if (name !== blog.titleWithoutAccentAndSpace) {
+        res.redirect('/blog/' + blog.titleWithoutAccentAndSpace + '/' + blogId);
+      }
+      res.render('blogDetail', {
+        title: blog.title,
+        blog: blog
+      });
+    })
 });
 
 router.get('/:year/:month?/:day?/:blogId?', async function (req, res, next) {
@@ -184,7 +166,6 @@ router.get('/:year/:month?/:day?/:blogId?', async function (req, res, next) {
 	if (!blogId) filter = { $match: { "year": parseInt(year), "month": parseInt(month), "day": parseInt(day) } };
 	if (!day) filter = { $match: { "year": parseInt(year), "month": parseInt(month) } };
 	if (!month) filter = { $match: { "year": parseInt(year) } };
-	// if (!year) filter = { $match: {  } }
 	Blog.aggregate(
 		[
 			{
@@ -218,7 +199,6 @@ router.get('/:year/:month?/:day?/:blogId?', async function (req, res, next) {
 			});
 		}
 	);
-	console.log(req.protocol + "://" + req.get('host') + req.originalUrl);
 	
 });
 

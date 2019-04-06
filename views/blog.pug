@@ -10,14 +10,14 @@ block b1
     .card.mb-3
       .card-body.pb-1
         a.card-title.font-weight-bold(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`)
-          = blog.title
+          = `${blog.title} - ${blog.user.displayName || blog.user.username}`
           if (blog.isPin)
             i.material-icons.pinTag local_offer
         .dropdown
           i.more_vert.material-icons(data-toggle="dropdown") more_vert
           .dropdown-menu.dropdown-menu-right
             a.dropdown-item(href=href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`) View
-            if (currentUser && currentUser._id.toString() === blog.userId)
+            if (currentUser && currentUser._id.toString() === blog.user._id.toString())
               a.dropdown-item(href="/blog/edit/" + blog._id) Edit
               form(action="/blog/delete/" + blog._id, method="post")
                 input.dropdown-item(type="submit", value="Delete", onClick="return confirm('Có chắc chắn xoá?')")

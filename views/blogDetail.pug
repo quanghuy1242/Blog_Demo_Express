@@ -3,8 +3,8 @@ extends layout
 block b1
   .card.mb-3
     .card-body
-      h5.card-title.font-weight-bold= blog.title
-      if (currentUser && currentUser._id.toString() === blog.userId)
+      h5.card-title.font-weight-bold= `${blog.title} - ${blog.user.displayName || blog.user.username}`
+      if (currentUser && currentUser._id.toString() === blog.user._id.toString())
         .dropdown
           i.more_vert.material-icons(data-toggle="dropdown") more_vert
           .dropdown-menu.dropdown-menu-right
