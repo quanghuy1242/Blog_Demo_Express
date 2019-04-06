@@ -12,7 +12,7 @@ router.get('/', async function (req, res, next) {
 	let p = parseInt(req.query.page) || 1;
 	let perPage = 4;
 	let blogsCount = await Blog.countDocuments();
-	let pinBlogs = await Blog.find({ isPin: true });
+	let pinBlogs = await Blog.find({ isPin: true }).populate('user');
 	Blog.find()
 		.sort({ dateCreated: "descending" })
 		.skip((p - 1) * perPage)
