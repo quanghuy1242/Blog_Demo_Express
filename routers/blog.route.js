@@ -118,7 +118,7 @@ router.post('/:pinState/:blogId', async (req, res, next) => {
 
 router.get('/search', function (req, res, next) {
 	let q = req.query.q;
-	Blog.find({ title: new RegExp(q, 'i') }, (err, blogs) => {
+	Blog.find({ title: new RegExp(q, 'i') }).populate('user').exec((err, blogs) => {
 		if (err) return next(err);
     ModifiedPost.addProperties(blogs);
 		res.render('blog', {
