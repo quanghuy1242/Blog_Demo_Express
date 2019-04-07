@@ -1,6 +1,5 @@
 const express = require('express');
 const ModifiedPost = require('../util/ModifiedPost');
-const mongoose = require('mongoose');
 
 const authenticate = require('../middlewares/auth.middleware');
 
@@ -146,61 +145,55 @@ router.get('/:name/:blogId', function (req, res, next) {
     })
 });
 
-router.get('/:year/:month?/:day?/:blogId?', async function (req, res, next) {
-	let { year, month, day, blogId } = req.params;
+router.get('/:year/:month?/:day?', async function (req, res, next) {
+  let { year, month, day } = req.params;
 
 	let p = parseInt(req.query.page) || 1;
 	let perPage = 4;
 	let blogsCount = await Blog.countDocuments();
 
-	let o_id;
-	try {
-		o_id = mongoose.Types.ObjectId(blogId);
-	} catch (error) {
-		return next();
-	}
+	let filter = { 
+    "year": parseInt(year), 
+    ...(month) && { "month": parseInt(month) }, 
+    ...(day) && { "day": parseInt(day) } 
+  };
 
-	if (year.toString().length >= 6) return next();
-
-	let filter = { $match: { "year": parseInt(year), "month": parseInt(month), "day": parseInt(day), "_id": o_id } };
-	if (!blogId) filter = { $match: { "year": parseInt(year), "month": parseInt(month), "day": parseInt(day) } };
-	if (!day) filter = { $match: { "year": parseInt(year), "month": parseInt(month) } };
-	if (!month) filter = { $match: { "year": parseInt(year) } };
-	Blog.aggregate(
-		[
-			{
-				$project: 
-					{
-						year: { $year: "$dateCreated" },
-						month: { $month: "$dateCreated" },
-						day: { $dayOfMonth: "$dateCreated" },
-						title: "$title",
-						content: "$content",
-						isPin: "$isPin",
-						dateCreated: "$dateCreated"
-					}
-			},
-			filter,
-			{ $sort: { dateCreated: -1 } },
-			{ $skip: (p - 1) * perPage }, 
-			{ $limit: perPage }
-		],
-		function(err, blogs) {
-			if (err) { return next(); }
-      ModifiedPost.addProperties(blogs);
-			res.render('blog', {
-				title: "Kết quả lọc", 
-				msg: blogs, 
-				page: {
-					prev: (p - 1) === 0 ? -1 : p - 1,
-					now: p,
-					next: (p + 1) > Math.ceil(blogsCount / perPage) ? -1 : p + 1
-				}
-			});
-		}
-	);
-	
+  Blog
+    .aggregate()
+      .project({
+        year: { $year: "$dateCreated" },
+        month: { $month: "$dateCreated" },
+        day: { $dayOfMonth: "$dateCreated" },
+        title: "$title",
+        content: "$content",
+        isPin: "$isPin",
+        dateCreated: "$dateCreated",
+        user: "$user"
+      })
+      .lookup({
+        from: 'users',
+        localField: 'user',
+        foreignField: '_id',
+        as: 'user'
+      })
+      .unwind('user')
+      .match(filter)
+      .sort({ dateCreated: "descending" })
+      .skip((p - 1) * perPage)
+      .limit(perPage)
+      .exec((err, blogs) => {
+        if (err) { return next(); }
+        ModifiedPost.addProperties(blogs);
+        res.render('blog', {
+          title: "Kết quả lọc",
+          msg: blogs,
+          page: {
+            prev: (p - 1) === 0 ? -1 : p - 1,
+            now: p,
+            next: (p + 1) > Math.ceil(blogsCount / perPage) ? -1 : p + 1
+          }
+        });
+      })
 });
-
 
 module.exports = router;

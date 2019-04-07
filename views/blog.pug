@@ -10,7 +10,7 @@ block b1
     .card.mb-3
       .card-body.pb-1
         a.card-title.font-weight-bold(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`)
-          = `${blog.title} - ${blog.user.displayName || blog.user.username || 'someone'}`
+          = `${blog.title} - ${blog.user.displayName || blog.user.username}`
           if (blog.isPin)
             i.material-icons.pinTag local_offer
         .dropdown

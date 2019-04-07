@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const moment = require('moment-timezone');
 
 const User = require('../models/user.model');
 
@@ -72,7 +73,7 @@ router.get('/edit', authenticate.ensureAuthenticated, function (req, res, next) 
   })
 });
 
-router.post('/edit',authenticate.ensureAuthenticated, function (req, res, next) {
+router.post('/edit', authenticate.ensureAuthenticated, function (req, res, next) {
   req.user.displayName = req.body.displayName;
   req.user.bio = req.body.bio;
   req.user.save((err) => {
@@ -80,6 +81,10 @@ router.post('/edit',authenticate.ensureAuthenticated, function (req, res, next) 
     req.flash("info", "Thông tin được update!");
     res.redirect('/');
   });
+})
+
+router.get('/timezone', (req, res, next) => {
+  res.json({ timezone: moment.tz.guess() })
 })
 
 module.exports = router;
