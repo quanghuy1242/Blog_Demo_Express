@@ -1,5 +1,6 @@
 const express = require('express');
 const ModifiedPost = require('../util/ModifiedPost');
+const mongoose = require('mongoose');
 
 const authenticate = require('../middlewares/auth.middleware');
 
@@ -22,7 +23,8 @@ router.get('/', async function (req, res, next) {
       ModifiedPost.addProperties([...pinBlogs, ...blogs]);
 			res.render('blog', {
 				msg: [...pinBlogs, ...blogs],
-				title: 'Blog',
+        title: 'Blog',
+        originalUrl: req.originalUrl,
 				page: {
 					prev: (p - 1) === 0 ? -1 : p - 1,
 					now: p,
@@ -30,6 +32,21 @@ router.get('/', async function (req, res, next) {
 				}
 			});
 		})
+});
+
+router.get('/yourpost', authenticate.ensureAuthenticated, (req, res, next) => {
+  Blog.find()
+      .sort({ dateCreated: "descending" })
+      .populate('user')
+      .find({ user: { _id: res.locals.currentUser._id }})
+      .exec((err, blogs) => {
+        if (err) return next(err);
+        ModifiedPost.addProperties(blogs);
+        res.render('blog', {
+          msg: blogs,
+          title: 'Your Post'
+        })
+      })
 });
 
 router.get('/add', authenticate.ensureAuthenticated, (req, res, next) => {
@@ -187,6 +204,7 @@ router.get('/:year/:month?/:day?', async function (req, res, next) {
         res.render('blog', {
           title: "Kết quả lọc",
           msg: blogs,
+          originalUrl: req.originalUrl,
           page: {
             prev: (p - 1) === 0 ? -1 : p - 1,
             now: p,

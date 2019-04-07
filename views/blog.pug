@@ -21,12 +21,14 @@ block b1
               a.dropdown-item(href="/blog/edit/" + blog._id) Edit
               form(action="/blog/delete/" + blog._id, method="post")
                 input.dropdown-item(type="submit", value="Delete", onClick="return confirm('Có chắc chắn xoá?')")
-              if (!blog.isPin)
-                form(action="/blog/pin/" + blog._id, method="post")
-                  input.dropdown-item(type="submit", value="Pin")
-              else
-                form(action="/blog/unpin/" + blog._id, method="post")
-                  input.dropdown-item(type="submit", value="Unpin")
+              
+              if (currentUser._id.toString() === "5c8bc203d469c2001758986a")
+                if (!blog.isPin)
+                  form(action="/blog/pin/" + blog._id, method="post")
+                    input.dropdown-item(type="submit", value="Pin")
+                else
+                  form(action="/blog/unpin/" + blog._id, method="post")
+                    input.dropdown-item(type="submit", value="Unpin")
 
         h6.card-subtitle.mb-2.text-muted= blog.time
         .card-text.markdown-body.mb-3!= blog.previewConent
@@ -37,15 +39,15 @@ block b1
         ul.pagination
           if (page.prev !== -1)
             li.page-item
-              a.page-link(href="/blog?page=" + page.prev) Trước
+              a.page-link(href=`${originalUrl}?page=${page.prev}`) Trước
           else 
             li.page-item.disabled
               span.page-link Trước
           li.page-item.active
-            a.page-link(href="/blog?page=" + page.now)= page.now
+            a.page-link(href=`${originalUrl}?page=${page.now}`)= page.now
           if (page.next !== -1)
             li.page-item
-              a.page-link(href="/blog?page=" + page.next) Sau
+              a.page-link(href=`${originalUrl}?page=${page.next}`) Sau
           else 
             li.page-item.disabled
               span.page-link Sau
