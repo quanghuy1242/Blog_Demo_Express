@@ -1,6 +1,5 @@
 const express = require('express');
 const ModifiedPost = require('../util/ModifiedPost');
-const mongoose = require('mongoose');
 
 const authenticate = require('../middlewares/auth.middleware');
 
