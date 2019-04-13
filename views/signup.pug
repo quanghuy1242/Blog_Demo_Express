@@ -7,12 +7,12 @@ block b1
         .text-center-cus ĐĂNG KÍ
         form(action="/signup" method="POST")
           .form-group
-            label(for='exampleInputEmail1') User name
-            input#exampleInputEmail1.form-control(type='text', placeholder='Enter email', required="true", autofocus="true", name="username")
+            label(for='exampleInputEmail1') Username
+            input#exampleInputEmail1.form-control(type='text', placeholder='Enter email', required="true", autofocus="true", name="username", value=errorInfo ? errorInfo.username : '')
             small.form-text.text-muted We'll never share your email with anyone else.
           .form-group
             label(for='exampleInputPassword1') Password
-            input#exampleInputPassword1.form-control(type='password', placeholder='Password', required="true", name="password")
+            input#exampleInputPassword1.form-control(type='password', placeholder='Password', required="true", name="password", value=errorInfo ? errorInfo.password : '')
           .custom-control.custom-checkbox
             input#ckbDieuKhoan.custom-control-input(type="checkbox", required="true")
             label.custom-control-label(for="ckbDieuKhoan") Chấp nhận điều khoản

@@ -6,7 +6,39 @@ block b1
 
   .card.m-2
     .card-body
-      h5.card-title= user.name() 
+      div.card-title.bai-dang-title.name-title= user.name() 
       h6.card-subtitle.mb-2.text-muted= date
-      if (user.bio)
-        p.card-text= user.bio ? user.bio : ""
+
+      div.bai-dang-title Bio:
+      p.card-text= user.bio ? user.bio : "Chưa có bio"
+
+      div.bai-dang-title Các bài đăng (5 Bài đăng gần nhất):
+      if (!blogs.length)
+        div Không có bài đăng nào!
+      div(style="display: block")
+        each blog in blogs
+          .card.mb-3
+            .card-body.pb-1
+              a.card-title.font-weight-bold(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`)
+                = blog.title
+                if (blog.isPin)
+                  i.material-icons.pinTag local_offer
+              .dropdown
+                i.more_vert.material-icons(data-toggle="dropdown") more_vert
+                .dropdown-menu.dropdown-menu-right
+                  a.dropdown-item(href=href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`) View
+                  if (currentUser && currentUser._id.toString() === blog.user._id.toString())
+                    a.dropdown-item(href="/blog/edit/" + blog._id) Edit
+                    form(action="/blog/delete/" + blog._id, method="post")
+                      input.dropdown-item(type="submit", value="Delete", onClick="return confirm('Có chắc chắn xoá?')")
+                    
+                    if (currentUser._id.toString() === "5c8bc203d469c2001758986a")
+                      if (!blog.isPin)
+                        form(action="/blog/pin/" + blog._id, method="post")
+                          input.dropdown-item(type="submit", value="Pin")
+                      else
+                        form(action="/blog/unpin/" + blog._id, method="post")
+                          input.dropdown-item(type="submit", value="Unpin")
+
+              h6.card-subtitle.mb-2.text-muted= blog.time
+              .card-text.markdown-body.mb-3!= blog.previewConent

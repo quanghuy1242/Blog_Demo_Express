@@ -44,15 +44,33 @@ router.get('/signup', function(req, res) {
 });
 
 router.post('/signup', function(req, res, next) {
-  let username = req.body.username;
-  let password = req.body.password;
+  let { username, password } = req.body;
+
+  if (username.length < 5) {
+    req.flash('error', 'Tên đăng nhập phải có ít nhất 5 kí tự');
+    return res.render('signup', {
+      title: 'Sign up',
+      errorInfo: { username, password }
+    });
+  }
+
+  if (!/((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])).{6,}/m.test(password)) {
+    req.flash('error', 'Mật khẩu phải có tối thiểu 6 kí tự bao gồm 1 kí tự hoa, 1 kí tự số, 1 kí tự thường');
+    return res.render('signup', {
+      title: 'Sign up',
+      errorInfo: { username, password }
+    });
+  }
 
   User.findOne({ username: username }, function(err, user) {
     if (err) { return next(err); }
 
     if (user) {
       req.flash('error', 'User already exist!');
-      return res.redirect('/signup');
+      return res.render('signup', {
+        title: 'Sign up',
+        errorInfo: { username, password }
+      });
     }
     
     let newUser = new User({
@@ -61,6 +79,7 @@ router.post('/signup', function(req, res, next) {
     });
     newUser.save(next);
   });
+  
 }, passport.authenticate("login", {
   successRedirect: '/',
   failureRedirect: '/signup',
