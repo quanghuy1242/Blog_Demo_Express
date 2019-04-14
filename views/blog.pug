@@ -4,9 +4,9 @@ block b1
   if (query) 
     h3 Các kết quả cho từ khoá "#{query}"
   
-  if (!msg.length)
+  if (!blogs.length)
     span Không tìm thấy kết quả nào
-  each blog in msg
+  each blog in blogs
     .card.mb-3
       .card-body.pb-1
         a.card-title.font-weight-bold(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`)

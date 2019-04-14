@@ -21,9 +21,9 @@ router.get('/', async function (req, res, next) {
       if (err) return next(err);
       ModifiedPost.addProperties([...pinBlogs, ...blogs]);
 			res.render('blog', {
-				msg: [...pinBlogs, ...blogs],
+				blogs: [...pinBlogs, ...blogs],
         title: 'Blog',
-        originalUrl: req.originalUrl,
+        originalUrl: req.originalUrl.split('?')[0],
 				page: {
 					prev: (p - 1) === 0 ? -1 : p - 1,
 					now: p,
@@ -42,7 +42,7 @@ router.get('/yourpost', authenticate.ensureAuthenticated, (req, res, next) => {
         if (err) return next(err);
         ModifiedPost.addProperties(blogs);
         res.render('blog', {
-          msg: blogs,
+          blogs: blogs,
           title: 'Your Post'
         })
       })
@@ -55,8 +55,7 @@ router.get('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 });
 
 router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
-	let title = req.body.title;
-	let content = req.body.content;
+	let { title, content } = req.body;
 
 	let newBlog = new Blog({
 		title: title,
@@ -112,7 +111,10 @@ router.post('/:pinState/:blogId', async (req, res, next) => {
 
 	let pinBlogCount = await Blog.find({ isPin: true }).countDocuments();
 	if (pinBlogCount !== 0 && pinState === 'pin') {
-		req.flash("info", "Không thể pin hai post một lượt, hãy gỡ pin bài đăng hiện tại và chọn lại bài đăng cần pin!");
+		req.flash(
+      'info',
+      'Không thể pin hai post một lượt, hãy gỡ pin bài đăng hiện tại và chọn lại bài đăng cần pin!'
+    );
 		res.redirect('/blog');
 		return;
 	}
@@ -137,7 +139,7 @@ router.get('/search', function (req, res, next) {
 		if (err) return next(err);
     ModifiedPost.addProperties(blogs);
 		res.render('blog', {
-			msg: blogs,
+			blogs: blogs,
 			title: "Kết quả tìm kiếm",
 			query: q
 		});
@@ -174,43 +176,42 @@ router.get('/:year/:month?/:day?', async function (req, res, next) {
     ...(day) && { "day": parseInt(day) } 
   };
 
-  Blog
-    .aggregate()
-      .project({
-        year: { $year: "$dateCreated" },
-        month: { $month: "$dateCreated" },
-        day: { $dayOfMonth: "$dateCreated" },
-        title: "$title",
-        content: "$content",
-        isPin: "$isPin",
-        dateCreated: "$dateCreated",
-        user: "$user"
-      })
-      .lookup({
-        from: 'users',
-        localField: 'user',
-        foreignField: '_id',
-        as: 'user'
-      })
-      .unwind('user')
-      .match(filter)
-      .sort({ dateCreated: "descending" })
-      .skip((p - 1) * perPage)
-      .limit(perPage)
-      .exec((err, blogs) => {
-        if (err) { return next(); }
-        ModifiedPost.addProperties(blogs);
-        res.render('blog', {
-          title: "Kết quả lọc",
-          msg: blogs,
-          originalUrl: req.originalUrl,
-          page: {
-            prev: (p - 1) === 0 ? -1 : p - 1,
-            now: p,
-            next: (p + 1) > Math.ceil(blogsCount / perPage) ? -1 : p + 1
-          }
-        });
-      })
+  Blog.aggregate()
+    .project({
+      year: { $year: '$dateCreated' },
+      month: { $month: '$dateCreated' },
+      day: { $dayOfMonth: '$dateCreated' },
+      title: '$title',
+      content: '$content',
+      isPin: '$isPin',
+      dateCreated: '$dateCreated',
+      user: '$user'
+    })
+    .lookup({
+      from: 'users',
+      localField: 'user',
+      foreignField: '_id',
+      as: 'user'
+    })
+    .unwind('user')
+    .match(filter)
+    .sort({ dateCreated: 'descending' })
+    .skip((p - 1) * perPage)
+    .limit(perPage)
+    .exec((err, blogs) => {
+      if (err) { return next(); }
+      ModifiedPost.addProperties(blogs);
+      res.render('blog', {
+        title: 'Kết quả lọc',
+        blogs: blogs,
+        originalUrl: req.originalUrl.split('?')[0],
+        page: {
+          prev: p - 1 === 0 ? -1 : p - 1,
+          now: p,
+          next: p + 1 > Math.ceil(blogsCount / perPage) ? -1 : p + 1
+        }
+      });
+    });
 });
 
 module.exports = router;
