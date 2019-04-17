@@ -1,9 +1,9 @@
 $(document).ready(function () {
   $('[data-toggle="popover"]').popover();
   var md = window.markdownit();
-  $('#preview').html(md.render($('#content').val() || ""));
+  $('#preview').html(md.render($('#content').val() || "") + '<div style="height: 300px"></div>');
   $('#content').keyup(function () {
-    $('#preview').html(md.render($('#content').val()));
+    $('#preview').html(md.render($('#content').val()) + '<div style="height: 300px"></div>');
   })
 
   
