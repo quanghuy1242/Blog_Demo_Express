@@ -95,11 +95,35 @@ router.get('/edit', authenticate.ensureAuthenticated, function (req, res, next) 
 router.post('/edit', authenticate.ensureAuthenticated, function (req, res, next) {
   req.user.displayName = req.body.displayName;
   req.user.bio = req.body.bio;
+  req.user.username = req.body.username;
   req.user.save((err) => {
     if (err) { next(err); return; }
     req.flash("info", "Thông tin được update!");
     res.redirect('/');
   });
+})
+
+router.get('/change-password', authenticate.ensureAuthenticated, (req, res, next) => {
+  res.render('resetpass', {
+    title: 'Change your password'
+  })
+})
+
+router.post('/change-password', authenticate.ensureAuthenticated, (req, res, next) => {
+  req.user.checkPassword(req.body.oldPassword, (err, isMatch) => {
+    if (err) return next(err);
+    if (!isMatch) {
+      req.flash("error", "Mật khẩu không khớp!");
+      return res.redirect('/change-password');
+    } else {
+      req.user.password = req.body.newPassword;
+      req.user.save((err) => {
+        if (err) { next(err); return; }
+        req.flash("info", "Mật khẩu được update!");
+        res.redirect('/');
+      });
+    }
+  })
 })
 
 router.get('/timezone', (req, res, next) => {

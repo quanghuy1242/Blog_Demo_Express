@@ -1,0 +1,13 @@
+extends layout
+
+block b1
+  .text-center-cus Change your password
+  form(action="/change-password", method="post")
+    .form-group
+      label(for="oldPassInput") Old Password
+      input#oldPassInput.form-control(type="password", name="oldPassword", placeholder="Old Password")
+    .form-group
+      label(for="newPassInput") New Password
+      input#newPassInput.form-control(type="password", name="newPassword", placeholder="New Password")
+    .d-flex.justify-content-center
+      button.btn.btn-primary(type='submit') Update
