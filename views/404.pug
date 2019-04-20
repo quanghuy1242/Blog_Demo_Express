@@ -1,9 +1,9 @@
 extends layout
 
 block b1
-  .text-center-cus 404 Error
-  h1.text-center Không tìm thấy trang này
-  i.material-icons.text-center.d-block.errorIcon error
-  span.text-center.d-block 
-    | Vui lòng trở lại 
-    a(href='/') trang chủ
+  .container
+    .error-wrapper
+      .cs-auth-title.mdc-typography--button 404 Error
+      h1.mdc-typography--headline4 Không tìm thấy trang này
+      div.material-icons.text-center.d-block.errorIcon error
+      a.mdc-button.mdc-button--unelevated(href="/") Homepage

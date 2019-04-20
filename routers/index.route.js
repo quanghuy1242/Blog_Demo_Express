@@ -86,6 +86,12 @@ router.post('/signup', function(req, res, next) {
   failureFlash: true
 }));
 
+router.get('/setting', authenticate.ensureAuthenticated, (req, res, next) => {
+  res.render('setting', {
+    title: 'Setting'
+  })
+})
+
 router.get('/edit', authenticate.ensureAuthenticated, function (req, res, next) {
   res.render('edit', {
     title: 'Edit your infomation'

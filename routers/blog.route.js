@@ -21,7 +21,8 @@ router.get('/', async function (req, res, next) {
       if (err) return next(err);
       ModifiedPost.addProperties([...pinBlogs, ...blogs]);
 			res.render('blog', {
-				blogs: [...pinBlogs, ...blogs],
+        pinPost: pinBlogs,
+				blogs: blogs,
         title: 'Blog',
         originalUrl: req.originalUrl.split('?')[0],
 				page: {

@@ -1,17 +1,42 @@
 extends layout
 
 block b1
-  .wrap.d-flex.justify-content-center.mt-5
-    .card(style="width: 500px")
-      .card-body
-        .text-center-cus ĐĂNG NHẬP
-        form(action="/signin" method="POST")
-          .form-group
-            label(for='exampleInputEmail1') User name
-            input#exampleInputEmail1.form-control(type='text', placeholder='Enter email', required="true", autofocus="true", name="username")
-            small.form-text.text-muted We'll never share your email with anyone else.
-          .form-group
-            label(for='exampleInputPassword1') Password
-            input#exampleInputPassword1.form-control(type='password', placeholder='Password', required="true", name="password")
-          .d-flex.justify-content-center
-            button.btn.btn-primary(type='submit') Sign in
+  .container
+    form.cs-auth-wrapper(action="/signin" method="POST")
+      .cs-auth-title.mdc-typography--button ĐĂNG NHẬP
+      .cs-textfield-form
+        .mdc-text-field.mdc-text-field--outlined
+          input.mdc-text-field__input(type="text", required="true", autofocus="true", name="username")
+          .mdc-notched-outline
+            .mdc-notched-outline__leading
+            .mdc-notched-outline__notch
+              label.mdc-floating-label Email 
+            .mdc-notched-outline__trailing
+
+        .mdc-text-field.mdc-text-field--outlined
+          input.mdc-text-field__input(type="password", required="true", name="password")
+          .mdc-notched-outline
+            .mdc-notched-outline__leading
+            .mdc-notched-outline__notch
+              label.mdc-floating-label Password
+            .mdc-notched-outline__trailing
+
+      .cs-auth-action
+        .spacer
+        button.mdc-button.mdc-button--unelevated(type='submit') Login
+
+
+
+    //- .card(style="width: 500px")
+    //-   .card-body
+    //-     .text-center-cus ĐĂNG NHẬP
+    //-     form(action="/signin" method="POST")
+    //-       .form-group
+    //-         label(for='exampleInputEmail1') User name
+    //-         input#exampleInputEmail1.form-control(type='text', placeholder='Enter email', required="true", autofocus="true", name="username")
+    //-         small.form-text.text-muted We'll never share your email with anyone else.
+    //-       .form-group
+    //-         label(for='exampleInputPassword1') Password
+    //-         input#exampleInputPassword1.form-control(type='password', placeholder='Password', required="true", name="password")
+    //-       .d-flex.justify-content-center
+    //-         button.btn.btn-primary(type='submit') Sign in

@@ -1,10 +1,13 @@
 extends layout
 
 block b1
-  each user in users
-    .card.m-2
-      .card-body
-        a(href='/users/' + user.username)
-          h5.card-title= user.name() 
-        if (user.bio)
-          p.card-text= user.bio 
+  .container
+    each user in users
+      .mdc-card.cs-card.mdc-elevation--z3
+        .mdc-card__primary-action
+          .cs-card-header
+            h2.cs-card__title.mdc-typography--headline6= user.name()
+          .cs-card__content.mdc-card__actions.mdc-typography--body2= user.bio ? user.bio : 'Chưa có bio'
+        .mdc-card__actions
+          .mdc-card__action-buttons
+            a.mdc-button.mdc-card__action.mdc-card__action--button(href='/users/' + user.username) Learn About This Person

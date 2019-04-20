@@ -1,17 +1,32 @@
 extends layout
 
 block b1
-  .text-center-cus Edit your profile 
-  form(action="/edit", method="post")
-    .form-group
-      label(for="displayNameInput") Display Name
-      input#displayNameInput.form-control(type="text", name="displayName", placeholder="Display Name", value=currentUser.displayName || "")
-    .form-group
-      label(for="UsernameInput") Username
-      input#UsernameInput.form-control(type="text", name="username", placeholder="Username", value=currentUser.username || "")
-    .form-group
-      label(for="textareaBio") Bio
-      textarea#textareaBio.form-control.mb-2(name="bio", placeholder="Tell us about yourself!")= currentUser.bio || ""
-    a(href="/change-password") Change password
-    .d-flex.justify-content-center
-      button.btn.btn-primary(type='submit') Update
+  .container
+    form.cs-edit-wrapper(action="/edit", method="post")
+      .cs-auth-title.mdc-typography--button Edit your profile
+
+      .mdc-text-field.mdc-text-field--outlined
+        input.mdc-text-field__input(type="text", name="displayName", placeholder="Display Name", value=currentUser.displayName || "")
+        .mdc-notched-outline
+          .mdc-notched-outline__leading
+          .mdc-notched-outline__notch
+            label.mdc-floating-label Display name
+          .mdc-notched-outline__trailing
+        
+      .mdc-text-field.mdc-text-field--outlined
+        input.mdc-text-field__input(type="text", name="username", placeholder="Username", value=currentUser.username || "")
+        .mdc-notched-outline
+          .mdc-notched-outline__leading
+          .mdc-notched-outline__notch
+            label.mdc-floating-label Username
+          .mdc-notched-outline__trailing
+
+      .mdc-text-field.mdc-text-field--textarea
+        textarea#bio-editor.mdc-text-field__input(name="bio", placeholder="Tell us about yourself!")= currentUser.bio || ""
+        .mdc-notched-outline
+          .mdc-notched-outline__leading
+          .mdc-notched-outline__notch
+            label.mdc-floating-label Bio 
+          .mdc-notched-outline__trailing
+
+      button.mdc-button.mdc-button--unelevated(type='submit') Update

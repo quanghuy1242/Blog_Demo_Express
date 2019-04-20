@@ -1,53 +1,41 @@
 extends layout
+include mixins/post.pug
 
 block b1
-  if (query) 
-    h3 Các kết quả cho từ khoá "#{query}"
-  
-  if (!blogs.length)
-    span Không tìm thấy kết quả nào
-  each blog in blogs
-    .card.mb-3
-      .card-body.pb-1
-        a.card-title.font-weight-bold(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`)
-          = `${blog.title} - ${blog.user.displayName || blog.user.username}`
-          if (blog.isPin)
-            i.material-icons.pinTag local_offer
-        .dropdown
-          i.more_vert.material-icons(data-toggle="dropdown") more_vert
-          .dropdown-menu.dropdown-menu-right
-            a.dropdown-item(href=href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`) View
-            if (currentUser && currentUser._id.toString() === blog.user._id.toString())
-              a.dropdown-item(href="/blog/edit/" + blog._id) Edit
-              form(action="/blog/delete/" + blog._id, method="post")
-                input.dropdown-item(type="submit", value="Delete", onClick="return confirm('Có chắc chắn xoá?')")
-              
-              if (currentUser._id.toString() === "5c8bc203d469c2001758986a")
-                if (!blog.isPin)
-                  form(action="/blog/pin/" + blog._id, method="post")
-                    input.dropdown-item(type="submit", value="Pin")
-                else
-                  form(action="/blog/unpin/" + blog._id, method="post")
-                    input.dropdown-item(type="submit", value="Unpin")
+  .container
+    if (query) 
+      h3.cs-auth-title.mdc-typography--headline6 Các kết quả cho từ khoá "#{query}"
+    
+    if (!blogs.length)
+      span.cs-auth-title.mdc-typography--headline6 Không tìm thấy kết quả nào
 
-        h6.card-subtitle.mb-2.text-muted= blog.time
-        .card-text.markdown-body.mb-3!= blog.previewConent
+    if (pinPost)
+      h2.mdc-typography--headline5 Bài đăng đã pin
+      +renderPost(pinPost)
 
-  if (page)
-    .container-flud
-      nav.d-flex.justify-content-center.align-items-center
-        ul.pagination
-          if (page.prev !== -1)
-            li.page-item
-              a.page-link(href=`${originalUrl}?page=${page.prev}`) Trước
-          else 
-            li.page-item.disabled
-              span.page-link Trước
-          li.page-item.active
-            a.page-link(href=`${originalUrl}?page=${page.now}`)= page.now
-          if (page.next !== -1)
-            li.page-item
-              a.page-link(href=`${originalUrl}?page=${page.next}`) Sau
-          else 
-            li.page-item.disabled
-              span.page-link Sau
+    h2.mdc-typography--headline5 Các bài đăng:
+    +renderPost(blogs)
+    
+    if (page)
+      .pagination-wrapper
+        if (page.prev !== -1)
+          a.mdc-button.mdc-button--outlined.middle-button(href=`${originalUrl}?page=${page.prev}`) Prev
+        else 
+          button.mdc-button.mdc-button--outlined.middle-button(disabled="true") prev
+        button.mdc-button.mdc-button--outlined.middle-button= page.now
+        if (page.next !== -1)
+          a.mdc-button.mdc-button--outlined.last-button(href=`${originalUrl}?page=${page.next}`) Next
+        else 
+          button.mdc-button.mdc-button--outlined.last-button(disabled="true") Next
+
+    if (currentUser)
+      .mdc-dialog.non-search(role="alertdialog")
+        .mdc-dialog__container
+          .mdc-dialog__surface
+            h2.mdc-dialog__title Xác nhận
+            .mdc-dialog__content Bạn có chắc chắn?
+            footer.mdc-dialog__actions
+              button.mdc-button.mdc-dialog__button(data-mdc-dialog-action="close") Cancel
+              form(action="", method="post", id="dialog-form")
+                button.mdc-button.mdc-dialog__button(type="submit", data-mdc-dialog-action="accept") OK
+        .mdc-dialog__scrim

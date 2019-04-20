@@ -1,20 +1,54 @@
 extends layout
 
 block b1
-  .wrap.d-flex.justify-content-center.mt-5
-    .card(style="width: 500px")
-      .card-body
-        .text-center-cus ĐĂNG KÍ
-        form(action="/signup" method="POST")
-          .form-group
-            label(for='exampleInputEmail1') Username
-            input#exampleInputEmail1.form-control(type='text', placeholder='Enter email', required="true", autofocus="true", name="username", value=errorInfo ? errorInfo.username : '')
-            small.form-text.text-muted We'll never share your email with anyone else.
-          .form-group
-            label(for='exampleInputPassword1') Password
-            input#exampleInputPassword1.form-control(type='password', placeholder='Password', required="true", name="password", value=errorInfo ? errorInfo.password : '')
-          .custom-control.custom-checkbox
-            input#ckbDieuKhoan.custom-control-input(type="checkbox", required="true")
-            label.custom-control-label(for="ckbDieuKhoan") Chấp nhận điều khoản
-          .d-flex.justify-content-center
-            button.btn.btn-primary(type='submit') Sign up
+  .container
+    form.cs-auth-wrapper(action="/signup" method="POST")
+      .cs-auth-title.mdc-typography--button ĐĂNG KÍ
+      .cs-textfield-form
+        .mdc-text-field.mdc-text-field--outlined
+          input.mdc-text-field__input(type="text", required="true", autofocus="true", name="username", value=errorInfo ? errorInfo.username : '')
+          .mdc-notched-outline
+            .mdc-notched-outline__leading
+            .mdc-notched-outline__notch
+              label.mdc-floating-label Email 
+            .mdc-notched-outline__trailing
+
+        .mdc-text-field.mdc-text-field--outlined(style="margin-bottom: 0")
+          input.mdc-text-field__input(type="password", required="true", name="password", value=errorInfo ? errorInfo.password : '')
+          .mdc-notched-outline
+            .mdc-notched-outline__leading
+            .mdc-notched-outline__notch
+              label.mdc-floating-label Password
+            .mdc-notched-outline__trailing
+
+        .mdc-form-field
+          .mdc-checkbox
+            input#ckbDieuKhoan.mdc-checkbox__native-control(type="checkbox", name="",required="true")
+            .mdc-checkbox__background
+              svg.mdc-checkbox__checkmark(viewBox="0 0 24 24")
+                path.mdc-checkbox__checkmark-path(fill="none", d="M1.73,12.91 8.1,19.28 22.79,4.59")
+              .mdc-checkbox__mixedmark
+          label(for="ckbDieuKhoan") Chấp nhận điều khoản
+
+      .cs-auth-action
+        .spacer
+        button.mdc-button.mdc-button--unelevated(type='submit') Register
+
+//- block b1
+//-   .wrap.d-flex.justify-content-center.mt-5
+//-     .card(style="width: 500px")
+//-       .card-body
+//-         .text-center-cus ĐĂNG KÍ
+//-         form(action="/signup" method="POST")
+//-           .form-group
+//-             label(for='exampleInputEmail1') Username
+//-             input#exampleInputEmail1.form-control(type='text', placeholder='Enter email', required="true", autofocus="true", name="username", value=errorInfo ? errorInfo.username : '')
+//-             small.form-text.text-muted We'll never share your email with anyone else.
+//-           .form-group
+//-             label(for='exampleInputPassword1') Password
+//-             input#exampleInputPassword1.form-control(type='password', placeholder='Password', required="true", name="password", value=errorInfo ? errorInfo.password : '')
+//-           .custom-control.custom-checkbox
+//-             input#ckbDieuKhoan.custom-control-input(type="checkbox", required="true")
+//-             label.custom-control-label(for="ckbDieuKhoan") Chấp nhận điều khoản
+//-           .d-flex.justify-content-center
+//-             button.btn.btn-primary(type='submit') Sign up
