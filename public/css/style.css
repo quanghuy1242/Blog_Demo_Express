@@ -1,5 +1,5 @@
 :root {
-  --mdc-theme-primary: #416275;
+  --mdc-theme-primary: #398791;
   --mdc-theme-secondary: #8aa3b1;
 }
 
@@ -16,7 +16,7 @@ body {
 
 footer.main-footer {
   height: 50px;
-  background-color: #416275;
+  background-color: var(--mdc-theme-primary, #398791);
   color: #fff;
   display: flex;
   align-items: center;
@@ -75,7 +75,7 @@ footer.main-footer {
 }
 
 .pinTag {
-  color: #416275;
+  color: var(--mdc-theme-primary, #398791);
 }
 /* End Pin */
 
@@ -142,7 +142,7 @@ footer.main-footer {
 .post-detail-wrapper {
   display: flex;
   padding: 0 1rem;
-  background-color: #416275;
+  background-color: var(--mdc-theme-primary, #398791);
   margin-top: -1.5rem;
 }
 
@@ -209,7 +209,7 @@ footer.main-footer {
 }
 
 .mdc-text-field--focused .mdc-floating-label--float-above {
-  color: #416275 !important;
+  color: var(--mdc-theme-primary, #398791) !important;
 }
 /* End Auth */
 
@@ -305,7 +305,7 @@ footer.main-footer {
 }
 .errorIcon {
   font-size: 100px !important;
-  color: #416275;
+  color: var(--mdc-theme-primary, #398791);
   margin-bottom: 1rem;
 }
 /* End */
