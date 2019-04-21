@@ -1,0 +1,18 @@
+extends layout
+
+block b1
+  style.
+    footer.main-footer {
+      display: none;
+    }
+  .cs-manage-wrapper
+    .cs-manage-object
+      a.mdc-button.obj-item(href="/blog/manage/category", class=((nameObj === 'category') ? 'mdc-button--unelevated' : '')) Categories
+      a.mdc-button.obj-item(href="#", class=((nameObj === 'tags') ? 'mdc-button--unelevated' : '')) Tags
+
+    .cs-manage-list 
+      block list
+    .cs-manage-content
+      block content
+
+  block js

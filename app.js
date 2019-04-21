@@ -14,6 +14,7 @@ dotenv.config();
 const indexRoute = require('./routers/index.route');
 const userRoute = require('./routers/user.route');
 const blogRoute = require('./routers/blog.route');
+const apiRoute = require('./routers/api.route');
 
 const app = express();
 
@@ -27,12 +28,13 @@ app.set('view engine', 'pug');
 
 app.use(express.static(path.resolve(__dirname, 'public')));
 
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true 
 }));
 
 app.use(flash());
@@ -45,11 +47,12 @@ app.use(function(req, res, next) {
   res.locals.errors = req.flash('error');
   res.locals.infos = req.flash('info');
   next();
-})
+});
 
 app.use('/', indexRoute);
 app.use('/users', userRoute);
-app.use('/blog', blogRoute)
+app.use('/blog', blogRoute);
+app.use('/api', apiRoute)
 
 app.use(function (req, res) {
   res.status(404).render('404', {

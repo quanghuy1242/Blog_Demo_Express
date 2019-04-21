@@ -6,14 +6,15 @@ block b1
       h2.post-detail-title.mdc-typography--headline5= blog.title
       h3.post-detail-subtitle.mdc-typography--subtitle1= blog.user.displayName || blog.user.username
     if (currentUser && currentUser._id.toString() === blog.user._id.toString())
-      button.mdc-button.mdc-button--unelevated.post-detail-action#post-detail-action Chức năng
-      .mdc-menu-surface--anchor
-        .mdc-menu.mdc-menu-surface
-          ul.mdc-list(role="menu")
-            a.mdc-list-item(role="menuitem", href="/blog/edit/" + blog._id)
-              span.mdc-list-item__text Edit
-            a.mdc-list-item(role="menuitem", onClick="openAlert(event)", data-click='delete', data-post-id=blog._id)
-              span.mdc-list-item__text Delete
+      .menu-wrapper
+        button.mdc-icon-button.mdc-button--unelevated.material-icons.post-detail-action#post-detail-action more_vert
+        .mdc-menu-surface--anchor
+          .mdc-menu.mdc-menu-surface
+            ul.mdc-list(role="menu")
+              a.mdc-list-item(role="menuitem", href="/blog/edit/" + blog._id)
+                span.mdc-list-item__text Edit
+              a.mdc-list-item(role="menuitem", onClick="openAlert(event)", data-click='delete', data-post-id=blog._id)
+                span.mdc-list-item__text Delete
 
   .container.post-detail-content
     .markdown-body!= blog.content

@@ -1,10 +1,5 @@
-const MDCSnackbar = mdc.snackbar.MDCSnackbar;
-const MDCDialog = mdc.dialog.MDCDialog;
-const MDCTextField = mdc.textField.MDCTextField;
-const MDCMenu = mdc.menu.MDCMenu;
-
 // Ripple
-document.querySelectorAll('.mdc-button, .mdc-card__primary-action, .mdc-fab').forEach(function(element) {
+document.querySelectorAll('.mdc-button, .mdc-card__primary-action').forEach(function(element) {
   mdc.ripple.MDCRipple.attachTo(element);
 })
 

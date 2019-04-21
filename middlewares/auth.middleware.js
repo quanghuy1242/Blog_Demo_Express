@@ -9,3 +9,10 @@ module.exports.ensureAuthenticated = function (req, res, next) {
     res.redirect('/signin');
   }
 }
+
+module.exports.jwtAuth = passport.authenticate('jwt', {session: false})
+
+module.exports.ensureForApiAuthenticated = [
+  this.ensureAuthenticated,
+  this.jwtAuth
+];

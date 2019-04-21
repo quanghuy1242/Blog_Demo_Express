@@ -6,10 +6,13 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     title= !title ? "Quang Huy" : title
     link(rel="stylesheet", href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css")
-    //- link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.css")
     link(rel="stylesheet", href="/css/style.css")
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    script(src="https://unpkg.com/axios/dist/axios.min.js")
+    script(src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js")
+    script(src="/javascript/MDC.js")
+
   body
     header.mdc-top-app-bar.mdc-top-app-bar--fixed.mdc-elevation--z5
       .mdc-top-app-bar__row
@@ -19,10 +22,12 @@ html(lang="en")
           if (currentUser)
             a.mdc-button.mdc-button--unelevated(href="/blog/yourpost") Your Post
             a.mdc-button.cs-button-white(href="/blog/add") New Post
+            if (currentUser._id.toString() === "5c8bc203d469c2001758986a")
+              a.mdc-button.cs-button-white(href="/blog/manage/category") Management
         section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-end
           button#btnSearch.mdc-button.mdc-button--unelevated Search
           if (currentUser)
-            a.mdc-button.mdc-button--unelevated(href='/setting') Hello, #{currentUser.name()}
+            a.mdc-button.mdc-button--unelevated(href='/users/' + currentUser.username) Hello, #{currentUser.name()}
             a.mdc-button.mdc-button--unelevated(href="/logout") Logout
           else 
             a.mdc-button.mdc-button--unelevated(href="/signin") Login
@@ -63,8 +68,5 @@ html(lang="en")
             button.mdc-button.mdc-dialog__button(type="submit") Search
       .mdc-dialog__scrim
         
-      //- script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js')
-      //- script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js')
-      script(src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js")
       script(src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.4.2/markdown-it.js")
       script(src='/javascript/script.js')

@@ -1,5 +1,6 @@
 const express = require('express');
 const ModifiedPost = require('../util/ModifiedPost');
+const passport = require('passport');
 
 const authenticate = require('../middlewares/auth.middleware');
 
@@ -48,6 +49,17 @@ router.get('/yourpost', authenticate.ensureAuthenticated, (req, res, next) => {
         })
       })
 });
+
+router.get('/manage/category', authenticate.ensureForApiAuthenticated, (req, res, next) => {
+  res.render('category', {
+    title: 'Management',
+    nameObj: 'category'
+  })
+})
+
+router.post('/manage/category', authenticate.ensureForApiAuthenticated, (req, res, next) => {
+  const { nameId, name, urlImage, description } = req.body;
+})
 
 router.get('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 	res.render('newBlog', {

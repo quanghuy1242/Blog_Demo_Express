@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const moment = require('moment-timezone');
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/user.model');
 
@@ -27,12 +28,25 @@ router.get('/signin', function(req, res, next) {
 });
 
 router.post('/signin', passport.authenticate('login', {
-  successRedirect: '/',
   failureRedirect: '/signin',
   failureFlash: true
-}));
+}), (req, res, next) => {
+  if (req.user._id.toString() === "5c8bc203d469c2001758986a") {
+    const payload = {
+      username: req.user.username,
+      id: req.user._id,
+      expires: Date.now() + parseInt(process.env.JWT_EXPIRATION)
+    };
+    const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET);
+    res.cookie('jwt', token);
+  } else {
+    res.clearCookie('jwt');
+  }
+  res.redirect('/');
+});
 
 router.get('/logout', function(req, res) {
+  res.clearCookie('jwt');
   req.logOut();
   res.redirect('/');
 });
@@ -79,18 +93,8 @@ router.post('/signup', function(req, res, next) {
     });
     newUser.save(next);
   });
-  
-}, passport.authenticate("login", {
-  successRedirect: '/',
-  failureRedirect: '/signup',
-  failureFlash: true
-}));
-
-router.get('/setting', authenticate.ensureAuthenticated, (req, res, next) => {
-  res.render('setting', {
-    title: 'Setting'
-  })
-})
+  res.redirect('/signin')
+});
 
 router.get('/edit', authenticate.ensureAuthenticated, function (req, res, next) {
   res.render('edit', {

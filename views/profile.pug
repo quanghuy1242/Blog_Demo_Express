@@ -3,20 +3,37 @@ include mixins/post.pug
 
 block b1
   .container
-    .mdc-card.cs-card.mdc-elevation--z3
-      .mdc-card__primary-action.user-card-wrapper
-        .cs-main-title
-          .mdc-card__media.mdc-card__media--square.cs-image
-          .cs-card-header
-            h2.user-card.cs-card__title.mdc-typography--button= user.name()
-            h3.cs-card__subtitle.mdc-typography--subtitle2= 'Ngày gia nhập: ' + date
-        .cs-card__content.mdc-card__actions.mdc-typography--body2= user.bio ? user.bio : 'Chưa có bio'
-      if (currentUser && currentUser.id === user.id)
-        .mdc-card__actions
-          .mdc-card__action-buttons
-            a.mdc-button.mdc-card__action.mdc-card__action--button(href='/setting') Edit your profile
+    .profile-wrapper
+      .main-wrapper
+        .mdc-card.cs-card.mdc-elevation--z3
+          .mdc-card__primary-action.user-card-wrapper
+            .cs-main-title
+              .mdc-card__media.mdc-card__media--square.cs-image
+              .cs-card-header
+                h2.user-card.cs-card__title.mdc-typography--button= user.name()
+                h3.cs-card__subtitle.mdc-typography--subtitle2= 'Ngày gia nhập: ' + date
+            .cs-card__content.mdc-card__actions.mdc-typography--body2= user.bio ? user.bio : 'Chưa có bio'
+          if (currentUser && currentUser.id === user.id)
+            .mdc-card__actions
+              .mdc-card__action-buttons
+                a.mdc-button.mdc-card__action.mdc-card__action--button(href='/setting') Edit your profile
 
-    h2.mdc-typography--headline5 5 bài đăng gần đây
-    if (!blogs.length)
-      .mdc-typography--body2 Không có bài đăng nào!
-    +renderPost(blogs)
+        h2.mdc-typography--headline5 5 bài đăng gần đây
+        if (!blogs.length)
+          .mdc-typography--body2 Không có bài đăng nào!
+        +renderPost(blogs)
+      .setting-wrapper
+        if (currentUser && currentUser.id === user.id)
+          include setting.pug
+
+    if (currentUser)
+      .mdc-dialog.non-search(role="alertdialog")
+        .mdc-dialog__container
+          .mdc-dialog__surface
+            h2.mdc-dialog__title Xác nhận
+            .mdc-dialog__content Bạn có chắc chắn?
+            footer.mdc-dialog__actions
+              button.mdc-button.mdc-dialog__button(data-mdc-dialog-action="close") Cancel
+              form(action="", method="post", id="dialog-form")
+                button.mdc-button.mdc-dialog__button(type="submit", data-mdc-dialog-action="accept") OK
+        .mdc-dialog__scrim

@@ -1,0 +1,54 @@
+extends manage
+
+block list
+  .cs-list-action
+    .spacer
+    button#btnRefresh.mdc-button.mdc-button--unelevated Refresh
+    button#btnAdd.mdc-button.mdc-button--unelevated New
+  ul#list-category.mdc-list.mdc-list--two-line
+    //- li.mdc-list-item.mdc-list-item--selected(href="#")
+    //-   span.mdc-list-item__text
+    //-     span.mdc-list-item__primary-text Uncatogozied
+    //-     span.mdc-list-item__secondary-text Chưa phân loại
+
+block content
+  .cs-manage-content-text
+    .cs-manage-content-textfield-wrapper
+      #txtNameID.mdc-text-field.mdc-text-field--outlined
+        input.mdc-text-field__input(type="text", required="true", name="nameId")
+        .mdc-notched-outline
+          .mdc-notched-outline__leading
+          .mdc-notched-outline__notch
+            label.mdc-floating-label Name Id
+          .mdc-notched-outline__trailing
+
+      #txtName.mdc-text-field.mdc-text-field--outlined
+        input.mdc-text-field__input(type="text", required="true", name="name")
+        .mdc-notched-outline
+          .mdc-notched-outline__leading
+          .mdc-notched-outline__notch
+            label.mdc-floating-label Name
+          .mdc-notched-outline__trailing
+
+      #txtUrlImage.mdc-text-field.mdc-text-field--outlined
+        input.mdc-text-field__input(type="text", required="true", name="urlImage")
+        .mdc-notched-outline
+          .mdc-notched-outline__leading
+          .mdc-notched-outline__notch
+            label.mdc-floating-label Image Url
+          .mdc-notched-outline__trailing
+      
+      #txtDesription.mdc-text-field.mdc-text-field--textarea
+        textarea.mdc-text-field__input(required="true", name="description", rows=9)
+        .mdc-notched-outline
+          .mdc-notched-outline__leading
+          .mdc-notched-outline__notch
+            label.mdc-floating-label Description
+          .mdc-notched-outline__trailing
+
+    .cs-manage-content-action
+      button#btnDelete.mdc-button.mdc-button--unelevated Xoá
+      button#btnUpdate.mdc-button.mdc-button--unelevated Cập nhật
+
+block js
+  script(src="/javascript/category/category.js")

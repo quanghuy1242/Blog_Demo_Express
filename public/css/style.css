@@ -1,6 +1,7 @@
 :root {
   --mdc-theme-primary: #398791;
   --mdc-theme-secondary: #8aa3b1;
+  --mdc-theme-error: #f86f7b;
 }
 
 body {
@@ -71,7 +72,7 @@ footer.main-footer {
 
 /* Pin */
 .pinTag-active {
-  color: #f86f7b !important;
+  color: var(--mdc-theme-error, #f86f7b) !important;
 }
 
 .pinTag {
@@ -146,7 +147,7 @@ footer.main-footer {
   margin-top: -1.5rem;
 }
 
-.post-detail-wrapper .post-detail-action {
+.post-detail-wrapper .menu-wrapper {
   align-self: center;
 }
 
@@ -173,12 +174,22 @@ footer.main-footer {
 /* End */
 
 /* Auth */
+.cs-auth-center-wrapper {
+  height: calc(100vh - 64px - 50px - 3rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .cs-auth-wrapper {
+  border: 1px solid rgba(0, 0, 0, 0.26);
+  border-radius: 4px;
+  padding: 1.5rem;
   margin: 0 auto;
   width: 500px;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 64px - 50px - 7rem);
+  /* height: calc(100vh - 64px - 50px - 7rem); */
   justify-content: center;
 }
 
@@ -194,6 +205,7 @@ footer.main-footer {
 .cs-auth-wrapper .cs-textfield-form {
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
 }
 
 .cs-auth-wrapper .cs-textfield-form .mdc-text-field:not(:last-child) {
@@ -216,14 +228,14 @@ footer.main-footer {
 /* Post create */
 .cs-post-create-wrapper {
   margin-top: -1.5rem;
-  height: calc(100vh - 64px - 50px);
+  height: calc(100vh - 64px);
   display: flex;
   flex-direction: row-reverse;
 }
 
 .cs-post-create-wrapper .cs-post-create-conf {
   width: 300px;
-  height: calc(100vh - 64px - 50px - 1rem);
+  height: calc(100vh - 64px - 1rem);
   padding: 0.5rem;
 }
 
@@ -250,7 +262,7 @@ footer.main-footer {
 }
 
 .cs-post-create-wrapper .cs-post-create-main textarea {
-  height: calc(100vh - 64px - 50px - 1.5rem - 36px);
+  height: calc(100vh - 64px - 1.5rem - 36px);
   resize: none;
 }
 
@@ -263,8 +275,8 @@ footer.main-footer {
   margin: 0.5rem;
   margin-top: 0;
   border-radius: 4px;
-  border: 1px solid rgba(65, 98, 117, 0.637);
-  height: calc(100vh - 64px - 50px - 2.2rem - 36px);
+  border: 1px solid rgba(0,0,0,.24);
+  height: calc(100vh - 64px - 2.1rem - 36px);
   padding: 0.5rem;
   overflow-y: auto;
 }
@@ -309,3 +321,89 @@ footer.main-footer {
   margin-bottom: 1rem;
 }
 /* End */
+
+/* Profile page */
+.profile-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-wrapper .setting-wrapper {
+  width: 30%;
+  margin-left: 1rem;
+}
+
+.profile-wrapper .main-wrapper {
+  flex-grow: 1;
+}
+/* End */
+
+/* Management */
+.cs-manage-wrapper {
+  margin-top: -1rem;
+  height: calc(100vh - 64px - 0.5rem);
+  display: flex;
+  flex-direction: row;
+}
+
+.cs-manage-object {
+  width: 260px;
+  height: calc(100vh - 64px - 1.5rem);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-manage-object .obj-item {
+  margin-bottom: 0.5rem;
+}
+
+.cs-manage-list {
+  width: 300px;
+  height: calc(100vh - 64px - 1.5rem);
+  padding: 0.5rem;
+  background-color: rgba(247, 247, 247, 0.761);
+}
+
+.cs-manage-content {
+  flex-grow: 1;
+  height: calc(100vh - 64px - 1.5rem);
+  padding: 0.5rem
+}
+
+.cs-manage-content .cs-manage-content-textfield-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px - 1.5rem - 36px);
+}
+
+.cs-manage-content .cs-manage-content-textfield-wrapper .mdc-text-field {
+  margin-bottom: 1rem;
+}
+
+.cs-manage-content .cs-manage-content-text {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px - 1rem);
+}
+
+.cs-manage-content .cs-manage-content-action {
+  align-self: flex-end;
+}
+
+.cs-manage-list .cs-list-action {
+  display: flex;
+}
+
+.cs-manage-list .cs-list-action button {
+  margin-left: 0.5rem;
+}
+
+.cs-manage-content .cs-manage-content-action button {
+  margin-left: 0.5rem;
+}
+
+.cs-manage-content-text .mdc-text-field--textarea {
+  height: calc(100% - 168px - 3rem);
+}
+/* End management */
