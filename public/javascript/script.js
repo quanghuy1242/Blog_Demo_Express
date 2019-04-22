@@ -47,8 +47,8 @@ document.querySelectorAll('.mdc-text-field').forEach(function(text) {
 })
 
 // xử lý emoji ở post detail
-if (typeof(twemoji) !== undefined) {
-  twemoji.parse(document.querySelector('.markdown-body'));
+if (document.querySelector('.markdown-body')) {
+	twemoji.parse(document.querySelector('.markdown-body'));
 }
 
 // Load markdown
