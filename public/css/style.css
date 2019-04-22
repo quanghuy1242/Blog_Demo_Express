@@ -2,6 +2,7 @@
   --mdc-theme-primary: #398791;
   --mdc-theme-secondary: #8aa3b1;
   --mdc-theme-error: #f86f7b;
+  --mdc-theme-background: #398791;
 }
 
 body {
@@ -9,12 +10,18 @@ body {
 }
 
 /* Old MS browser fix */
-:not(:disabled).mdc-button--raised, :not(:disabled).mdc-button--unelevated {
+/* Nút unelevated khi click còn màu cũ */
+.mdc-button:not(.mdc-button--unelevated)::before, .mdc-button:not(.mdc-button--unelevated)::after {
+   background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+/* list */
+:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::before, :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::after {
   background-color: var(--mdc-theme-primary, #398791);
 }
 
-:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::before, :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::after {
-  background-color: var(--mdc-theme-primary, #398791);
+:not(:disabled).mdc-button--raised, :not(:disabled).mdc-button--unelevated {
+	background-color: var(--mdc-theme-primary, #398791);
 }
 /* End */
 
@@ -118,6 +125,7 @@ footer.main-footer {
 
 /* fab */
 .app-fab--absolute {
+  text-decoration: none;
   display: none;
 }
 
