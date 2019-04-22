@@ -216,7 +216,7 @@ footer.main-footer {
   font-size: 30px;
 }
 
-.cs-auth-wrapper div {
+.cs-auth-wrapper .cs-auth-title {
   margin-bottom: 0.5rem;
 }
 
@@ -226,7 +226,7 @@ footer.main-footer {
   margin-top: 1rem;
 }
 
-.cs-auth-wrapper .cs-textfield-form .mdc-text-field:not(:last-child) {
+.cs-auth-wrapper .cs-textfield-form .mdc-text-field {
   margin-bottom: 1rem;
 }
 

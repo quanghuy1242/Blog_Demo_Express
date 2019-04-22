@@ -28,6 +28,7 @@ listCategories.listElements.map(function(element) {
 // Nút thêm mới một danh mục
 btnAdd.addEventListener('click', function() {
   btnUpdate.innerText = "Thêm";
+  btnDelete.style.display = "none";
   clear();
   isAdd = true;
 });
@@ -47,6 +48,7 @@ btnUpdate.addEventListener('click', function() {
       description: txtDescription.value
     }).then(function(res) {
       // Trả lại nút cập nhật
+      btnDelete.style.display = "initial";
       btnUpdate.innerText = "Cập nhật";
       isAdd = false;
       // Hiện thị li đó ra màn hình
@@ -102,8 +104,8 @@ btnDelete.addEventListener('click', () => {
         var selectedIndex = listCategories.listElements.indexOf(selectedItem);
         // Xoá nó khỏi DOM
         listCategoriesHTML.removeChild(selectedItem);
-        // click vào cái thằng trên nó
-        listCategoriesHTML.childNodes[selectedIndex - 1].click();
+        // Nếu nó mà là thằng đầu tiên thì click vào thằng đầu, nó nằm giữa thì click thằng trên nó
+        listCategoriesHTML.childNodes[!selectedIndex ? 0 : selectedIndex - 1].click();
         alert('Xoá thành công!');
         console.log(res);
       })
@@ -141,6 +143,7 @@ listCategories.listen('MDCList:action', function(e) {
       txtDescription.value = category.description;
       // Lỡ mà đang bấm nút thêm thì chuyển lại thành nút cập nhật
       isAdd = false;
+      btnDelete.style.display = "initial";
       btnUpdate.innerText = "Cập nhật";
     })
     .catch(function(err) {
