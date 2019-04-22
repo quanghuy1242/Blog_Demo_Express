@@ -46,9 +46,19 @@ document.querySelectorAll('.mdc-text-field').forEach(function(text) {
   new MDCTextField(text);
 })
 
+// xử lý emoji ở post detail
+if (typeof(twemoji) !== undefined) {
+  twemoji.parse(document.querySelector('.markdown-body'));
+}
+
+// Load markdown
+if (window.markdownitEmoji) {
+  var md = window.markdownit().use(window.markdownitEmoji);
+}
+
 if (document.querySelector('#content')) {
   window.onload = function() {
-    var md = window.markdownit();
+    // Markdown render
     var contentHTML = document.querySelector('#content');
     var previewHTML = document.querySelector('#preview');
     var isLeftScrollTop = false;
@@ -56,6 +66,7 @@ if (document.querySelector('#content')) {
   
     function loadPreview() {
       previewHTML.innerHTML = md.render(contentHTML.value || "") + '<div style="height: 300px"></div>';
+      twemoji.parse(document.querySelector('.markdown-body'));
     }
   
     loadPreview();

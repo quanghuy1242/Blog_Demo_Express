@@ -522,3 +522,10 @@ footer.main-footer {
   height: calc(100% - 168px - 3rem);
 }
 /* End management */
+
+/* Emoji */
+.emoji {
+  height: 1.2em;
+  vertical-align: text-top;
+}
+/* End */
