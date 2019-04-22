@@ -8,6 +8,24 @@ body {
   margin: 0;
 }
 
+/* Old MS browser fix */
+:not(:disabled).mdc-button--raised, :not(:disabled).mdc-button--unelevated {
+  background-color: var(--mdc-theme-primary, #398791);
+}
+
+.mdc-card__actions .mdc-button::before {
+  background-color: var(--mdc-theme-primary, #398791);
+}
+
+.mdc-card__actions .mdc-button::after {
+  background-color: var(--mdc-theme-primary, #398791);
+}
+
+:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::before, :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::after {
+  background-color: var(--mdc-theme-primary, #398791);
+}
+/* End */
+
 /* User wrapper */
 .user-wrapper {
   margin-top: 1.5rem;

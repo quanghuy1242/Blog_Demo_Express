@@ -5,11 +5,11 @@ document.querySelectorAll('.mdc-button, .mdc-card__primary-action').forEach(func
 
 // Snackbar
 if (document.querySelector('.mdc-snackbar')) {
-  const snackbar = new MDCSnackbar(document.querySelector('.mdc-snackbar'));
+  var snackbar = new MDCSnackbar(document.querySelector('.mdc-snackbar'));
   snackbar.timeoutMs = 10000;
   snackbar.open();
   document.querySelectorAll('.mdc-button.mdc-snackbar__action').forEach(function(btn) {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', function() {
       snackbar.close();
     })
   });
@@ -20,21 +20,21 @@ if (document.querySelector('.mdc-dialog.non-search')) {
   var dialog = new MDCDialog(document.querySelector('.mdc-dialog.non-search'));
   dialog.scrimClickAction = '';
   dialog.escapeKeyAction = '';
+}
 
-  function openAlert(event) {
-    dialog.open();
-    var detailClick = event.target.getAttribute('data-click');
-    var formAction = document.querySelector('#dialog-form');
-    var postId = event.target.getAttribute('data-post-id');
-    var contentTitle = document.querySelector('.mdc-dialog .mdc-dialog__content');
-    if (detailClick === 'delete') {
-      contentTitle.innerText = "Bạn có chắc chắn xoá bài viết này?";
-      formAction.setAttribute('action', '/blog/delete/' + postId);
-    }
-    if (detailClick === 'unpin') {
-      contentTitle.innerText = "Bạn có chắc chắn unpin viết này?";
-      formAction.setAttribute('action', '/blog/unpin/' + postId);
-    }
+function openAlert(event) {
+  dialog.open();
+  var detailClick = event.target.getAttribute('data-click');
+  var formAction = document.querySelector('#dialog-form');
+  var postId = event.target.getAttribute('data-post-id');
+  var contentTitle = document.querySelector('.mdc-dialog .mdc-dialog__content');
+  if (detailClick === 'delete') {
+    contentTitle.innerText = "Bạn có chắc chắn xoá bài viết này?";
+    formAction.setAttribute('action', '/blog/delete/' + postId);
+  }
+  if (detailClick === 'unpin') {
+    contentTitle.innerText = "Bạn có chắc chắn unpin viết này?";
+    formAction.setAttribute('action', '/blog/unpin/' + postId);
   }
 }
 
@@ -94,7 +94,7 @@ document.querySelector('#btnSearch').addEventListener('click', function() {
 
 // Action Detail
 if (document.querySelector('#post-detail-action')) {
-  const menu = new MDCMenu(document.querySelector('.mdc-menu'));
+  var menu = new MDCMenu(document.querySelector('.mdc-menu'));
   var btnMenu = document.querySelector('#post-detail-action');
   btnMenu.addEventListener('click', function() {
     menu.open = !menu.open;

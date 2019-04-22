@@ -13,10 +13,10 @@ block b1
                 h2.user-card.cs-card__title.mdc-typography--button= user.name()
                 h3.cs-card__subtitle.mdc-typography--subtitle2= 'Ngày gia nhập: ' + date
             .cs-card__content.mdc-card__actions.mdc-typography--body2= user.bio ? user.bio : 'Chưa có bio'
-          if (currentUser && currentUser.id === user.id)
-            .mdc-card__actions
-              .mdc-card__action-buttons
-                a.mdc-button.mdc-card__action.mdc-card__action--button(href='/setting') Edit your profile
+          //- if (currentUser && currentUser.id === user.id)
+          //-   .mdc-card__actions
+          //-     .mdc-card__action-buttons
+          //-       a.mdc-button.mdc-card__action.mdc-card__action--button(href='/setting') Edit your profile
 
         h2.mdc-typography--headline5 5 bài đăng gần đây
         if (!blogs.length)
