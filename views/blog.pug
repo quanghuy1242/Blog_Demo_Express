@@ -7,14 +7,14 @@ block b1
       h3.cs-auth-title.mdc-typography--headline6 Các kết quả cho từ khoá "#{query}"
     
     if (!blogs.length)
-      span.cs-auth-title.mdc-typography--headline6 Không tìm thấy kết quả nào
+      span.cs-glo-title.mdc-typography--headline6 Không tìm thấy kết quả nào
 
     if (pinPost)
-      h2.cs-auth-title.mdc-typography--button Bài đăng đã pin
+      h2.cs-glo-title.mdc-typography--button Bài đăng đã pin
       +renderPost(pinPost)
 
     if (blogs)
-      h2.cs-auth-title.mdc-typography--button Các bài đăng:
+      h2.cs-glo-title.mdc-typography--button Các bài đăng:
       +renderPost(blogs)
     
     if (page)

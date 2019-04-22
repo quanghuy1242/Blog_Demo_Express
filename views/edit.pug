@@ -3,9 +3,9 @@ extends layout
 block b1
   .container
     form.cs-edit-wrapper(action="/edit", method="post")
-      .cs-auth-title.mdc-typography--button Edit your profile
+      .cs-glo-title.mdc-typography--button Edit your profile
 
-      .mdc-text-field.mdc-text-field--outlined
+      .mdc-text-field.mdc-text-field--outlined(style="margin-top: 1rem")
         input.mdc-text-field__input(type="text", name="displayName", placeholder="Display Name", value=currentUser.displayName || "")
         .mdc-notched-outline
           .mdc-notched-outline__leading

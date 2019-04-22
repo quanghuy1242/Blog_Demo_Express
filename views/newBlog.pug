@@ -5,13 +5,16 @@ block b1
     footer.main-footer {
       display: none;
     }
+    .app-fab--absolute {
+      display: none !important;
+    }
   form.cs-post-create-wrapper(action="/blog/add", method="POST")
     .cs-post-create-preview
-      .cs-auth-title.mdc-typography--button Xem trước
+      .mdc-typography--button Xem trước
       .cs-preview.markdown-body#preview
 
     .cs-post-create-main
-      .cs-auth-title.mdc-typography--button Nội dung bài đăng
+      .mdc-typography--button Nội dung bài đăng
       .mdc-text-field.mdc-text-field--textarea
         textarea#content.mdc-text-field__input(required="true", name="content")
         .mdc-notched-outline
@@ -22,7 +25,7 @@ block b1
 
     .cs-post-create-conf
       .cs-post-conf-wrapper
-        .cs-auth-title.mdc-typography--button Các thông tin
+        .mdc-typography--button Các thông tin
         .mdc-text-field.mdc-text-field--outlined
           input.mdc-text-field__input(type="text", required="true", name="title", maxlength="200")
           .mdc-notched-outline

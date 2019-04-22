@@ -1,5 +1,5 @@
 // Ripple
-document.querySelectorAll('.mdc-button, .mdc-card__primary-action').forEach(function(element) {
+document.querySelectorAll('.mdc-button, .mdc-card__primary-action, .mdc-fab').forEach(function(element) {
   mdc.ripple.MDCRipple.attachTo(element);
 })
 
@@ -94,9 +94,15 @@ document.querySelector('#btnSearch').addEventListener('click', function() {
 
 // Action Detail
 if (document.querySelector('#post-detail-action')) {
-  var menu = new MDCMenu(document.querySelector('.mdc-menu'));
+  var menu = new MDCMenu(document.querySelector('.cs-menu-chuc-nang'));
   var btnMenu = document.querySelector('#post-detail-action');
   btnMenu.addEventListener('click', function() {
     menu.open = !menu.open;
   })
 }
+
+// Menu cá nhân
+var menuCaNhan = new MDCMenu(document.querySelector('.cs-menu-ca-nhan'));
+document.querySelector('#btnMenuCaNhan').addEventListener('click', function() {
+  menuCaNhan.open = !menuCaNhan.open;
+})

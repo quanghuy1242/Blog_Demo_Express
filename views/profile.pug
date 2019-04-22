@@ -18,13 +18,17 @@ block b1
           //-     .mdc-card__action-buttons
           //-       a.mdc-button.mdc-card__action.mdc-card__action--button(href='/setting') Edit your profile
 
-        h2.mdc-typography--headline5 5 bài đăng gần đây
-        if (!blogs.length)
-          .mdc-typography--body2 Không có bài đăng nào!
-        +renderPost(blogs)
-      .setting-wrapper
-        if (currentUser && currentUser.id === user.id)
-          include setting.pug
+        .cs-setting-recent-wrapper
+          if (currentUser && currentUser.id === user.id)
+            .setting-wrapper
+              .cs-glo-title.mdc-typography--button Chỉnh sửa thông tin
+              include setting.pug
+
+          .post-rencent-wrapper
+            .cs-glo-title.mdc-typography--button 5 bài đăng gần đây
+            if (!blogs.length)
+              .mdc-typography--body2 Không có bài đăng nào!
+            +renderPost(blogs)
 
     if (currentUser)
       .mdc-dialog.non-search(role="alertdialog")

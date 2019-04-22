@@ -20,15 +20,24 @@ html(lang="en")
           a.mdc-button.mdc-button--unelevated.mdc-top-app-bar__title.nav-logo(href="/") Learn About Me
           a.mdc-button.mdc-button--unelevated(href="/blog") Blog
           if (currentUser)
-            a.mdc-button.mdc-button--unelevated(href="/blog/yourpost") Your Post
-            a.mdc-button.cs-button-white(href="/blog/add") New Post
+            //- a.mdc-button.mdc-button--unelevated(href="/blog/yourpost") Your Post
+            a.mdc-button.cs-button-white.hidden-mobile(href="/blog/add") New Post
             if (currentUser._id.toString() === "5c8bc203d469c2001758986a")
-              a.mdc-button.cs-button-white(href="/blog/manage/category") Management
+              a.mdc-button.cs-button-white.hidden-mobile(href="/blog/manage/category") Management
         section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-end
           button#btnSearch.mdc-button.mdc-button--unelevated Search
           if (currentUser)
-            a.mdc-button.mdc-button--unelevated(href='/users/' + currentUser.username) Hello, #{currentUser.name()}
-            a.mdc-button.mdc-button--unelevated(href="/logout") Logout
+            .menu-wrapper
+              button#btnMenuCaNhan.mdc-button.cs-button-white= currentUser.name()
+              .mdc-menu-surface--anchor
+                .mdc-menu.mdc-menu-surface.cs-menu-ca-nhan(style="margin-left: 0.5rem;")
+                  ul.mdc-list(role="menu")
+                    a.mdc-list-item(role="menuitem", href="/blog/yourpost")
+                      span.mdc-list-item__text Bài viết của bạn
+                    a.mdc-list-item(role="menuitem", href='/users/' + currentUser.username)
+                      span.mdc-list-item__text Trang cá nhân
+                    a.mdc-list-item(role="menuitem", href="/logout")
+                      span.mdc-list-item__text Logout
           else 
             a.mdc-button.mdc-button--unelevated(href="/signin") Login
             a.mdc-button.mdc-button--unelevated(href="/signup") Register
@@ -67,6 +76,10 @@ html(lang="en")
             button.mdc-button.mdc-dialog__button(data-mdc-dialog-action="close") Cancel
             button.mdc-button.mdc-dialog__button(type="submit") Search
       .mdc-dialog__scrim
+
+    if (currentUser)
+      a.mdc-fab.app-fab--absolute(href="/blog/add")
+        span.mdc-fab__icon.material-icons create
         
       script(src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.4.2/markdown-it.js")
       script(src='/javascript/script.js')
