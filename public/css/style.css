@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --mdc-theme-primary: #398791;
   --mdc-theme-secondary: #8aa3b1;
   --mdc-theme-error: #f86f7b;
@@ -11,9 +11,9 @@ body {
 
 /* Old MS browser fix */
 /* Nút unelevated khi click còn màu cũ */
-.mdc-button:not(.mdc-button--unelevated)::before, .mdc-button:not(.mdc-button--unelevated)::after {
+/* .mdc-button:not(.mdc-button--unelevated)::before, .mdc-button:not(.mdc-button--unelevated)::after {
    background-color: var(--mdc-theme-primary, #6200ee);
-}
+} */
 
 /* list */
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::before, :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::after {
