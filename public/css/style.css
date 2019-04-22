@@ -25,6 +25,10 @@ body {
 }
 /* End */
 
+#btnMenuCaNhan {
+  max-width: 250px;
+}
+
 footer.main-footer {
   height: 50px;
   background-color: var(--mdc-theme-primary, #398791);
@@ -416,6 +420,10 @@ footer.main-footer {
 .profile-wrapper .cs-setting-recent-wrapper {
   display: flex;
   flex-direction: row;
+}
+
+.post-rencent-wrapper {
+  flex-grow: 1;
 }
 
 .profile-wrapper .setting-wrapper {
