@@ -259,6 +259,10 @@ footer.main-footer {
   margin-top: 1rem;
   margin-bottom: 1.5rem;
 }
+
+#post-detail-action {
+  color: #fff !important;
+}
 /* End */
 
 /* Auth */
