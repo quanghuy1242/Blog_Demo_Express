@@ -96,7 +96,7 @@ footer.main-footer {
   }
 
   .profile-wrapper .cs-setting-recent-wrapper {
-    flex-direction: column !important;
+    flex-direction: column-reverse !important;
   }
   
   .profile-wrapper .setting-wrapper {
@@ -415,7 +415,7 @@ footer.main-footer {
 
 .profile-wrapper .cs-setting-recent-wrapper {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 .profile-wrapper .setting-wrapper {

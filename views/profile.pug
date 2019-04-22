@@ -19,16 +19,16 @@ block b1
           //-       a.mdc-button.mdc-card__action.mdc-card__action--button(href='/setting') Edit your profile
 
         .cs-setting-recent-wrapper
-          if (currentUser && currentUser.id === user.id)
-            .setting-wrapper
-              .cs-glo-title.mdc-typography--button Chỉnh sửa thông tin
-              include setting.pug
-
           .post-rencent-wrapper
             .cs-glo-title.mdc-typography--button 5 bài đăng gần đây
             if (!blogs.length)
               .mdc-typography--body2 Không có bài đăng nào!
             +renderPost(blogs)
+            
+          if (currentUser && currentUser.id === user.id)
+            .setting-wrapper
+              .cs-glo-title.mdc-typography--button Chỉnh sửa thông tin
+              include setting.pug
 
     if (currentUser)
       .mdc-dialog.non-search(role="alertdialog")
