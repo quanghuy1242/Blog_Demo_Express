@@ -14,6 +14,7 @@ mixin renderPost(blogs)
             a.mdc-button.mdc-card__action.mdc-card__action--button(href="/blog/edit/" + blog._id) Edit
             button.mdc-button.mdc-card__action.mdc-card__action--button(onClick="openAlert(event)", data-click='delete', data-post-id=blog._id) Delete
         .mdc-card__action-icons
+          a.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon(href='/users/' + blog.user.username) face
           if (currentUser && currentUser._id.toString() === blog.user._id.toString())
             if (blog.isPin)
               if (currentUser._id.toString() === "5c8bc203d469c2001758986a")

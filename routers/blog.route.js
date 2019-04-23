@@ -5,6 +5,7 @@ const passport = require('passport');
 const authenticate = require('../middlewares/auth.middleware');
 
 const Blog = require('../models/blog.model');
+const Category = require('../models/category.model');
 
 const router = express.Router();
 
@@ -12,7 +13,8 @@ router.get('/', async function (req, res, next) {
 	let p = parseInt(req.query.page) || 1;
 	let perPage = 4;
 	let blogsCount = await Blog.countDocuments();
-	let pinBlogs = await Blog.find({ isPin: true }).populate('user');
+  let pinBlogs = await Blog.find({ isPin: true }).populate('user');
+  let categories = await Category.find().sort({ name: 'ascending' }).limit(5);
 	Blog.find()
 		.sort({ dateCreated: "descending" })
 		.skip((p - 1) * perPage)
@@ -25,6 +27,7 @@ router.get('/', async function (req, res, next) {
         pinPost: pinBlogs,
 				blogs: blogs,
         title: 'Blog',
+        categories: categories,
         originalUrl: req.originalUrl.split('?')[0],
 				page: {
 					prev: (p - 1) === 0 ? -1 : p - 1,
@@ -55,10 +58,6 @@ router.get('/manage/category', authenticate.ensureForApiAuthenticated, (req, res
     title: 'Management',
     nameObj: 'category'
   })
-})
-
-router.post('/manage/category', authenticate.ensureForApiAuthenticated, (req, res, next) => {
-  const { nameId, name, urlImage, description } = req.body;
 })
 
 router.get('/add', authenticate.ensureAuthenticated, (req, res, next) => {
@@ -178,6 +177,12 @@ router.get('/:name/:blogId', function (req, res, next) {
 
 router.get('/:year/:month?/:day?', async function (req, res, next) {
   let { year, month, day } = req.params;
+
+  let pattern = /[0-9]/;
+
+  if (!pattern.test(year) || !pattern.test(month || '1') || !pattern.test(day || '1')) {
+    next();
+  }
 
 	let p = parseInt(req.query.page) || 1;
 	let perPage = 4;

@@ -2,41 +2,52 @@ extends layout
 include mixins/post.pug
 
 block b1
-  .container
-    if (query) 
-      h3.cs-auth-title.mdc-typography--headline6 Các kết quả cho từ khoá "#{query}"
+  .container.cs-blog-wrapper
+    .cs-blog-list-wrapper
+      if (query) 
+        h3.cs-auth-title.mdc-typography--headline6 Các kết quả cho từ khoá "#{query}"
+      
+      if (!blogs.length)
+        span.cs-glo-title.mdc-typography--headline6 Không tìm thấy kết quả nào
+
+      if (pinPost)
+        h2.cs-glo-title.mdc-typography--button Bài đăng đã pin
+        +renderPost(pinPost)
+
+      if (blogs)
+        h2.cs-glo-title.mdc-typography--button Các bài đăng:
+        +renderPost(blogs)
+      
+      if (page)
+        .pagination-wrapper
+          if (page.prev !== -1)
+            a.mdc-button.mdc-button--outlined.middle-button(href=`${originalUrl}?page=${page.prev}`) Prev
+          else 
+            button.mdc-button.mdc-button--outlined.middle-button(disabled="true") prev
+          button.mdc-button.mdc-button--outlined.middle-button= page.now
+          if (page.next !== -1)
+            a.mdc-button.mdc-button--outlined.last-button(href=`${originalUrl}?page=${page.next}`) Next
+          else 
+            button.mdc-button.mdc-button--outlined.last-button(disabled="true") Next
+
+      if (currentUser)
+        .mdc-dialog.non-search(role="alertdialog")
+          .mdc-dialog__container
+            .mdc-dialog__surface
+              h2.mdc-dialog__title Xác nhận
+              .mdc-dialog__content Bạn có chắc chắn?
+              footer.mdc-dialog__actions
+                button.mdc-button.mdc-dialog__button(data-mdc-dialog-action="close") Cancel
+                form(action="", method="post", id="dialog-form")
+                  button.mdc-button.mdc-dialog__button(type="submit", data-mdc-dialog-action="accept") OK
+          .mdc-dialog__scrim
     
-    if (!blogs.length)
-      span.cs-glo-title.mdc-typography--headline6 Không tìm thấy kết quả nào
-
-    if (pinPost)
-      h2.cs-glo-title.mdc-typography--button Bài đăng đã pin
-      +renderPost(pinPost)
-
-    if (blogs)
-      h2.cs-glo-title.mdc-typography--button Các bài đăng:
-      +renderPost(blogs)
-    
-    if (page)
-      .pagination-wrapper
-        if (page.prev !== -1)
-          a.mdc-button.mdc-button--outlined.middle-button(href=`${originalUrl}?page=${page.prev}`) Prev
-        else 
-          button.mdc-button.mdc-button--outlined.middle-button(disabled="true") prev
-        button.mdc-button.mdc-button--outlined.middle-button= page.now
-        if (page.next !== -1)
-          a.mdc-button.mdc-button--outlined.last-button(href=`${originalUrl}?page=${page.next}`) Next
-        else 
-          button.mdc-button.mdc-button--outlined.last-button(disabled="true") Next
-
-    if (currentUser)
-      .mdc-dialog.non-search(role="alertdialog")
-        .mdc-dialog__container
-          .mdc-dialog__surface
-            h2.mdc-dialog__title Xác nhận
-            .mdc-dialog__content Bạn có chắc chắn?
-            footer.mdc-dialog__actions
-              button.mdc-button.mdc-dialog__button(data-mdc-dialog-action="close") Cancel
-              form(action="", method="post", id="dialog-form")
-                button.mdc-button.mdc-dialog__button(type="submit", data-mdc-dialog-action="accept") OK
-        .mdc-dialog__scrim
+    if (categories)
+      .cs-category-wrapper-1
+        h2.cs-glo-title.mdc-typography--button Chủ đề
+        .cs-category-wrapper-2
+          .cs-blog-category-wrapper
+            each category in categories
+              a.mdc-ripple-surface.category-item-wrapper.mdc-theme--primary-bg.mdc-theme--text-primary-on-dark.mdc-elevation--z3(href='/blog/category/' + category.nameId, style="background-image: url(" + category.urlImage + ")")
+                .mdc-typography--headline5= category.name
+                .mdc-typography--overline= category.description

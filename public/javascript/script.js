@@ -2,7 +2,7 @@
 cssVars();
 
 // Ripple
-document.querySelectorAll('.mdc-button, .mdc-card__primary-action, .mdc-fab').forEach(function(element) {
+document.querySelectorAll('.mdc-button, .mdc-card__primary-action, .mdc-fab, .mdc-ripple-surface').forEach(function(element) {
   mdc.ripple.MDCRipple.attachTo(element);
 })
 
@@ -118,30 +118,28 @@ tabBarSearch.listen('MDCTabBar:activated', function(e) {
 });
 
 // khi người dùng nhập filter
+var filterHandler = function() {
+  var year = filterInput[2].value ? filterInput[2].value + '/' : '';
+  if (!year) { 
+    document.querySelector('#filter-link').setAttribute('href', '#!');
+    return;
+  }
+  var month = filterInput[1].value ? filterInput[1].value + '/' : '';
+  var date = filterInput[0].value ? filterInput[0].value + '/' : '';
+  if (!month && date) {
+    document.querySelector('#filter-link').setAttribute('href', '#!');
+    return;
+  }
+  var finalLink = window.location.protocol 
+                  + '//' + window.location.host 
+                  + '/blog/' + year + month + date;
+  document.querySelector('#filter-link').setAttribute('href', finalLink);
+}
+
 var filterInput = document.querySelectorAll('.cs-filter');
 filterInput.forEach(function(element) {
-  element.addEventListener('keyup', function() {
-    // Kiểm tra dữ liệu
-    if (/[^0-9]/.test(filterInput[0].value) || /[^0-9]/.test(filterInput[1].value) || /[^0-9]/.test(filterInput[2].value)) {
-      document.querySelector('#filter-link').setAttribute('href', '#!');
-      return;
-    }
-    var year = filterInput[2].value ? filterInput[2].value + '/' : '';
-    if (!year) { 
-      document.querySelector('#filter-link').setAttribute('href', '#!');
-      return;
-    }
-    var month = filterInput[1].value ? filterInput[1].value + '/' : '';
-    var date = filterInput[0].value ? filterInput[0].value + '/' : '';
-    if (!month && date) {
-      document.querySelector('#filter-link').setAttribute('href', '#!');
-      return;
-    }
-    var finalLink = window.location.protocol 
-                    + '//' + window.location.host 
-                    + '/blog/' + year + month + date;
-    document.querySelector('#filter-link').setAttribute('href', finalLink);
-  })
+  element.addEventListener('keyup', filterHandler);
+  element.addEventListener('change', filterHandler);
 })
 
 // Action Detail

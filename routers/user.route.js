@@ -16,6 +16,7 @@ router.get('/:username', function (req, res, next) {
       .find({ user: { _id: user._id } })
       .limit(5)
       .sort({ dateCreated: "descending" })
+      .populate('user')
       .exec((err, blogs) => {
         ModifiedPost.addProperties(blogs);
         res.render("profile", {

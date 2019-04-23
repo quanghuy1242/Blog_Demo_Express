@@ -35,21 +35,21 @@
           #mdc-tab-content-2.tab-content
             .search-filter-wrapper
               .mdc-text-field.mdc-text-field--outlined
-                input.mdc-text-field__input.cs-filter(type="text", name="date")
+                input.mdc-text-field__input.cs-filter(type="number", name="date", max="31", min="1")
                 .mdc-notched-outline
                   .mdc-notched-outline__leading
                   .mdc-notched-outline__notch
                     label.mdc-floating-label Ngày
                   .mdc-notched-outline__trailing
               .mdc-text-field.mdc-text-field--outlined
-                input.mdc-text-field__input.cs-filter(type="text", name="month")
+                input.mdc-text-field__input.cs-filter(type="number", name="month", max="12", min="1")
                 .mdc-notched-outline
                   .mdc-notched-outline__leading
                   .mdc-notched-outline__notch
                     label.mdc-floating-label Tháng
                   .mdc-notched-outline__trailing
               .mdc-text-field.mdc-text-field--outlined
-                input.mdc-text-field__input.cs-filter(type="text", name="year")
+                input.mdc-text-field__input.cs-filter(type="number", name="year")
                 .mdc-notched-outline
                   .mdc-notched-outline__leading
                   .mdc-notched-outline__notch
