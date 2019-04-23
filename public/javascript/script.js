@@ -100,10 +100,48 @@ if (document.querySelector('#content')) {
 
 // Search
 var searchDialog = new MDCDialog(document.querySelector('.mdc-dialog.search'));
-searchDialog.scrimClickAction = '';
-searchDialog.escapeKeyAction = '';
 document.querySelector('#btnSearch').addEventListener('click', function() {
+  // Khi nút search được mở thì phải xoá link cũ đi
+  document.querySelector('#filter-link').setAttribute('href', '#!');
   searchDialog.open();
+})
+
+// Tabbar search
+var tabBarSearch = new MDCTabBar(document.querySelector('.mdc-tab-bar'));
+var tabscontent = document.querySelectorAll('.tab-content');
+tabBarSearch.listen('MDCTabBar:activated', function(e) {
+  tabscontent.forEach(function(tabcontent) {
+    tabcontent.classList.remove('tab-content--active');
+  });
+  document.querySelector('#mdc-tab-content-' + parseInt(e.detail.index + 1))
+    .classList.add('tab-content--active');
+});
+
+// khi người dùng nhập filter
+var filterInput = document.querySelectorAll('.cs-filter');
+filterInput.forEach(function(element) {
+  element.addEventListener('keyup', function() {
+    // Kiểm tra dữ liệu
+    if (/[^0-9]/.test(filterInput[0].value) || /[^0-9]/.test(filterInput[1].value) || /[^0-9]/.test(filterInput[2].value)) {
+      document.querySelector('#filter-link').setAttribute('href', '#!');
+      return;
+    }
+    var year = filterInput[2].value ? filterInput[2].value + '/' : '';
+    if (!year) { 
+      document.querySelector('#filter-link').setAttribute('href', '#!');
+      return;
+    }
+    var month = filterInput[1].value ? filterInput[1].value + '/' : '';
+    var date = filterInput[0].value ? filterInput[0].value + '/' : '';
+    if (!month && date) {
+      document.querySelector('#filter-link').setAttribute('href', '#!');
+      return;
+    }
+    var finalLink = window.location.protocol 
+                    + '//' + window.location.host 
+                    + '/blog/' + year + month + date;
+    document.querySelector('#filter-link').setAttribute('href', finalLink);
+  })
 })
 
 // Action Detail

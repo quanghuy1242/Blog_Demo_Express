@@ -66,20 +66,7 @@ html(lang="en")
 
     footer.main-footer.mdc-typography--headline5 Quang Huy
 
-    .mdc-dialog.search
-      form.mdc-dialog__container(action="/blog/search")
-        .mdc-dialog__surface
-          h2.mdc-dialog__title Search
-          .mdc-dialog__content.search-content
-            .mdc-text-field.mdc-text-field--outlined
-              input.mdc-text-field__input(type="text", required="true", name="q")
-              .mdc-notched-outline
-                .mdc-notched-outline__leading
-                .mdc-notched-outline__trailing
-          footer.mdc-dialog__actions
-            button.mdc-button.mdc-dialog__button(data-mdc-dialog-action="close") Cancel
-            button.mdc-button.mdc-dialog__button(type="submit") Search
-      .mdc-dialog__scrim
+    include mixins/searchDialog.pug
 
     if (currentUser)
       a.mdc-fab.app-fab--absolute(href="/blog/add")

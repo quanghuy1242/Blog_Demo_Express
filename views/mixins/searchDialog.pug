@@ -1,0 +1,64 @@
+.mdc-dialog.search
+  .mdc-dialog__container(action="/blog/search")
+    .mdc-dialog__surface
+      h2.mdc-dialog__title Search
+      .mdc-dialog__content.search-content
+        .mdc-tab-bar(role="tablist")
+          .mdc-tab-scroller
+            .mdc-tab-scroller__scroll-area
+              .mdc-tab-scroller__scroll-content
+                button.mdc-tab.mdc-tab--active(role="tab")
+                  span.mdc-tab__content
+                    span.mdc-tab__text-label Search
+                  span.mdc-tab-indicator.mdc-tab-indicator--active
+                    span.mdc-tab-indicator__content.mdc-tab-indicator__content--underline
+                  span.mdc-tab__ripple.mdc-ripple-upgraded
+                button.mdc-tab(role="tab")
+                  span.mdc-tab__content
+                    span.mdc-tab__text-label Filter
+                  span.mdc-tab-indicator
+                    span.mdc-tab-indicator__content.mdc-tab-indicator__content--underline
+                  span.mdc-tab__ripple.mdc-ripple-upgraded
+        .tab-container
+          #mdc-tab-content-1.tab-content.tab-content--active
+            form.search-filter-wrapper(action="/blog/search")
+              .mdc-text-field.mdc-text-field--outlined
+                input.mdc-text-field__input(type="text", required="true", name="q")
+                .mdc-notched-outline
+                  .mdc-notched-outline__leading
+                  .mdc-notched-outline__notch
+                    label.mdc-floating-label Nội dung
+                  .mdc-notched-outline__trailing
+              .cs-search-action
+                .spacer
+                button.mdc-button(type='submit') Search
+          #mdc-tab-content-2.tab-content
+            .search-filter-wrapper
+              .mdc-text-field.mdc-text-field--outlined
+                input.mdc-text-field__input.cs-filter(type="text", name="date")
+                .mdc-notched-outline
+                  .mdc-notched-outline__leading
+                  .mdc-notched-outline__notch
+                    label.mdc-floating-label Ngày
+                  .mdc-notched-outline__trailing
+              .mdc-text-field.mdc-text-field--outlined
+                input.mdc-text-field__input.cs-filter(type="text", name="month")
+                .mdc-notched-outline
+                  .mdc-notched-outline__leading
+                  .mdc-notched-outline__notch
+                    label.mdc-floating-label Tháng
+                  .mdc-notched-outline__trailing
+              .mdc-text-field.mdc-text-field--outlined
+                input.mdc-text-field__input.cs-filter(type="text", name="year")
+                .mdc-notched-outline
+                  .mdc-notched-outline__leading
+                  .mdc-notched-outline__notch
+                    label.mdc-floating-label Năm
+                  .mdc-notched-outline__trailing
+              .cs-search-action
+                .spacer
+                a#filter-link.mdc-button(type='submit', href="") Filter
+
+      //- footer.mdc-dialog__actions
+      //-   button.mdc-button.mdc-dialog__button(data-mdc-dialog-action="close") Close
+  .mdc-dialog__scrim

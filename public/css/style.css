@@ -529,3 +529,32 @@ footer.main-footer {
   vertical-align: text-top;
 }
 /* End */
+
+/* Tab */
+/* .mdc-dialog .mdc-dialog__surface {
+  min
+} */
+.tab-content--active {
+  display: block !important;
+}
+
+.tab-container .tab-content {
+  display: none;
+  padding: 1rem 1rem 0rem 1rem;
+  /* min-height: 200px; */
+}
+
+.search-filter-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-filter-wrapper .mdc-text-field:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.cs-search-action {
+  display: flex;
+  flex-direction: row;
+}
+/* End Tab */
