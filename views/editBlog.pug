@@ -26,6 +26,8 @@ block b1
     .cs-post-create-conf
       .cs-post-conf-wrapper
         .mdc-typography--button Các thông tin
+        .cs-image-preview
+          .mdc-typography--overline Image Preview
         .mdc-text-field.mdc-text-field--outlined
           input.mdc-text-field__input(type="text", required="true", name="title", maxlength="200", value=blog.title)
           .mdc-notched-outline
@@ -33,10 +35,33 @@ block b1
             .mdc-notched-outline__notch
               label.mdc-floating-label Title 
             .mdc-notched-outline__trailing
-        .mdc-text-field-helper-line
-          .mdc-text-field-character-counter
+        
+        
+        .mdc-text-field.mdc-text-field--outlined
+          input.mdc-text-field__input(type="text", name="imgUrl")
+          .mdc-notched-outline
+            .mdc-notched-outline__leading
+            .mdc-notched-outline__notch
+              label.mdc-floating-label Image preview 
+            .mdc-notched-outline__trailing
+
+        .mdc-select.cs-category-selecte.mdc-select--outlined(style="width: 100%")
+          input(type="hidden", name="category", value=blog.category ? blog.category._id : '')
+          i.mdc-select__dropdown-icon
+          .mdc-select__selected-text
+          .mdc-select__menu.mdc-menu.mdc-menu-surface
+            ul.mdc-list
+              li.mdc-list-item.mdc-list-item--selected(data-value="")
+              each category in categories
+                li.mdc-list-item(data-value=category._id)= category.name
+          .mdc-notched-outline
+            .mdc-notched-outline__leading
+            .mdc-notched-outline__notch
+              label.mdc-floating-label Chọn một danh mục
+            .mdc-notched-outline__trailing
 
       button.mdc-button.mdc-button--unelevated(type="submit") Update
 
   script(src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/1.4.0/markdown-it-emoji.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/1.4.0/markdown-it-emoji-light.min.js")
+  script(src="/javascript/postcreate/postcreate.js")

@@ -4,7 +4,19 @@ block b1
   .post-detail-wrapper
     .post-detail-title-wrapper
       h2.post-detail-title.mdc-typography--headline5= blog.title
-      h3.post-detail-subtitle.mdc-typography--subtitle1= blog.user.displayName || blog.user.username
+      h3.post-detail-subtitle.mdc-typography--subtitle1
+        a.post-detail-subtitle.mdc-typography--subtitle1(href="/users/" + blog.user.username, style="font-weight: bold")= blog.user.displayName || blog.user.username
+        |  -  
+        span= blog.time
+        |  -  
+        span= category.name
+      .mdc-chip-set
+        .mdc-chip
+          .mdc-chip__text Tag 1
+        .mdc-chip
+          .mdc-chip__text Tag 2
+        .mdc-chip
+          .mdc-chip__text Tag 3
     if (currentUser && currentUser._id.toString() === blog.user._id.toString())
       .menu-wrapper
         button.mdc-icon-button.mdc-button--unelevated.material-icons.post-detail-action#post-detail-action more_vert
@@ -30,3 +42,5 @@ block b1
             form(action="", method="post", id="dialog-form")
               button.mdc-button.mdc-dialog__button(type="submit", data-mdc-dialog-action="accept") OK
       .mdc-dialog__scrim
+
+  script(src="/javascript/postDetail/postDetail.js")

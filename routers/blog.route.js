@@ -13,13 +13,14 @@ router.get('/', async function (req, res, next) {
 	let p = parseInt(req.query.page) || 1;
 	let perPage = 4;
 	let blogsCount = await Blog.countDocuments();
-  let pinBlogs = await Blog.find({ isPin: true }).populate('user');
+  let pinBlogs = await Blog.find({ isPin: true }).populate('user').populate('category');
   let categories = await Category.find().sort({ name: 'ascending' }).limit(5);
 	Blog.find()
 		.sort({ dateCreated: "descending" })
 		.skip((p - 1) * perPage)
     .limit(perPage)
     .populate('user')
+    .populate('category')
 		.exec((err, blogs) => {
       if (err) return next(err);
       ModifiedPost.addProperties([...pinBlogs, ...blogs]);
@@ -42,6 +43,7 @@ router.get('/yourpost', authenticate.ensureAuthenticated, (req, res, next) => {
   Blog.find()
       .sort({ dateCreated: "descending" })
       .populate('user')
+      .populate('category')
       .find({ user: { _id: res.locals.currentUser._id }})
       .exec((err, blogs) => {
         if (err) return next(err);
@@ -61,18 +63,23 @@ router.get('/manage/category', authenticate.ensureForApiAuthenticated, (req, res
 })
 
 router.get('/add', authenticate.ensureAuthenticated, (req, res, next) => {
-	res.render('newBlog', {
-		title: "Thêm bài viết mới"
-  });
+  Category.find().sort({ name: 'ascending' }).exec((err, categories) => {
+    if (err) return next();
+    res.render('newBlog', {
+      title: "Thêm bài viết mới",
+      categories: categories
+    });
+  })
 });
 
 router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
-	let { title, content } = req.body;
+  let { title, category, content } = req.body;
 
 	let newBlog = new Blog({
 		title: title,
     content: content,
-    user: res.locals.currentUser._id
+    user: res.locals.currentUser._id,
+    category: category
 	});
 	newBlog.save();
 	
@@ -81,12 +88,15 @@ router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 });
 
 router.get('/edit/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {
-	Blog.findById(req.params.blogId, (err, foundBlog) => {
-		if (err) return next();
-		res.render("editBlog", {
-			title: "Edit your content",
-			blog: foundBlog
-		})
+	Blog.findById(req.params.blogId).exec((err, foundBlog) => {
+    if (err) return next();
+    Category.find().sort({ name: 'ascending' }).exec((err, categories) => {
+      res.render("editBlog", {
+        title: "Edit your content",
+        blog: foundBlog,
+        categories: categories
+      });
+    })
 	});
 });
 
@@ -96,7 +106,8 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
 		{
 			$set: {
 				title: req.body.title,
-				content: req.body.content
+        content: req.body.content,
+        category: req.body.category
 			}
 		},
 		function (err, response) {
@@ -147,21 +158,25 @@ router.post('/:pinState/:blogId', async (req, res, next) => {
 
 router.get('/search', function (req, res, next) {
 	let q = req.query.q;
-	Blog.find({ title: new RegExp(q, 'i') }).populate('user').exec((err, blogs) => {
-		if (err) return next(err);
-    ModifiedPost.addProperties(blogs);
-		res.render('blog', {
-			blogs: blogs,
-			title: "Kết quả tìm kiếm",
-			query: q
-		});
-	});
+  Blog
+    .find({ title: new RegExp(q, 'i') })
+    .populate('user')
+    .populate('category').exec((err, blogs) => {
+      if (err) return next(err);
+      ModifiedPost.addProperties(blogs);
+      res.render('blog', {
+        blogs: blogs,
+        title: "Kết quả tìm kiếm",
+        query: q
+      });
+    });
 });
 
-router.get('/:name/:blogId', function (req, res, next) {
+router.get('/:name/:blogId', function(req, res, next) {
   let { name, blogId } = req.params;
   Blog.findById(blogId)
     .populate('user')
+    .populate('category')
     .exec((err, blog) => {
       if (err) return next();
       ModifiedPost.addProperties(blog);
@@ -170,9 +185,10 @@ router.get('/:name/:blogId', function (req, res, next) {
       }
       res.render('blogDetail', {
         title: blog.title,
-        blog: blog
+        blog: blog,
+        category: blog.category ? blog.category : { name: 'Uncategorized' }
       });
-    })
+    });
 });
 
 router.get('/:year/:month?/:day?', async function (req, res, next) {
@@ -195,7 +211,7 @@ router.get('/:year/:month?/:day?', async function (req, res, next) {
   };
 
   Blog.aggregate()
-    .project({
+    .project({ // thêm field nào vô thì nhớ thêm vô đây
       year: { $year: '$dateCreated' },
       month: { $month: '$dateCreated' },
       day: { $dayOfMonth: '$dateCreated' },
@@ -203,7 +219,8 @@ router.get('/:year/:month?/:day?', async function (req, res, next) {
       content: '$content',
       isPin: '$isPin',
       dateCreated: '$dateCreated',
-      user: '$user'
+      user: '$user',
+      category: '$category'
     })
     .lookup({
       from: 'users',
@@ -212,6 +229,16 @@ router.get('/:year/:month?/:day?', async function (req, res, next) {
       as: 'user'
     })
     .unwind('user')
+    .lookup({
+      from: 'categories',
+      localField: 'category',
+      foreignField: '_id',
+      as: 'category'
+    }) // lookup nhiều field
+    .unwind({
+      'path': '$category',
+      'preserveNullAndEmptyArrays': true // tìm mà không khớp khoá ngoại thì vẫn tìm ra
+    })
     .match(filter)
     .sort({ dateCreated: 'descending' })
     .skip((p - 1) * perPage)

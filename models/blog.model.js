@@ -6,7 +6,8 @@ let blogSchema = mongoose.Schema({
 	dateCreated: { type: Date, default: Date.now },
 	content: { type: String, required: true },
   isPin: { type: Boolean, default: false },
-  user: { type: Schema.Types.ObjectId, ref: 'User' }
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  category: { type: Schema.Types.ObjectId, ref: 'Category' }
 });
 
 let Blog = mongoose.model("Blog", blogSchema);

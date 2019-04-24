@@ -1,0 +1,1 @@
+var tagsChipSet = new MDCChipSet(document.querySelector('.mdc-chip-set'));
