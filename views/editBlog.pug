@@ -26,8 +26,10 @@ block b1
     .cs-post-create-conf
       .cs-post-conf-wrapper
         .mdc-typography--button Các thông tin
-        .cs-image-preview
-          .mdc-typography--overline Image Preview
+        .cs-image-preview-wrapper
+          .cs-image-preview(style="background-image: url(" + blog.imgUrl + ")")
+          .cs-image-preview-text-wrapper
+            .mdc-typography--overline Image Preview
         .mdc-text-field.mdc-text-field--outlined
           input.mdc-text-field__input(type="text", required="true", name="title", maxlength="200", value=blog.title)
           .mdc-notched-outline
@@ -38,7 +40,7 @@ block b1
         
         
         .mdc-text-field.mdc-text-field--outlined
-          input.mdc-text-field__input(type="text", name="imgUrl")
+          input.mdc-text-field__input(type="text", name="imgUrl", value=blog.imgUrl)
           .mdc-notched-outline
             .mdc-notched-outline__leading
             .mdc-notched-outline__notch
@@ -49,7 +51,7 @@ block b1
           input(type="hidden", name="category", value=blog.category ? blog.category._id : '')
           i.mdc-select__dropdown-icon
           .mdc-select__selected-text
-          .mdc-select__menu.mdc-menu.mdc-menu-surface
+          .mdc-select__menu.mdc-menu.mdc-menu-surface(style="z-index: 500;")
             ul.mdc-list
               li.mdc-list-item.mdc-list-item--selected(data-value="")
               each category in categories

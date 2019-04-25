@@ -43,6 +43,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req, res, next) {
+  if (!req.user) {
+    res.clearCookie('jwt'); // Nếu server bị sập, lần tới xoá
+  }
   res.locals.currentUser = req.user;
   res.locals.errors = req.flash('error');
   res.locals.infos = req.flash('info');

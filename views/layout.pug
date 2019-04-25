@@ -18,15 +18,14 @@ html(lang="en")
     script(src="/javascript/MDC.js")
 
   body
-    header.mdc-top-app-bar.mdc-top-app-bar--fixed.mdc-elevation--z5
+    header.mdc-top-app-bar.mdc-top-app-bar--fixed.mdc-elevation--z5(style="z-index: 2000;")
       .mdc-top-app-bar__row
         section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start
           a.mdc-button.mdc-button--unelevated.mdc-top-app-bar__title.nav-logo(href="/") Learn About Me
           a.mdc-button.mdc-button--unelevated(href="/blog") Blog
           if (currentUser)
-            //- a.mdc-button.mdc-button--unelevated(href="/blog/yourpost") Your Post
             a.mdc-button.cs-button-white.hidden-mobile(href="/blog/add") New Post
-            if (currentUser._id.toString() === "5c8bc203d469c2001758986a")
+            if (currentUser.role === 'admin')
               a.mdc-button.cs-button-white.hidden-mobile(href="/blog/manage/category") Management
         section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-end
           button#btnSearch.mdc-button.mdc-button--unelevated Search

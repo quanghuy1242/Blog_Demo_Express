@@ -1,32 +1,35 @@
 ﻿extends layout
 
 block b1
-  .post-detail-wrapper
-    .post-detail-title-wrapper
-      h2.post-detail-title.mdc-typography--headline5= blog.title
-      h3.post-detail-subtitle.mdc-typography--subtitle1
-        a.post-detail-subtitle.mdc-typography--subtitle1(href="/users/" + blog.user.username, style="font-weight: bold")= blog.user.displayName || blog.user.username
-        |  -  
-        span= blog.time
-        |  -  
-        span= category.name
-      .mdc-chip-set
-        .mdc-chip
-          .mdc-chip__text Tag 1
-        .mdc-chip
-          .mdc-chip__text Tag 2
-        .mdc-chip
-          .mdc-chip__text Tag 3
-    if (currentUser && currentUser._id.toString() === blog.user._id.toString())
-      .menu-wrapper
-        button.mdc-icon-button.mdc-button--unelevated.material-icons.post-detail-action#post-detail-action more_vert
-        .mdc-menu-surface--anchor
-          .mdc-menu.mdc-menu-surface.cs-menu-chuc-nang
-            ul.mdc-list(role="menu")
-              a.mdc-list-item(role="menuitem", href="/blog/edit/" + blog._id)
-                span.mdc-list-item__text Edit
-              a.mdc-list-item(role="menuitem", onClick="openAlert(event)", data-click='delete', data-post-id=blog._id)
-                span.mdc-list-item__text Delete
+  .cs-post-title-wrapper-outer
+    .post-detail-wrapper
+      .post-detail-title-wrapper
+        h2.post-detail-title.mdc-typography--headline5= blog.title
+        h3.post-detail-subtitle.mdc-typography--subtitle1
+          a.post-detail-subtitle.mdc-typography--subtitle1(href="/users/" + blog.user.username, style="font-weight: bold")= blog.user.displayName || blog.user.username
+          |  -  
+          span= blog.time
+          |  -  
+          span= category.name
+        .mdc-chip-set
+          .mdc-chip
+            .mdc-chip__text Tag 1
+          .mdc-chip
+            .mdc-chip__text Tag 2
+          .mdc-chip
+            .mdc-chip__text Tag 3
+      if (currentUser && currentUser._id.toString() === blog.user._id.toString())
+        .menu-wrapper
+          button.mdc-icon-button.mdc-button--unelevated.material-icons.post-detail-action#post-detail-action(style="background: transparent;") more_vert
+          .mdc-menu-surface--anchor
+            .mdc-menu.mdc-menu-surface.cs-menu-chuc-nang
+              ul.mdc-list(role="menu")
+                a.mdc-list-item(role="menuitem", href="/blog/edit/" + blog._id)
+                  span.mdc-list-item__text Edit
+                a.mdc-list-item(role="menuitem", onClick="openAlert(event)", data-click='delete', data-post-id=blog._id)
+                  span.mdc-list-item__text Delete
+    .cs-post-title-background(style=blog.imgUrl ? 'background-image: url(' + blog.imgUrl + ')' : 'background-color: var(--mdc-theme-primary, #398791)')
+    .cs-post-title-overlay(style=!blog.imgUrl ? 'opacity: 0' : '')
 
   .container.post-detail-content
     .markdown-body!= blog.content

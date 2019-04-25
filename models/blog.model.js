@@ -7,7 +7,8 @@ let blogSchema = mongoose.Schema({
 	content: { type: String, required: true },
   isPin: { type: Boolean, default: false },
   user: { type: Schema.Types.ObjectId, ref: 'User' },
-  category: { type: Schema.Types.ObjectId, ref: 'Category' }
+  category: { type: Schema.Types.ObjectId, ref: 'Category' },
+  imgUrl: { type: String }
 });
 
 let Blog = mongoose.model("Blog", blogSchema);

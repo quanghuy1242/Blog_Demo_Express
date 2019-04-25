@@ -26,8 +26,10 @@ block b1
     .cs-post-create-conf
       .cs-post-conf-wrapper
         .mdc-typography--button Các thông tin
-        .cs-image-preview
-          .mdc-typography--overline Image Preview
+        .cs-image-preview-wrapper
+          .cs-image-preview
+          .cs-image-preview-text-wrapper
+            .mdc-typography--overline Image Preview
         .mdc-text-field.mdc-text-field--outlined
           input.mdc-text-field__input(type="text", required="true", name="title", maxlength="200")
           .mdc-notched-outline
@@ -44,11 +46,11 @@ block b1
               label.mdc-floating-label Image preview 
             .mdc-notched-outline__trailing
 
-        .mdc-select.cs-category-selecte.mdc-select--outlined(style="width: 100%")
+        .mdc-select.cs-category-selecte.mdc-select--outlined(style="width: 100%;")
           input(type="hidden", name="category", required="true")
           i.mdc-select__dropdown-icon
           .mdc-select__selected-text
-          .mdc-select__menu.mdc-menu.mdc-menu-surface
+          .mdc-select__menu.mdc-menu.mdc-menu-surface(style="z-index: 500;")
             ul.mdc-list
               li.mdc-list-item.mdc-list-item--selected(data-value="")
               each category in categories

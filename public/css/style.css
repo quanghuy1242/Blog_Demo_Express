@@ -252,9 +252,10 @@ footer.main-footer {
 .post-detail-wrapper {
   display: flex;
   padding: 0 1rem;
-  background-color: var(--mdc-theme-primary, #398791);
+  /* background-color: var(--mdc-theme-primary, #398791); */
   margin-top: -1.5rem;
-  /* background-image: url(https://images.unsplash.com/photo-1555940295-ddf1ba28f493?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80); */
+  z-index: 50;
+  position: relative;
 }
 
 .post-detail-wrapper .menu-wrapper {
@@ -283,9 +284,34 @@ footer.main-footer {
   margin-left: -10px;
 }
 
+.cs-post-title-wrapper-outer {
+  position: relative;
+}
+
+.cs-post-title-wrapper-outer .cs-post-title-overlay {
+  position: absolute;
+  background-color: black;
+  opacity: 0.2;
+  z-index: 49;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.cs-post-title-wrapper-outer .cs-post-title-background {
+  position: absolute;
+  background-size: 120%;
+  background-position: 20%;
+  z-index: 48;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
 .post-detail-title-wrapper .mdc-chip {
   background-color: var(--mdc-theme-secondary, #6fa4a7);
   color: rgb(255, 255, 255);
+  opacity: 0.8;
 }
 
 .post-detail-content {
@@ -430,15 +456,31 @@ footer.main-footer {
   overflow-y: auto;
 }
 
-.cs-post-create-wrapper .cs-image-preview {
+.cs-post-create-wrapper .cs-image-preview-wrapper {
+  position: relative;
+  width: 100%;
+  height: 150px;
   border: 1px solid rgba(0,0,0,.24);
   border-radius: 4px;
-  height: 150px;
   margin-bottom: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.cs-post-create-wrapper .cs-image-preview-text-wrapper {
+  position: absolute;
+  z-index: 49;
+}
+
+.cs-post-create-wrapper .cs-image-preview {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: 120%;
+  background-position: 20%;
+  z-index: 50;
 }
 /* End Post create */
 
@@ -618,6 +660,7 @@ footer.main-footer {
 /* End Tab */
 
 /* Blog List */
+
 .cs-blog-wrapper {
   display: flex;
   justify-content: baseline;
@@ -633,7 +676,9 @@ footer.main-footer {
 
 .cs-blog-wrapper .category-item-wrapper {
   margin-bottom: 1rem;
-  padding: 3rem 4rem; 
+  /* padding: 3rem 4rem;  */
+  width: 100%;
+  height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -643,6 +688,10 @@ footer.main-footer {
   background-position-y: 20%;
   text-align: center;
   min-width: 200px;
+}
+
+.cs-category-wrapper-1 {
+  width: 30%;
 }
 
 @media only screen and (max-width: 599px) {
@@ -665,6 +714,7 @@ footer.main-footer {
     display: flex;
     flex-direction: column;
     overflow: auto;
+    width: 100%;
   }
 
   .cs-blog-wrapper .category-item-wrapper:not(:last-child) {

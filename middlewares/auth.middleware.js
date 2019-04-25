@@ -12,7 +12,16 @@ module.exports.ensureAuthenticated = function (req, res, next) {
 
 module.exports.jwtAuth = passport.authenticate('jwt', {session: false})
 
+module.exports.isAdminAuthenticated = (req, res, next) => {
+  if (req.user.role === 'admin') {
+    next();
+  } else {
+    res.status(403).json({ msg: 'Unauthenticated' });
+  }
+};
+
 module.exports.ensureForApiAuthenticated = [
   this.ensureAuthenticated,
-  this.jwtAuth
+  this.jwtAuth,
+  this.isAdminAuthenticated
 ];

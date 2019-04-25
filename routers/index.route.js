@@ -31,17 +31,14 @@ router.post('/signin', passport.authenticate('login', {
   failureRedirect: '/signin',
   failureFlash: true
 }), (req, res, next) => {
-  if (req.user._id.toString() === "5c8bc203d469c2001758986a") {
-    const payload = {
-      username: req.user.username,
-      id: req.user._id,
-      expires: Date.now() + parseInt(process.env.JWT_EXPIRATION)
-    };
-    const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET);
-    res.cookie('jwt', token);
-  } else {
-    res.clearCookie('jwt');
-  }
+  const payload = {
+    username: req.user.username,
+    id: req.user._id,
+    role: req.user.role,
+    expires: Date.now() + parseInt(process.env.JWT_EXPIRATION)
+  };
+  const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET);
+  res.cookie('jwt', token);
   res.redirect('/');
 });
 

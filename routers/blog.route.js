@@ -73,13 +73,14 @@ router.get('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 });
 
 router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
-  let { title, category, content } = req.body;
+  let { title, category, content, imgUrl } = req.body;
 
 	let newBlog = new Blog({
 		title: title,
     content: content,
     user: res.locals.currentUser._id,
-    category: category
+    category: category,
+    imgUrl: imgUrl || null
 	});
 	newBlog.save();
 	
@@ -107,7 +108,8 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
 			$set: {
 				title: req.body.title,
         content: req.body.content,
-        category: req.body.category
+        category: req.body.category,
+        imgUrl: req.body.imgUrl
 			}
 		},
 		function (err, response) {
