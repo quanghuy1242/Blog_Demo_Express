@@ -12,12 +12,9 @@ block b1
           |  -  
           span= category.name
         .mdc-chip-set
-          .mdc-chip
-            .mdc-chip__text Tag 1
-          .mdc-chip
-            .mdc-chip__text Tag 2
-          .mdc-chip
-            .mdc-chip__text Tag 3
+          each tag in blog.tag
+            .mdc-chip
+              .mdc-chip__text= tag
       if (currentUser && currentUser._id.toString() === blog.user._id.toString())
         .menu-wrapper
           button.mdc-icon-button.mdc-button--unelevated.material-icons.post-detail-action#post-detail-action(style="background: transparent;") more_vert

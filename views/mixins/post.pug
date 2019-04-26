@@ -8,11 +8,19 @@ mixin renderPost(blogs)
               h2.cs-card__title.mdc-typography--headline6= blog.title
               h3.cs-card__subtitle.mdc-typography--subtitle2.cs-card-user= blog.user.displayName || blog.user.username
               h3.cs-card__subtitle.mdc-typography--subtitle2= blog.time
+              .mdc-chip-set(style="margin-left: 0.3rem;")
+                each tag in blog.tag
+                  .mdc-chip
+                    .mdc-chip__text= tag
         else
           .cs-card-header.cs-no-bg
             h2.cs-card__title.mdc-typography--headline6= blog.title
             h3.cs-card__subtitle.mdc-typography--subtitle2.cs-card-user= blog.user.displayName || blog.user.username
             h3.cs-card__subtitle.mdc-typography--subtitle2= blog.time
+            .mdc-chip-set(style="margin-left: 0.3rem;")
+              each tag in blog.tag
+                .mdc-chip
+                  .mdc-chip__text= tag
         .cs-card__content.mdc-card__actions.mdc-typography--body2= blog.previewConent
       .mdc-card__actions(style="overflow-x: auto;")
         .mdc-card__action-buttons

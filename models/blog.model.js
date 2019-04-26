@@ -8,7 +8,8 @@ let blogSchema = mongoose.Schema({
   isPin: { type: Boolean, default: false },
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   category: { type: Schema.Types.ObjectId, ref: 'Category' },
-  imgUrl: { type: String }
+  imgUrl: { type: String },
+  tag: { type: [String] }
 });
 
 let Blog = mongoose.model("Blog", blogSchema);

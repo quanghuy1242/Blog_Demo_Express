@@ -67,6 +67,10 @@ footer.main-footer {
   margin: 0 6rem;
 }
 
+.mdc-chip-set {
+  overflow: auto;
+}
+
 /* Mobile css */
 @media only screen and (max-width: 599px) {
   .container {
@@ -186,7 +190,7 @@ footer.main-footer {
 
 .cs-card__subtitle {
   color: rgb(255, 255, 255);
-  margin: 0rem 0 0.5rem 1rem;
+  margin: 0rem 0 0rem 1rem;
 }
 
 .cs-card-user {

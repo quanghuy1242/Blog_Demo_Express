@@ -73,19 +73,26 @@ router.get('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 });
 
 router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
-  let { title, category, content, imgUrl } = req.body;
-
-	let newBlog = new Blog({
-		title: title,
-    content: content,
-    user: res.locals.currentUser._id,
-    category: category,
-    imgUrl: imgUrl || null
-	});
-	newBlog.save();
-	
-	req.flash("info", "Đã thêm Blog mới!");
-	res.redirect('/blog');
+  let { title, category, content, imgUrl, tags } = req.body;
+  let tagsList = tags.split(';');
+  // Nếu người dùng nhập quá 5 tag thì huỷ bài viết đó
+  if (tagsList.length >= 5) {
+    req.flash("error", "Không thể có quá 5 thẻ");
+    res.redirect('/blog');
+  } else {
+    let newBlog = new Blog({
+      title: title,
+      content: content,
+      user: res.locals.currentUser._id,
+      category: category,
+      imgUrl: imgUrl || null,
+      tag: tags ? tagsList : []
+    });
+    newBlog.save();
+    
+    req.flash("info", "Đã thêm Blog mới!");
+    res.redirect('/blog');
+  }
 });
 
 router.get('/edit/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {
@@ -102,25 +109,32 @@ router.get('/edit/:blogId', authenticate.ensureAuthenticated, function (req, res
 });
 
 router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {
-	Blog.updateOne(
-		{ _id: req.params.blogId },
-		{
-			$set: {
-				title: req.body.title,
-        content: req.body.content,
-        category: req.body.category,
-        imgUrl: req.body.imgUrl
-			}
-		},
-		function (err, response) {
-      if (err) return next(err);
-			Blog.findById(req.params.blogId, (err, blog) => {
-				if (err) return next(err);
-				ModifiedPost.addProperties(blog);
-				res.redirect(`/blog/a/${blog._id}`)
-			});
-		}
-	);
+  let tagsList = req.body.tags.split(';');
+  if (tagsList.length >= 5) {
+    req.flash("error", "Không thể có quá 5 thẻ");
+    res.redirect('/blog');
+  } else {
+    Blog.updateOne(
+      { _id: req.params.blogId },
+      {
+        $set: {
+          title: req.body.title,
+          content: req.body.content,
+          category: req.body.category,
+          imgUrl: req.body.imgUrl,
+          tag: req.body.tags ? tagsList : []
+        }
+      },
+      function (err, response) {
+        if (err) return next(err);
+        Blog.findById(req.params.blogId, (err, blog) => {
+          if (err) return next(err);
+          ModifiedPost.addProperties(blog);
+          res.redirect(`/blog/a/${blog._id}`)
+        });
+      }
+    );
+  }
 });
 
 router.post('/delete/:blogId', authenticate.ensureAuthenticated, function (req, res, next) {

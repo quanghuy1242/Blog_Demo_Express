@@ -47,7 +47,7 @@ block b1
               label.mdc-floating-label Image preview 
             .mdc-notched-outline__trailing
 
-        .mdc-select.cs-category-selecte.mdc-select--outlined(style="width: 100%")
+        .mdc-select.cs-category-selecte.mdc-select--outlined(style="width: 100%; margin-bottom: 0.5rem;")
           input(type="hidden", name="category", value=blog.category ? blog.category._id : '')
           i.mdc-select__dropdown-icon
           .mdc-select__selected-text
@@ -61,6 +61,17 @@ block b1
             .mdc-notched-outline__notch
               label.mdc-floating-label Chọn một danh mục
             .mdc-notched-outline__trailing
+
+        //- tag input
+        .mdc-text-field.mdc-text-field--outlined
+          input#my-text-field.mdc-text-field__input(type="text", name="tags-input")
+          .mdc-notched-outline
+            .mdc-notched-outline__leading
+            .mdc-notched-outline__notch
+              label.mdc-floating-label Enter to add new tag
+            .mdc-notched-outline__trailing
+        .mdc-chip-set.mdc-chip-set--input.cs-tags-input(style="height: 70px; overflow: auto")
+        input(type="hidden", name="tags", value=blog.tag.join(';'))
 
       button.mdc-button.mdc-button--unelevated(type="submit") Update
 
