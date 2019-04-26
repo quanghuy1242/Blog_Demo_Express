@@ -5,11 +5,16 @@ block b1
     footer.main-footer {
       display: none;
     }
+  mixin renderButton(href, nameO, nameDis, icon) 
+    a.mdc-button.obj-item(href=href, class=((nameObj === nameO) ? 'mdc-button--unelevated' : ''))
+      i.material-icons.mdc-button__icon= icon
+      = nameDis
+
   .cs-manage-wrapper
     .cs-manage-object
       .cs-management-title.mdc-typography--button Managemnet
-      a.mdc-button.obj-item(href="/blog/manage/category", class=((nameObj === 'category') ? 'mdc-button--unelevated' : '')) Categories
-      a.mdc-button.obj-item(href="#", class=((nameObj === 'tags') ? 'mdc-button--unelevated' : '')) Tags
+      +renderButton("/blog/manage/category", 'category', 'Categories', 'category')
+      +renderButton("/blog/manage/tag", 'tags', 'Tags', 'local_offer')
 
     .cs-manage-list 
       block list

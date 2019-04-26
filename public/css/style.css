@@ -592,6 +592,8 @@ footer.main-footer {
 
 .cs-manage-object .obj-item {
   margin-bottom: 0.5rem;
+  justify-content: flex-start;
+  padding: 0 16px 0 16px;
 }
 
 .cs-manage-wrapper .cs-management-title {
