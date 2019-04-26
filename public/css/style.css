@@ -154,6 +154,26 @@ footer.main-footer {
   padding: 0 0 0 0;
 }
 
+.cs-card__media_size::before {
+  margin-top: 20%;
+}
+
+.cs-no-bg .cs-card__title {
+  color: black;
+}
+
+.cs-no-bg .cs-card__subtitle {
+  color: rgba(0,0,0,.54)
+}
+
+.cs-has-bg .cs-card__title {
+  color: #fff;
+}
+
+.cs-has-bg .cs-card__subtitle {
+  color: #fff;
+}
+
 .cs-card__content {
   padding: 1rem;
   display: block;
@@ -165,7 +185,7 @@ footer.main-footer {
 }
 
 .cs-card__subtitle {
-  color: rgba(0,0,0,.54);
+  color: rgb(255, 255, 255);
   margin: 0rem 0 0.5rem 1rem;
 }
 
@@ -719,6 +739,10 @@ footer.main-footer {
 
   .cs-blog-wrapper .category-item-wrapper:not(:last-child) {
     margin-right: 1rem;
+  }
+
+  .cs-blog-wrapper .category-item-wrapper {
+    padding: 2rem 4rem;
   }
 
   .cs-category-wrapper-2 {

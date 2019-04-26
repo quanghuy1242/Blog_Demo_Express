@@ -3,11 +3,16 @@ mixin renderPost(blogs)
     .mdc-card.cs-card.mdc-elevation--z3
       .mdc-card__primary-action
         if (blog.imgUrl)
-          .mdc-card__media.mdc-card__media--16-9(style='background-image: url(' + blog.imgUrl + ');')
-        .cs-card-header
-          h2.cs-card__title.mdc-typography--headline6= blog.title
-          h3.cs-card__subtitle.mdc-typography--subtitle2.cs-card-user= blog.user.displayName || blog.user.username
-          h3.cs-card__subtitle.mdc-typography--subtitle2= blog.time
+          .mdc-card__media.cs-card__media_size(style='background-image: url(' + blog.imgUrl + ');')
+            .cs-card-header.cs-has-bg
+              h2.cs-card__title.mdc-typography--headline6= blog.title
+              h3.cs-card__subtitle.mdc-typography--subtitle2.cs-card-user= blog.user.displayName || blog.user.username
+              h3.cs-card__subtitle.mdc-typography--subtitle2= blog.time
+        else
+          .cs-card-header.cs-no-bg
+            h2.cs-card__title.mdc-typography--headline6= blog.title
+            h3.cs-card__subtitle.mdc-typography--subtitle2.cs-card-user= blog.user.displayName || blog.user.username
+            h3.cs-card__subtitle.mdc-typography--subtitle2= blog.time
         .cs-card__content.mdc-card__actions.mdc-typography--body2= blog.previewConent
       .mdc-card__actions(style="overflow-x: auto;")
         .mdc-card__action-buttons

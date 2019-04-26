@@ -2,6 +2,13 @@ extends layout
 include mixins/post.pug
 
 block b1
+  style.
+    @media only screen and (max-width: 599px) {
+      .user-wrapper {
+         margin-top: 1rem;
+      }
+    }
+
   .container.cs-blog-wrapper
     .cs-blog-list-wrapper
       if (query) 
