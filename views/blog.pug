@@ -22,7 +22,7 @@ block b1
         +renderPost(pinPost)
 
       if (blogs)
-        h2.cs-glo-title.mdc-typography--button Các bài đăng:
+        h2.cs-glo-title.mdc-typography--button Các bài đăng
         +renderPost(blogs)
       
       if (page)
@@ -55,6 +55,6 @@ block b1
         .cs-category-wrapper-2
           .cs-blog-category-wrapper
             each category in categories
-              a.mdc-ripple-surface.category-item-wrapper.mdc-theme--primary-bg.mdc-theme--text-primary-on-dark.mdc-elevation--z3(href='/blog/category/' + category.nameId, style="background-image: url(" + category.urlImage + ")")
+              a.mdc-ripple-surface.category-item-wrapper.mdc-theme--primary-bg.mdc-theme--text-primary-on-dark.mdc-elevation--z3(href='/category/' + category.nameId, style="background-image: url(" + category.urlImage + ")")
                 .mdc-typography--headline5= category.name
                 .mdc-typography--overline= category.description

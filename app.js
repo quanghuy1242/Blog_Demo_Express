@@ -15,6 +15,7 @@ const indexRoute = require('./routers/index.route');
 const userRoute = require('./routers/user.route');
 const blogRoute = require('./routers/blog.route');
 const apiRoute = require('./routers/api.route');
+const categoryRoute = require('./routers/category.route');
 
 const app = express();
 
@@ -55,7 +56,8 @@ app.use(function(req, res, next) {
 app.use('/', indexRoute);
 app.use('/users', userRoute);
 app.use('/blog', blogRoute);
-app.use('/api', apiRoute)
+app.use('/api', apiRoute);
+app.use('/category', categoryRoute);
 
 app.use(function (req, res) {
   res.status(404).render('404', {

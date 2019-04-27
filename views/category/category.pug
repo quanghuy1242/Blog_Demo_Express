@@ -1,0 +1,13 @@
+extends ../layout
+include ../mixins/post.pug
+
+block b1
+  .wrapper(style="min-height: calc(100vh - 64px - 50px - 1.1rem + 2px);")
+    .cs-category-preview(style="background-image: url(" + category.urlImage + ")")
+      h2.cs-glo-title.mdc-typography--button= category.name
+      h3.cs-auth-title.cs-subtitle.mdc-typography--subtitle1= category.description
+    .container
+      if (blogs)
+        +renderPost(blogs)
+      if (blogs.length === 0)
+        h3.cs-auth-title.mdc-typography--subtitle1 Không có bài đăng nào!
