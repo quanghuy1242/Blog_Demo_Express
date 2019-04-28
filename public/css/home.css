@@ -1,0 +1,124 @@
+.cs-large-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 4rem;
+  color: #ffffff;
+  justify-content: center;
+  align-items: center;
+  margin-top: -1.5rem;
+  background-image: url(https://images.unsplash.com/photo-1556189525-508d99d9324a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80);
+  background-size: cover;
+  background-position: 100%;
+}
+
+.user-wrapper {
+  min-height: calc(100vh - 64px - 50px);
+}
+
+.cs-large-panel .cs-button::before, .cs-button::after {
+  background-color: var(--mdc-theme-primary, #398791) !important;
+}
+
+.cs-button {
+  color: var(--mdc-theme-primary, #398791) !important;
+  background-color: #fff !important;
+}
+
+.cs-large-panel .cs-large-panel-action {
+  display: flex;
+  flex-direction: row;
+}
+
+.cs-large-panel .cs-large-panel-action a:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.cs-large-img {
+  font-size: 80px;
+}
+
+.cs-large-panel .cs-large-panel-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cs-home-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cs-introduction {
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-introduction .cs-intro-wrapper:nth-child(even) {
+  background-color: rgba(111, 164, 167, 0.164);
+}
+
+.cs-introduction .cs-intro-wrapper {
+  display: flex;
+  padding: 2rem;
+}
+
+.cs-introduction .cs-intro-wrapper .cs-intro-detail {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 1rem;
+}
+
+.cs-introduction .cs-intro-wrapper .cs-intro-img {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  margin-right: 1rem;
+}
+
+.cs-top-hightlight-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.cs-top-post-highlight {
+  /* margin: 1rem 0rem; */
+  width: 65%;
+}
+
+.cs-category-highlight {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.cs-category-highlight a:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.category-item-wrapper {
+  padding: 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background-size: 130%;
+  background-position-y: 20%;
+  text-align: center;
+}
+
+.cs-home-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}

@@ -2,23 +2,37 @@ const express = require('express');
 const passport = require('passport');
 const moment = require('moment-timezone');
 const jwt = require('jsonwebtoken');
+const ModifiedPost = require('../util/ModifiedPost');
 
+const Blog = require('../models/blog.model');
+const Category = require('../models/category.model');
 const User = require('../models/user.model');
 
 const authenticate = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
-router.get('/', function(req, res, next) {
-  User.find()
-    .sort({ createAt: "descending" })
-    .exec(function(err, users) {
-      if (err) return next(err);
-      res.render('index', {
-        users: users,
-        title: 'Homepage'
-      });
+router.get('/', async function(req, res, next) {
+  try {
+    let pinBlogs = await Blog.find({ isPin: true }).populate('user').populate('category');
+    let blogs = await Blog.find()
+      .limit(2)
+      .sort({ dateCreated: 'descending' })
+      .populate('user')
+      .populate('category');
+
+    let categories = await Category.find().sort({ name: 'ascending' }).limit(4);
+    
+    ModifiedPost.addProperties([...pinBlogs, ...blogs]);
+
+    res.render('index', {
+      blogs: [...pinBlogs, ...blogs],
+      categories: categories,
+      title: 'Learn about me - Homepage'
     })
+  } catch (err) {
+    next(err)
+  }
 });
 
 router.get('/signin', function(req, res, next) {

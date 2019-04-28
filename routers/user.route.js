@@ -8,6 +8,18 @@ const ModifiedPost = require('../util/ModifiedPost');
 
 const router = express.Router();
 
+router.get('/', (req, res, next) => {
+  User.find()
+    .sort({ createAt: "descending" })
+    .exec(function(err, users) {
+      if (err) return next(err);
+      res.render('user/index', {
+        users: users,
+        title: 'Users'
+      });
+    })
+})
+
 router.get('/:username', function (req, res, next) {
   User.findOne({ username: req.params.username }, function(err, user) {
     if (err) { return next(err); }

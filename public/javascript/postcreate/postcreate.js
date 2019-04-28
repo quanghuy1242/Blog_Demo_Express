@@ -36,7 +36,6 @@ tagsInput.addEventListener('keyup', function(event) {
       alert('Bạn chỉ có thể nhập tối đa 5 thẻ vào bài viết!');
       return;
     }
-    if (event.target.value === ';') { return; }
     if (!/^[0-9a-zA-Z]+$/.test(event.target.value)) {
       alert('Không chứa kí tự đặc biệt, kí tự dấu, viết liền');
       return;

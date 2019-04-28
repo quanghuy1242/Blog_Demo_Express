@@ -30,7 +30,7 @@ mixin renderPost(blogs)
             a.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon(href="/blog/edit/" + blog._id) edit
             button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon(onClick="openAlert(event)", data-click='delete', data-post-id=blog._id) delete
           a.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon(href='/users/' + blog.user.username, title="Owner") face
-          a.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon(href='/blog/category/' + (blog.category ? blog.category.nameId : 'uncategorized'), title=(blog.category ? blog.category.name : 'Uncategorized')) category
+          a.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon(href='/category/' + (blog.category ? blog.category.nameId : 'uncategorized'), title=(blog.category ? blog.category.name : 'Uncategorized')) category
           if (currentUser && currentUser._id.toString() === blog.user._id.toString())
             if (blog.isPin)
               if (currentUser.role === 'admin')

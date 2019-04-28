@@ -1,13 +1,47 @@
 extends layout
+include mixins/post.pug
 
 block b1
-  .container
-    each user in users
-      .mdc-card.cs-card.mdc-elevation--z3
-        .mdc-card__primary-action
-          .cs-card-header
-            h2.cs-card__title.mdc-typography--headline6= user.name()
-          .cs-card__content.mdc-card__actions.mdc-typography--body2= user.bio ? user.bio : 'Chưa có bio'
-        .mdc-card__actions
-          .mdc-card__action-buttons
-            a.mdc-button.mdc-card__action.mdc-card__action--button(href='/users/' + user.username) Learn About This Person
+  link(rel="stylesheet", href="/css/home.css")
+  .cs-large-panel.mdc-theme--primary-bg
+    .cs-large-panel-detail
+      i.material-icons.cs-large-img create
+      .mdc-typography--overline Share your experiences
+    .cs-large-panel-action
+      if (currentUser)
+        button#btnMenuCaNhan.mdc-button.cs-button-white(style="margin: 0")= currentUser.name()
+      else
+        a.mdc-button.mdc-button--raised.cs-button(href="/signin") Login
+        a.mdc-button.mdc-button--raised.cs-button(href="/signup") Register
+
+  .cs-home-wrapper
+    //- .cs-introduction
+    //-   .cs-intro-wrapper
+    //-     .cs-intro-img
+    //-       i.material-icons.cs-large-img add_circle
+    //-     .cs-intro-detail
+    //-       .mdc-typography--subtitle1 Đăng bài với hàng loạt tính năng có sẵn
+
+    //-   .cs-intro-wrapper
+    //-     .cs-intro-img
+    //-       i.material-icons.cs-large-img add_circle
+    //-     .cs-intro-detail
+    //-       .mdc-typography--subtitle1 Đăng bài với hàng loạt tính năng có sẵn
+
+    //-   .cs-intro-wrapper
+    //-     .cs-intro-img
+    //-       i.material-icons.cs-large-img add_circle
+    //-     .cs-intro-detail
+    //-       .mdc-typography--subtitle1 Đăng bài với hàng loạt tính năng có sẵn
+
+    
+    .cs-category-highlight
+      each category in categories
+        a.mdc-ripple-surface.category-item-wrapper.mdc-theme--primary-bg.mdc-theme--text-primary-on-dark.mdc-elevation--z3(href='/category/' + category.nameId, style="background-image: url(" + category.urlImage + ")")
+          .mdc-typography--headline5= category.name
+          .mdc-typography--overline= category.description
+    .cs-top-post-highlight
+      +renderPost(blogs)
+
+  .cs-home-footer
+    a.mdc-button.mdc-button--raised(href="/blog") Explore
