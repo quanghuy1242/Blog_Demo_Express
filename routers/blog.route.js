@@ -219,8 +219,15 @@ router.get('/:name/:blogId', function(req, res, next) {
     .populate('category')
     .exec((err, blog) => {
       if (err) return next();
-      if (!req.user && !blog.isPublic) return next();
-      if (req.user._id.toString() !== blog.user._id.toString()) return next();
+      if (!blog.isPublic) {
+      	if (!req.user) {
+      		return next();
+      	} else {
+      		if (req.user._id.toString() !== blog.user._id.toString()) {
+      			return next();
+      		}
+      	}
+      }
       ModifiedPost.addProperties(blog);
       if (name !== blog.titleWithoutAccentAndSpace) {
         res.redirect('/blog/' + blog.titleWithoutAccentAndSpace + '/' + blogId);
