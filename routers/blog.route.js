@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const ModifiedPost = require('../util/ModifiedPost');
 const passport = require('passport');
 
@@ -219,6 +219,8 @@ router.get('/:name/:blogId', function(req, res, next) {
     .populate('category')
     .exec((err, blog) => {
       if (err) return next();
+      if (!req.user && !blog.isPublic) return next();
+      if (req.user._id.toString() !== blog.user._id.toString()) return next();
       ModifiedPost.addProperties(blog);
       if (name !== blog.titleWithoutAccentAndSpace) {
         res.redirect('/blog/' + blog.titleWithoutAccentAndSpace + '/' + blogId);
