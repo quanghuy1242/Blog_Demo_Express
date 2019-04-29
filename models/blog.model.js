@@ -9,7 +9,8 @@ let blogSchema = mongoose.Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   category: { type: Schema.Types.ObjectId, ref: 'Category' },
   imgUrl: { type: String },
-  tag: { type: [String] }
+  tag: { type: [String] },
+  isPublic: { type: Boolean, default: true }
 });
 
 let Blog = mongoose.model("Blog", blogSchema);

@@ -37,9 +37,11 @@ html(lang="en")
                 .mdc-menu.mdc-menu-surface.cs-menu-ca-nhan(style="margin-left: 0.5rem;")
                   ul.mdc-list(role="menu")
                     a.mdc-list-item(role="menuitem", href="/blog/yourpost")
-                      span.mdc-list-item__text Bài viết của bạn
+                      span.mdc-list-item__text Your post
+                    a.mdc-list-item(role="menuitem", href="/blog/privatepost")
+                      span.mdc-list-item__text Private post
                     a.mdc-list-item(role="menuitem", href='/users/' + currentUser.username)
-                      span.mdc-list-item__text Trang cá nhân
+                      span.mdc-list-item__text Profile
                     a.mdc-list-item(role="menuitem", href="/logout")
                       span.mdc-list-item__text Logout
           else 

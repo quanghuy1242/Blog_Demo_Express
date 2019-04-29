@@ -5,6 +5,8 @@ var tags = document.querySelector('input[name="tags"]');
 var imgPreview = document.querySelector('.cs-image-preview');
 var chipSetEl = document.querySelector('.mdc-chip-set');
 var chipSet = new MDCChipSet(chipSetEl);
+var switchPublic = new MDCSwitch(document.querySelector('.mdc-switch'));
+var isPublicGetted = document.querySelector('input[name="isPublicGetted"]');
 
 document.querySelector('form').addEventListener('submit', function(e) {
   if (categorySelect.value === "") {
@@ -60,6 +62,10 @@ if (tags.value) {
   tagsList.forEach(tagId => {
     addNewTag(tagId);
   });
+}
+
+if (isPublicGetted) {
+  switchPublic.checked = isPublicGetted.value;
 }
 
 function addNewTag(value) {

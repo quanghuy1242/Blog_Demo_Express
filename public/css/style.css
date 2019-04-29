@@ -451,13 +451,21 @@ footer.main-footer {
   flex-grow: 1;
 }
 
+.cs-post-create-wrapper .cs-post-create-conf .cs-post-conf-action {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 .cs-post-conf-wrapper .mdc-text-field {
   margin-bottom: 0.5rem;
 }
 
-.cs-post-create-wrapper .cs-post-create-conf button {
+/* .cs-post-create-wrapper .cs-post-create-conf button {
   margin-top: 0.5rem;
-}
+} */
 
 .cs-post-create-wrapper .cs-post-create-main textarea {
   height: calc(100vh - 64px - 1.5rem - 36px);

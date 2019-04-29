@@ -9,32 +9,12 @@ block b1
       .mdc-typography--overline Share your experiences
     .cs-large-panel-action
       if (currentUser)
-        button#btnMenuCaNhan.mdc-button.cs-button-white(style="margin: 0")= currentUser.name()
+        a#btnMenuCaNhan.mdc-button.cs-button-white(style="margin: 0", href="/blog/add") Share a throught
       else
         a.mdc-button.mdc-button--raised.cs-button(href="/signin") Login
         a.mdc-button.mdc-button--raised.cs-button(href="/signup") Register
 
   .cs-home-wrapper
-    //- .cs-introduction
-    //-   .cs-intro-wrapper
-    //-     .cs-intro-img
-    //-       i.material-icons.cs-large-img add_circle
-    //-     .cs-intro-detail
-    //-       .mdc-typography--subtitle1 Đăng bài với hàng loạt tính năng có sẵn
-
-    //-   .cs-intro-wrapper
-    //-     .cs-intro-img
-    //-       i.material-icons.cs-large-img add_circle
-    //-     .cs-intro-detail
-    //-       .mdc-typography--subtitle1 Đăng bài với hàng loạt tính năng có sẵn
-
-    //-   .cs-intro-wrapper
-    //-     .cs-intro-img
-    //-       i.material-icons.cs-large-img add_circle
-    //-     .cs-intro-detail
-    //-       .mdc-typography--subtitle1 Đăng bài với hàng loạt tính năng có sẵn
-
-    
     .cs-category-highlight
       each category in categories
         a.mdc-ripple-surface.category-item-wrapper.mdc-theme--primary-bg.mdc-theme--text-primary-on-dark.mdc-elevation--z3(href='/category/' + category.nameId, style="background-image: url(" + category.urlImage + ")")

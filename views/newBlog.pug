@@ -72,8 +72,15 @@ block b1
         .mdc-chip-set.mdc-chip-set--input.cs-tags-input(style="height: 70px; overflow: auto")
         input(type="hidden", name="tags")
 
-      button.mdc-button.mdc-button--unelevated(type="submit") Đăng
-
+      .cs-post-conf-action
+        button.mdc-button.mdc-button--unelevated(type="submit") Đăng
+        label.mdc-typography--overline(for="switch-public", style="margin: 0 0.5rem", title="Để chỉnh sửa các bài viết không công khai thành công khai hãy truy cập private post từ menu cá nhân") Public
+        .mdc-switch.mdc-switch--checked
+          .mdc-switch__track
+          .mdc-switch__thumb-underlay
+            .mdc-switch__thumb
+              input#switch-public.mdc-switch__native-control(type="checkbox", name="isPublic", role="switch" checked)
+        .spacer
   script(src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/1.4.0/markdown-it-emoji.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/1.4.0/markdown-it-emoji-light.min.js")
   script(src="/javascript/postcreate/postcreate.js")

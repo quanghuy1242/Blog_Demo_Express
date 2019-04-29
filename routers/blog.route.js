@@ -15,7 +15,9 @@ router.get('/', async function (req, res, next) {
 	let blogsCount = await Blog.countDocuments();
   let pinBlogs = await Blog.find({ isPin: true }).populate('user').populate('category');
   let categories = await Category.find().sort({ name: 'ascending' }).limit(5);
-	Blog.find()
+  Blog.find()
+    .where('isPublic')
+    .ne(false)
 		.sort({ dateCreated: "descending" })
 		.skip((p - 1) * perPage)
     .limit(perPage)
@@ -41,6 +43,8 @@ router.get('/', async function (req, res, next) {
 
 router.get('/yourpost', authenticate.ensureAuthenticated, (req, res, next) => {
   Blog.find()
+      .where('isPublic')
+      .ne(false)
       .sort({ dateCreated: "descending" })
       .populate('user')
       .populate('category')
@@ -51,6 +55,22 @@ router.get('/yourpost', authenticate.ensureAuthenticated, (req, res, next) => {
         res.render('blog', {
           blogs: blogs,
           title: 'Your Post'
+        })
+      })
+});
+
+router.get('/privatepost', authenticate.ensureAuthenticated, (req, res, next) => {
+  Blog.find({ isPublic: false })
+      .sort({ dateCreated: "descending" })
+      .populate('user')
+      .populate('category')
+      .find({ user: { _id: res.locals.currentUser._id }})
+      .exec((err, blogs) => {
+        if (err) return next(err);
+        ModifiedPost.addProperties(blogs);
+        res.render('blog', {
+          blogs: blogs,
+          title: 'Private Post'
         })
       })
 });
@@ -73,7 +93,7 @@ router.get('/add', authenticate.ensureAuthenticated, (req, res, next) => {
 });
 
 router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
-  let { title, category, content, imgUrl, tags } = req.body;
+  let { title, category, content, imgUrl, tags, isPublic } = req.body;
   let tagsList = tags.split(';');
   // Nếu người dùng nhập quá 5 tag thì huỷ bài viết đó
   if (tagsList.length >= 5) {
@@ -86,7 +106,8 @@ router.post('/add', authenticate.ensureAuthenticated, (req, res, next) => {
       user: res.locals.currentUser._id,
       category: category,
       imgUrl: imgUrl || null,
-      tag: tags ? tagsList : []
+      tag: tags ? tagsList : [],
+      isPublic: isPublic === 'on'
     });
     newBlog.save();
     
@@ -122,7 +143,8 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
           content: req.body.content,
           category: req.body.category,
           imgUrl: req.body.imgUrl,
-          tag: req.body.tags ? tagsList : []
+          tag: req.body.tags ? tagsList : [],
+          isPublic: req.body.isPublic === 'on'
         }
       },
       function (err, response) {
@@ -176,6 +198,8 @@ router.get('/search', function (req, res, next) {
 	let q = req.query.q;
   Blog
     .find({ title: new RegExp(q, 'i') })
+    .where('isPublic')
+    .ne(false)
     .populate('user')
     .populate('category').exec((err, blogs) => {
       if (err) return next(err);
@@ -223,7 +247,8 @@ router.get('/:year/:month?/:day?', async function (req, res, next) {
 	let filter = { 
     "year": parseInt(year), 
     ...(month) && { "month": parseInt(month) }, 
-    ...(day) && { "day": parseInt(day) } 
+    ...(day) && { "day": parseInt(day) },
+    'isPublic': { '$ne': false }
   };
 
   Blog.aggregate()
@@ -236,7 +261,8 @@ router.get('/:year/:month?/:day?', async function (req, res, next) {
       isPin: '$isPin',
       dateCreated: '$dateCreated',
       user: '$user',
-      category: '$category'
+      category: '$category',
+      isPublic: '$isPublic'
     })
     .lookup({
       from: 'users',

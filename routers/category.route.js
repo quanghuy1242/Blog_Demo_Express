@@ -14,6 +14,8 @@ router.get('/:nameId', (req, res, next) => {
     if (err || !category) { return next(err); }
     Blog
       .find({ category: category._id })
+      .where('isPublic')
+      .ne(false)
       .sort({ dateCreated: "descending" })
       .populate('user')
       .populate('category')

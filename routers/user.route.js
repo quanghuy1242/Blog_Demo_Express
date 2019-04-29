@@ -26,6 +26,8 @@ router.get('/:username', function (req, res, next) {
     if (!user) { return next(404); }
     Blog
       .find({ user: { _id: user._id } })
+      .where('isPublic')
+      .ne(false)
       .limit(5)
       .sort({ dateCreated: "descending" })
       .populate('user')

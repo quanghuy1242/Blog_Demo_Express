@@ -16,6 +16,8 @@ router.get('/', async function(req, res, next) {
   try {
     let pinBlogs = await Blog.find({ isPin: true }).populate('user').populate('category');
     let blogs = await Blog.find()
+      .where('isPublic')
+      .ne(false)
       .limit(2)
       .sort({ dateCreated: 'descending' })
       .populate('user')
