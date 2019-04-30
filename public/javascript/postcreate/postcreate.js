@@ -7,6 +7,7 @@ var chipSetEl = document.querySelector('.mdc-chip-set');
 var chipSet = new MDCChipSet(chipSetEl);
 var switchPublic = new MDCSwitch(document.querySelector('.mdc-switch'));
 var isPublicGetted = document.querySelector('input[name="isPublicGetted"]');
+var exit = true;
 
 document.querySelector('form').addEventListener('submit', function(e) {
   if (categorySelect.value === "") {
@@ -20,10 +21,13 @@ document.querySelector('form').addEventListener('submit', function(e) {
     tagsListGl.push(chip.id);
   });
   tags.value = tagsListGl.join(';');
+  // Thoát mà không cảnh báo
+  exit = false;
 });
 
 document.querySelector('form').addEventListener('keypress', function(e) {
-  if (event.key === 'Enter' || event.keyCode === 13) {
+  if (e.key === 'Enter' || e.keyCode === 13) {
+    if (e.target.nodeName === 'TEXTAREA') { return; }
     e.preventDefault();
   }
 })
@@ -88,4 +92,8 @@ function addNewTag(value) {
 
   chipSetEl.appendChild(chipEl);
   chipSet.addChip(chipEl);
+}
+
+window.onbeforeunload = function() {
+  return exit ? 'Bạn có muốn rời khỏi trang này không?' : null;
 }
