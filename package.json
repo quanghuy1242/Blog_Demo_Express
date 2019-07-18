@@ -4,36 +4,36 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "devstart": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.3",
+    "cookie-parser": "^1.4.4",
     "dotenv": "^6.2.0",
-    "express": "^4.16.4",
-    "express-session": "^1.15.6",
-    "jquery": "^3.3.1",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "jquery": "^3.4.1",
     "jsonwebtoken": "^8.5.1",
     "markdown-it": "^8.4.2",
     "markdown-it-emoji": "^1.4.0",
-    "moment": "^2.23.0",
-    "moment-timezone": "^0.5.23",
-    "mongoose": "^5.4.1",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.26",
+    "mongoose": "^5.6.5",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "pug": "^2.0.3",
+    "pug": "^2.0.4",
     "remove-markdown": "^0.3.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.19.1"
   },
   "nodemonConfig": {
     "ignore": [
