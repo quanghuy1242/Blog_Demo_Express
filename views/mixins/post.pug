@@ -1,7 +1,7 @@
 mixin renderPost(blogs)
   each blog in blogs
     .mdc-card.cs-card.mdc-elevation--z3
-      .mdc-card__primary-action
+      a.mdc-card__primary-action(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`)
         if (blog.imgUrl)
           .mdc-card__media.cs-card__media_size(style='background-image: url(' + blog.imgUrl + ');')
             .cs-card-header.cs-has-bg
@@ -27,7 +27,10 @@ mixin renderPost(blogs)
           button.mdc-button.mdc-card__action.mdc-card__action--button
             i.material-icons.mdc-button__icon thumb_up
             .mdc-button__label 0
-          a.mdc-button.mdc-card__action.mdc-card__action--button(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`) More
+          button.mdc-button.mdc-card__action.mdc-card__action--button
+            i.material-icons.mdc-button__icon mode_comment
+            .mdc-button__label 0
+          //- a.mdc-button.mdc-card__action.mdc-card__action--button(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`) More
         .mdc-card__action-icons
           .menu-wrapper
             button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.btn-action(onClick="openMenu(event)", data-click=blog._id) more_vert
