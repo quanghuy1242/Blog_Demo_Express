@@ -271,7 +271,9 @@ router.get('/:year/:month?/:day?', async function (req, res, next) {
       dateCreated: '$dateCreated',
       user: '$user',
       category: '$category',
-      isPublic: '$isPublic'
+      isPublic: '$isPublic',
+      tag: '$tag',
+      imgUrl: '$imgUrl'
     })
     .lookup({
       from: 'users',
