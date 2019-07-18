@@ -37,6 +37,10 @@ mixin renderPost(blogs)
             .mdc-menu-surface--anchor
               .mdc-menu.mdc-menu-surface.cs-menu-post(data-id=blog._id)
                 ul.mdc-list(role="menu")
+                  if (currentUser)
+                    a.mdc-list-item(role="menuitem")
+                      .mdc-list-item__graphic.material-icons bookmark_border
+                      span.mdc-list-item__text Save
                   if (currentUser && currentUser._id.toString() === blog.user._id.toString())
                     a.mdc-list-item(role="menuitem", href="/blog/edit/" + blog._id)
                       .mdc-list-item__graphic.material-icons edit
