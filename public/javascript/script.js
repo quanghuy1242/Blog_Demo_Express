@@ -158,3 +158,16 @@ if (document.querySelector('.cs-menu-ca-nhan')) {
 	  menuCaNhan.open = !menuCaNhan.open;
 	})
 }
+
+var menuObj = {};
+if (document.querySelector('.cs-menu-post')) {
+  document.querySelectorAll('.cs-menu-post').forEach(function(menuItem) {
+    var id = menuItem.getAttribute('data-id');
+    menuObj[id] = new MDCMenu(menuItem);
+  })
+}
+
+function openMenu(event) {
+  var id = event.target.getAttribute('data-click');
+  menuObj[id].open = !menuObj[id].open;
+}

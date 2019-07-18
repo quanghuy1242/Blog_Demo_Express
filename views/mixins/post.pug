@@ -22,15 +22,28 @@ mixin renderPost(blogs)
                 .mdc-chip
                   .mdc-chip__text= tag
         .cs-card__content.mdc-card__actions.mdc-typography--body2= blog.previewConent
-      .mdc-card__actions(style="overflow-x: auto;")
+      .mdc-card__actions
         .mdc-card__action-buttons
           a.mdc-button.mdc-card__action.mdc-card__action--button(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`) Read more
         .mdc-card__action-icons
-          if (currentUser && currentUser._id.toString() === blog.user._id.toString())
-            a.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon(href="/blog/edit/" + blog._id) edit
-            button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon(onClick="openAlert(event)", data-click='delete', data-post-id=blog._id) delete
-          a.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon(href='/users/' + blog.user.username, title="Owner") face
-          a.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon(href='/category/' + (blog.category ? blog.category.nameId : 'uncategorized'), title=(blog.category ? blog.category.name : 'Uncategorized')) category
+          .menu-wrapper
+            button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.btn-action(onClick="openMenu(event)", data-click=blog._id) more_vert
+            .mdc-menu-surface--anchor
+              .mdc-menu.mdc-menu-surface.cs-menu-post(data-id=blog._id)
+                ul.mdc-list(role="menu")
+                  if (currentUser && currentUser._id.toString() === blog.user._id.toString())
+                    a.mdc-list-item(role="menuitem", href="/blog/edit/" + blog._id)
+                      .mdc-list-item__graphic.material-icons edit
+                      span.mdc-list-item__text Edit
+                    a.mdc-list-item(role="menuitem", onClick="openAlert(event)", data-click='delete', data-post-id=blog._id)
+                      .mdc-list-item__graphic.material-icons delete
+                      span.mdc-list-item__text Delete
+                  a.mdc-list-item(role="menuitem", href='/users/' + blog.user.username)
+                    .mdc-list-item__graphic.material-icons face
+                    span.mdc-list-item__text= blog.user.displayName || blog.user.username
+                  a.mdc-list-item(role="menuitem", href='/category/' + (blog.category ? blog.category.nameId : 'uncategorized'))
+                    .mdc-list-item__graphic.material-icons category
+                    span.mdc-list-item__text= blog.category ? blog.category.name : 'Uncategorized'
           if (currentUser && currentUser._id.toString() === blog.user._id.toString())
             if (blog.isPin)
               if (currentUser.role === 'admin')
