@@ -1,4 +1,5 @@
 ﻿extends layout
+include mixins/comment
 
 block b1
   .cs-post-title-wrapper-outer
@@ -30,6 +31,8 @@ block b1
 
   .container.post-detail-content
     .markdown-body!= blog.content
+
+    +comment()
 
   if (currentUser)
     .mdc-dialog.non-search(role="alertdialog")

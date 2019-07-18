@@ -1,0 +1,40 @@
+mixin comment()
+  link(rel="stylesheet", href="/css/comment.css")
+  .comment-wrapper
+    h2.cs-glo-title.mdc-typography--button Comment
+    .comment-wrapper-inner
+      .user-img-wrapper
+        .user-img
+      .mdc-text-field.mdc-text-field--textarea.comment-section
+        textarea#textarea.mdc-text-field__input
+        .mdc-notched-outline
+          .mdc-notched-outline__leading
+          .mdc-notched-outline__notch
+            label.mdc-floating-label(for='textarea') Comment
+          .mdc-notched-outline__trailing
+        
+    .comment-action
+      button.mdc-button.mdc-button--raised
+        .mdc-button__label Comment
+
+    .comment-list-wrapper
+      ul.comment-list
+        li.comment-item
+          .user-img
+          .comment-main
+            .comment-by.mdc-typography--body1 Quang Huy
+            .comment-date.mdc-typography--caption 18/7/2019
+            .comment-content.mdc-typography--body2 Xin chào các bạn, ở đây không có gì cả. Xin chào các bạn, ở đây không có gì cả. Xin chào các bạn, ở đây không có gì cả. Xin chào các bạn, ở đây không có gì cả. Xin chào các bạn, ở đây không có gì cả. Xin chào các bạn, ở đây không có gì cả. Xin chào các bạn, ở đây không có gì cả. Xin chào các bạn, ở đây không có gì cả. Xin chào các bạn, ở đây không có gì cả. Xin chào các bạn, ở đây không có gì cả. Xin chào các bạn, ở đây không có gì cả. 
+        li.comment-item
+          .user-img
+          .comment-main
+            .comment-by.mdc-typography--body1 Minh Khanh
+            .comment-date.mdc-typography--caption 18/7/2019
+            .comment-content.mdc-typography--body2 Đây là gì vậy? Chức năng mới à? Mong được dùng thử!
+        li.comment-item
+          .user-img
+          .comment-main
+            .comment-by.mdc-typography--body1 LovebyMoew
+            .comment-date.mdc-typography--caption 18/7/2019
+            .comment-content.mdc-typography--body2 Meow meow meow
+        
