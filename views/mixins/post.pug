@@ -24,7 +24,10 @@ mixin renderPost(blogs)
         .cs-card__content.mdc-card__actions.mdc-typography--body2= blog.previewConent
       .mdc-card__actions
         .mdc-card__action-buttons
-          a.mdc-button.mdc-card__action.mdc-card__action--button(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`) Read more
+          button.mdc-button.mdc-card__action.mdc-card__action--button
+            i.material-icons.mdc-button__icon thumb_up
+            .mdc-button__label 0
+          a.mdc-button.mdc-card__action.mdc-card__action--button(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`) More
         .mdc-card__action-icons
           .menu-wrapper
             button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.btn-action(onClick="openMenu(event)", data-click=blog._id) more_vert
