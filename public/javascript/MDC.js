@@ -9,3 +9,5 @@ var MDCTab = mdc.tab.MDCTab;
 var MDCSelect = mdc.select.MDCSelect;
 var MDCChipSet = mdc.chips.MDCChipSet;
 var MDCSwitch = mdc.switchControl.MDCSwitch;
+var MDCTopAppBar = mdc.topAppBar.MDCTopAppBar;
+var MDCDrawer = mdc.drawer.MDCDrawer;
