@@ -2,7 +2,7 @@
 cssVars();
 
 // Ripple
-document.querySelectorAll('.mdc-button, .mdc-card__primary-action, .mdc-fab, .mdc-ripple-surface').forEach(function(element) {
+document.querySelectorAll('.mdc-button, .mdc-card__primary-action, .mdc-fab, .mdc-ripple-surface, .mdc-list-item').forEach(function(element) {
   mdc.ripple.MDCRipple.attachTo(element);
 })
 
