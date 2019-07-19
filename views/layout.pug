@@ -24,12 +24,10 @@ html(lang="en")
           section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start
             button.mdc-top-app-bar__navigation-icon.mdc-icon-button.material-icons.mdc-top-app-bar__navigation-icon--unbounded menu
             a.mdc-button.mdc-button--unelevated.mdc-top-app-bar__title.nav-logo(href="/") Learn About Me
+            if (currentUser && currentUser.role === 'admin')
+              a.mdc-button.cs-button-white.hidden-mobile(href="/blog/manage/category") Management
 
           section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-end
-            if (currentUser)
-              a.mdc-button.cs-button-white.hidden-mobile(href="/blog/add") New Post
-              if (currentUser.role === 'admin')
-                a.mdc-button.cs-button-white.hidden-mobile(href="/blog/manage/category") Management
             button#btnSearch.mdc-button.mdc-button--unelevated Search
             
           
