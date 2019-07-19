@@ -151,14 +151,6 @@ if (document.querySelector('#post-detail-action')) {
   })
 }
 
-// Menu cá nhân
-if (document.querySelector('.cs-menu-ca-nhan')) {
-	var menuCaNhan = new MDCMenu(document.querySelector('.cs-menu-ca-nhan'));
-	document.querySelector('#btnMenuCaNhan').addEventListener('click', function() {
-	  menuCaNhan.open = !menuCaNhan.open;
-	})
-}
-
 var menuObj = {};
 if (document.querySelector('.cs-menu-post')) {
   document.querySelectorAll('.cs-menu-post').forEach(function(menuItem) {
@@ -171,3 +163,32 @@ function openMenu(event) {
   var id = event.target.getAttribute('data-click');
   menuObj[id].open = !menuObj[id].open;
 }
+
+// Drawwer
+var menuList = MDCList.attachTo(document.querySelector('#menu-list')); // Menu list trong drawer
+menuList.wrapFocus = true;
+var drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer')); // Nguyên cái drawer
+var topAppBar = MDCTopAppBar.attachTo(document.querySelector('#app-bar')); // Cái top nav
+
+// Khi click vô cái nút chỗ top nav
+topAppBar.listen('MDCTopAppBar:nav', function() {
+  drawer.open = !drawer.open;
+});
+
+// Khi mà location hiện tại trùng với href của thẻ a nào đó trong menulist thì
+// menulist active cái đó
+var currLocation = window.location.pathname;
+menuList.listElements.forEach(function(item) {
+  if (item.getAttribute('href') === currLocation) {
+    menuList.selectedIndex = menuList.listElements.indexOf(item);
+  }
+});
+
+// Khi drawer mở thì set overflow của body thành hidden
+// khỏi nhảy lung tung
+drawer.listen('MDCDrawer:opened', function() {
+  document.body.style.overflow = "hidden";
+});
+drawer.listen('MDCDrawer:closed', function() {
+  document.body.style.overflow = "initial";
+});
