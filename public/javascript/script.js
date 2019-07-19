@@ -167,13 +167,14 @@ function openMenu(event) {
 // list regex 
 var mustModal = [
   '/blog/add',
-  '/blog/manage.+'
+  '/blog/manage.+',
+  '/'
 ];
 
 function isNeedModal(arr, currLocation) {
   var isWrong = false;
   arr.forEach(function(item) {
-    if ((new RegExp(item)).test(currLocation)) {
+    if ((new RegExp('^' + item + '$')).test(currLocation)) {
       isWrong = true;
     }
   });
