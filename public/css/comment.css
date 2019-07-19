@@ -69,7 +69,7 @@
 }
 
 .comment-content {
-  background-color: rgba(111, 164, 167, 0.25);
+  background-color: rgba(111, 164, 167, 0.15);
   padding: 0.5rem;
   border-radius: 10px;
   display: inline-block;
