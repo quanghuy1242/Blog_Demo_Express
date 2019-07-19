@@ -22,9 +22,14 @@ block b1
           .mdc-menu-surface--anchor
             .mdc-menu.mdc-menu-surface.cs-menu-chuc-nang
               ul.mdc-list(role="menu")
+                a.mdc-list-item(role="menuitem", href="#")
+                  .mdc-list-item__graphic.material-icons bookmark_border
+                  span.mdc-list-item__text Save
                 a.mdc-list-item(role="menuitem", href="/blog/edit/" + blog._id)
+                  .mdc-list-item__graphic.material-icons edit
                   span.mdc-list-item__text Edit
                 a.mdc-list-item(role="menuitem", onClick="openAlert(event)", data-click='delete', data-post-id=blog._id)
+                  .mdc-list-item__graphic.material-icons delete
                   span.mdc-list-item__text Delete
     .cs-post-title-background(style=blog.imgUrl ? 'background-image: url(' + blog.imgUrl + ')' : 'background-color: var(--mdc-theme-primary, #398791)')
     .cs-post-title-overlay(style=!blog.imgUrl ? 'opacity: 0' : '')
