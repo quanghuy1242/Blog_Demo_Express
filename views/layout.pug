@@ -18,90 +18,93 @@ html(lang="en")
     script(src="/javascript/MDC.js")
 
   body
-    aside.mdc-drawer.mdc-drawer--modal(style="z-index: 2001;")
-      .mdc-drawer__header
-        if (currentUser)
-          h3.mdc-drawer__title= currentUser.name()
-          h6.mdc-drawer__subtitle Thông tin cá nhân
-        else 
-          h3.mdc-drawer__title Chưa đăng nhập
-          h6.mdc-drawer__subtitle Đăng nhập để tùy chỉnh thông tin
+    .drawer-frame-app-content
+      header#app-bar.mdc-top-app-bar.mdc-top-app-bar--fixed.mdc-elevation--z5.app-bar(style="z-index: 2000;")
+        .mdc-top-app-bar__row
+          section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start
+            button.mdc-top-app-bar__navigation-icon.mdc-icon-button.material-icons.mdc-top-app-bar__navigation-icon--unbounded menu
+            a.mdc-button.mdc-button--unelevated.mdc-top-app-bar__title.nav-logo(href="/") Learn About Me
 
-      .mdc-drawer__content
-        nav#menu-list.mdc-list
-          hr.mdc-list-divider
-
-          a.mdc-list-item.mdc-list-item--activated(href='/')
-            i.material-icons.mdc-list-item__graphic(aria-hidden='true') home
-            span.mdc-list-item__text Home
-          a.mdc-list-item(href='/users', aria-current='page')
-            i.material-icons.mdc-list-item__graphic(aria-hidden='true') face
-            span.mdc-list-item__text User List
-          a.mdc-list-item(href='/blog')
-            i.material-icons.mdc-list-item__graphic(aria-hidden='true') insert_drive_file
-            span.mdc-list-item__text All Post
-          a.mdc-list-item(href='#')
-            i.material-icons.mdc-list-item__graphic(aria-hidden='true') chat
-            span.mdc-list-item__text Chat Room
-
-          hr.mdc-list-divider
-
-          h6.mdc-list-group__subheader Cá nhân
-          if (currentUser)
-            a.mdc-list-item(href='/blog/yourpost')
-              i.material-icons.mdc-list-item__graphic(aria-hidden='true') insert_drive_file
-              span.mdc-list-item__text Your Post
-            a.mdc-list-item(href='/blog/privatepost')
-              i.material-icons.mdc-list-item__graphic(aria-hidden='true') lock
-              span.mdc-list-item__text Unpublish
-            a.mdc-list-item(href='/users/' + currentUser.username)
-              i.material-icons.mdc-list-item__graphic(aria-hidden='true') person
-              span.mdc-list-item__text Profile
-            a.mdc-list-item(href='/logout')
-              i.material-icons.mdc-list-item__graphic(aria-hidden='true') subdirectory_arrow_left
-              span.mdc-list-item__text Logout
-          else 
-            a.mdc-list-item(href='/signin')
-              i.material-icons.mdc-list-item__graphic(aria-hidden='true') subdirectory_arrow_right
-              span.mdc-list-item__text Sign in
-            a.mdc-list-item(href='/signup')
-              i.material-icons.mdc-list-item__graphic(aria-hidden='true') person_add
-              span.mdc-list-item__text Sign up
-    .mdc-drawer-scrim(style="z-index: 2000;")
-
-    header#app-bar.mdc-top-app-bar.mdc-top-app-bar--fixed.mdc-elevation--z5.app-bar(style="z-index: 2000;")
-      .mdc-top-app-bar__row
-        section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start
-          button.mdc-top-app-bar__navigation-icon.mdc-icon-button.material-icons.mdc-top-app-bar__navigation-icon--unbounded menu
-          a.mdc-button.mdc-button--unelevated.mdc-top-app-bar__title.nav-logo(href="/") Learn About Me
-
-        section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-end
-          if (currentUser)
-            a.mdc-button.cs-button-white.hidden-mobile(href="/blog/add") New Post
-            if (currentUser.role === 'admin')
-              a.mdc-button.cs-button-white.hidden-mobile(href="/blog/manage/category") Management
-          button#btnSearch.mdc-button.mdc-button--unelevated Search
+          section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-end
+            if (currentUser)
+              a.mdc-button.cs-button-white.hidden-mobile(href="/blog/add") New Post
+              if (currentUser.role === 'admin')
+                a.mdc-button.cs-button-white.hidden-mobile(href="/blog/manage/category") Management
+            button#btnSearch.mdc-button.mdc-button--unelevated Search
+            
           
-        
-    .mdc-drawer-app-content.mdc-top-app-bar--fixed-adjust
-      each error in errors
-        .mdc-snackbar
-          .mdc-snackbar__surface
-            .mdc-snackbar__label(role="status")= error
-            .mdc-snackbar__actions
-              button.mdc-button.mdc-snackbar__action Close
+      .mdc-top-app-bar--fixed-adjust
+        .drawer-frame-root
+          aside.mdc-drawer(style="z-index: 2001;")
+            .mdc-drawer__header
+              if (currentUser)
+                h3.mdc-drawer__title= currentUser.name()
+                h6.mdc-drawer__subtitle Thông tin cá nhân
+              else 
+                h3.mdc-drawer__title Chưa đăng nhập
+                h6.mdc-drawer__subtitle Đăng nhập để tùy chỉnh thông tin
 
-      each info in infos
-        .mdc-snackbar
-          .mdc-snackbar__surface
-            .mdc-snackbar__label(role="status")= info
-            .mdc-snackbar__actions
-              button.mdc-button.mdc-snackbar__action Close
+            .mdc-drawer__content
+              nav#menu-list.mdc-list
+                hr.mdc-list-divider
 
-      #main-content.user-wrapper
-        block b1
+                a.mdc-list-item.mdc-list-item--activated(href='/')
+                  i.material-icons.mdc-list-item__graphic(aria-hidden='true') home
+                  span.mdc-list-item__text Home
+                a.mdc-list-item(href='/users', aria-current='page')
+                  i.material-icons.mdc-list-item__graphic(aria-hidden='true') face
+                  span.mdc-list-item__text User List
+                a.mdc-list-item(href='/blog')
+                  i.material-icons.mdc-list-item__graphic(aria-hidden='true') insert_drive_file
+                  span.mdc-list-item__text All Post
+                a.mdc-list-item(href='#')
+                  i.material-icons.mdc-list-item__graphic(aria-hidden='true') chat
+                  span.mdc-list-item__text Chat Room
 
-    footer.main-footer.mdc-typography--button Quang Huy
+                hr.mdc-list-divider
+
+                h6.mdc-list-group__subheader Cá nhân
+                if (currentUser)
+                  a.mdc-list-item(href='/blog/yourpost')
+                    i.material-icons.mdc-list-item__graphic(aria-hidden='true') insert_drive_file
+                    span.mdc-list-item__text Your Post
+                  a.mdc-list-item(href='/blog/privatepost')
+                    i.material-icons.mdc-list-item__graphic(aria-hidden='true') lock
+                    span.mdc-list-item__text Unpublish
+                  a.mdc-list-item(href='/users/' + currentUser.username)
+                    i.material-icons.mdc-list-item__graphic(aria-hidden='true') person
+                    span.mdc-list-item__text Profile
+                  a.mdc-list-item(href='/logout')
+                    i.material-icons.mdc-list-item__graphic(aria-hidden='true') subdirectory_arrow_left
+                    span.mdc-list-item__text Logout
+                else 
+                  a.mdc-list-item(href='/signin')
+                    i.material-icons.mdc-list-item__graphic(aria-hidden='true') subdirectory_arrow_right
+                    span.mdc-list-item__text Sign in
+                  a.mdc-list-item(href='/signup')
+                    i.material-icons.mdc-list-item__graphic(aria-hidden='true') person_add
+                    span.mdc-list-item__text Sign up
+          .mdc-drawer-scrim(style="z-index: 2000;")
+
+          .main-content
+            each error in errors
+              .mdc-snackbar
+                .mdc-snackbar__surface
+                  .mdc-snackbar__label(role="status")= error
+                  .mdc-snackbar__actions
+                    button.mdc-button.mdc-snackbar__action Close
+
+            each info in infos
+              .mdc-snackbar
+                .mdc-snackbar__surface
+                  .mdc-snackbar__label(role="status")= info
+                  .mdc-snackbar__actions
+                    button.mdc-button.mdc-snackbar__action Close
+
+            #main-content.user-wrapper
+              block b1
+
+    //- footer.main-footer.mdc-typography--button Quang Huy
 
     include mixins/searchDialog.pug
 

@@ -164,31 +164,44 @@ function openMenu(event) {
   menuObj[id].open = !menuObj[id].open;
 }
 
-// Drawwer
-var menuList = MDCList.attachTo(document.querySelector('#menu-list')); // Menu list trong drawer
-menuList.wrapFocus = true;
-var drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer')); // Nguyên cái drawer
-var topAppBar = MDCTopAppBar.attachTo(document.querySelector('#app-bar')); // Cái top nav
+function initDrawer() {
+  var isMobile = window.matchMedia("(max-width: 599px)").matches;
+  var drawerHTML = document.querySelector('.mdc-drawer');
+  var menuList = MDCList.attachTo(document.querySelector('#menu-list')); // Menu list trong drawer
+  menuList.wrapFocus = true;
 
-// Khi click vô cái nút chỗ top nav
-topAppBar.listen('MDCTopAppBar:nav', function() {
-  drawer.open = !drawer.open;
-});
+  // Khi mà location hiện tại trùng với href của thẻ a nào đó trong menulist thì
+  // menulist active cái đó
+  var currLocation = window.location.pathname;
+  menuList.listElements.forEach(function(item) {
+    if (item.getAttribute('href') === currLocation) {
+      menuList.selectedIndex = menuList.listElements.indexOf(item);
+    }
+  });
 
-// Khi mà location hiện tại trùng với href của thẻ a nào đó trong menulist thì
-// menulist active cái đó
-var currLocation = window.location.pathname;
-menuList.listElements.forEach(function(item) {
-  if (item.getAttribute('href') === currLocation) {
-    menuList.selectedIndex = menuList.listElements.indexOf(item);
+  if (isMobile) {
+    drawerHTML.classList.add('mdc-drawer--modal'); // Add class này để nó thành model trước
+    drawerHTML.style.top = '0';
+
+    var drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer')); // Nguyên cái drawer
+    var topAppBar = MDCTopAppBar.attachTo(document.querySelector('#app-bar')); // Cái top nav
+
+    // Khi click vô cái nút chỗ top nav
+    topAppBar.listen('MDCTopAppBar:nav', function() {
+      drawer.open = !drawer.open;
+    });
+
+    // Khi drawer mở thì set overflow của body thành hidden
+    // khỏi nhảy lung tung
+    drawer.listen('MDCDrawer:opened', function() {
+      document.body.style.overflow = "hidden";
+    });
+    drawer.listen('MDCDrawer:closed', function() {
+      document.body.style.overflow = "initial";
+    });
+  } else {
+    drawerHTML.classList.remove('mdc-drawer--modal');
+    drawerHTML.style.zIndex = '1999';
   }
-});
-
-// Khi drawer mở thì set overflow của body thành hidden
-// khỏi nhảy lung tung
-drawer.listen('MDCDrawer:opened', function() {
-  document.body.style.overflow = "hidden";
-});
-drawer.listen('MDCDrawer:closed', function() {
-  document.body.style.overflow = "initial";
-});
+}
+initDrawer();

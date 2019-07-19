@@ -64,7 +64,7 @@ footer.main-footer {
 }
 
 .container {
-  margin: 0 6rem;
+  margin: 0 3rem;
 }
 
 .mdc-chip-set {
@@ -800,5 +800,20 @@ footer.main-footer {
 /* Drawer style */
 .mdc-drawer .mdc-list-item--activated, .mdc-drawer .mdc-list-item--activated .mdc-list-item__graphic {
   color: var(--mdc-theme-primary, #398791);
+}
+
+.drawer-frame-root {
+  display: flex;
+  height: calc(100vh - 64px);
+}
+
+.drawer-frame-app-content {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  overflow: auto;
+  width: 100%;
 }
 /* End */
