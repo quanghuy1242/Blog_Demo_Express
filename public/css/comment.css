@@ -29,6 +29,7 @@
 
 #textarea {
   height: 80px;
+  resize: none;
 }
 
 .user-img {
