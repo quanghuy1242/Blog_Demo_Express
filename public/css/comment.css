@@ -62,3 +62,14 @@
 .comment-list-wrapper .comment-list .comment-item .comment-date {
   color: gray;
 }
+
+.comment-by {
+  font-weight: 600;
+}
+
+.comment-content {
+  background-color: rgba(111, 164, 167, 0.25);
+  padding: 0.5rem;
+  border-radius: 10px;
+  display: inline-block;
+}
