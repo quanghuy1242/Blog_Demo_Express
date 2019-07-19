@@ -78,7 +78,7 @@ footer.main-footer {
   }
 
   .mdc-top-app-bar__row {
-    flex-direction: column;
+    /* flex-direction: column; */
     min-height: 56px;
     height: auto;
   }
@@ -101,7 +101,7 @@ footer.main-footer {
   }
 
   .user-wrapper {
-    margin-top: 3rem;
+    /* margin-top: 3rem; */
     min-height: calc(100vh - 64px - 50px - 2.5rem);
   }
 
@@ -794,5 +794,11 @@ footer.main-footer {
 
 .cs-category-preview .cs-subtitle {
   letter-spacing: 5px;
+}
+/* End */
+
+/* Drawer style */
+.mdc-drawer .mdc-list-item--activated, .mdc-drawer .mdc-list-item--activated .mdc-list-item__graphic {
+  color: var(--mdc-theme-primary, #398791);
 }
 /* End */
