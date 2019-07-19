@@ -200,6 +200,7 @@ function initDrawer() {
   if (isMobile || isModal) {
     drawerHTML.classList.add('mdc-drawer--modal'); // Add class này để nó thành model trước
     drawerHTML.style.top = '0';
+    drawerHTML.style.zIndex = '6';
 
     var drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer')); // Nguyên cái drawer
     var topAppBar = MDCTopAppBar.attachTo(document.querySelector('#app-bar')); // Cái top nav
@@ -219,16 +220,17 @@ function initDrawer() {
     });
   } else {
     drawerHTML.classList.remove('mdc-drawer--modal');
-    drawerHTML.style.zIndex = '1999';
   }
 }
 initDrawer();
 
 // New post button
 var btnNewButton = document.querySelector('.cs-new-post-drawer');
-btnNewButton.addEventListener('mouseover', function() {
-  btnNewButton.classList.replace('mdc-elevation--z2', 'mdc-elevation--z4');
-});
-btnNewButton.addEventListener('mouseout', function() {
-  btnNewButton.classList.replace('mdc-elevation--z4', 'mdc-elevation--z2')
-});
+if (btnNewButton) {
+  btnNewButton.addEventListener('mouseover', function() {
+    btnNewButton.classList.replace('mdc-elevation--z2', 'mdc-elevation--z4');
+  });
+  btnNewButton.addEventListener('mouseout', function() {
+    btnNewButton.classList.replace('mdc-elevation--z4', 'mdc-elevation--z2')
+  });
+}

@@ -19,7 +19,7 @@ html(lang="en")
 
   body
     .drawer-frame-app-content
-      header#app-bar.mdc-top-app-bar.mdc-top-app-bar--fixed.mdc-elevation--z5.app-bar(style="z-index: 2000;")
+      header#app-bar.mdc-top-app-bar.mdc-top-app-bar--fixed.mdc-elevation--z5.app-bar
         .mdc-top-app-bar__row
           section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start
             button.mdc-top-app-bar__navigation-icon.mdc-icon-button.material-icons.mdc-top-app-bar__navigation-icon--unbounded menu
@@ -33,7 +33,7 @@ html(lang="en")
           
       .mdc-top-app-bar--fixed-adjust
         .drawer-frame-root
-          aside.mdc-drawer(style="z-index: 2001;")
+          aside.mdc-drawer(style="z-index: 3;")
             .mdc-drawer__header
               if (currentUser)
                 h3.mdc-drawer__title= currentUser.name()
@@ -87,7 +87,7 @@ html(lang="en")
                   a.mdc-list-item(href='/signup')
                     i.material-icons.mdc-list-item__graphic(aria-hidden='true') person_add
                     span.mdc-list-item__text Sign up
-          .mdc-drawer-scrim(style="z-index: 2000;")
+          .mdc-drawer-scrim
 
           .main-content
             each error in errors
