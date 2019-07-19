@@ -168,7 +168,9 @@ function openMenu(event) {
 var mustModal = [
   '/blog/add',
   '/blog/manage.+',
-  '/'
+  '/',
+  '/signin',
+  '/signup'
 ];
 
 function isNeedModal(arr, currLocation) {
