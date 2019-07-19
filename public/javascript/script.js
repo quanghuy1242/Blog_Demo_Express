@@ -164,6 +164,22 @@ function openMenu(event) {
   menuObj[id].open = !menuObj[id].open;
 }
 
+// list regex 
+var mustModal = [
+  '/blog/add',
+  '/blog/manage.+'
+];
+
+function isNeedModal(arr, currLocation) {
+  var isWrong = false;
+  arr.forEach(function(item) {
+    if ((new RegExp(item)).test(currLocation)) {
+      isWrong = true;
+    }
+  });
+  return isWrong;
+}
+
 function initDrawer() {
   var isMobile = window.matchMedia("(max-width: 599px)").matches;
   var drawerHTML = document.querySelector('.mdc-drawer');
@@ -173,13 +189,14 @@ function initDrawer() {
   // Khi mà location hiện tại trùng với href của thẻ a nào đó trong menulist thì
   // menulist active cái đó
   var currLocation = window.location.pathname;
+  var isModal = isNeedModal(mustModal, currLocation);
   menuList.listElements.forEach(function(item) {
     if (item.getAttribute('href') === currLocation) {
       menuList.selectedIndex = menuList.listElements.indexOf(item);
     }
   });
 
-  if (isMobile) {
+  if (isMobile || isModal) {
     drawerHTML.classList.add('mdc-drawer--modal'); // Add class này để nó thành model trước
     drawerHTML.style.top = '0';
 
