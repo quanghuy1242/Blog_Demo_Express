@@ -48,6 +48,11 @@ html(lang="en")
               nav#menu-list.mdc-list
                 hr.mdc-list-divider
 
+                if (currentUser)
+                  a.mdc-list-item.cs-new-post-drawer.mdc-elevation--z2(href='/blog/add')
+                    i.material-icons.mdc-list-item__graphic(aria-hidden='true') add
+                    span.mdc-list-item__text.mdc-typography--button New Post
+
                 a.mdc-list-item.mdc-list-item--activated(href='/')
                   i.material-icons.mdc-list-item__graphic(aria-hidden='true') home
                   span.mdc-list-item__text Home

@@ -816,4 +816,9 @@ footer.main-footer {
   overflow: auto;
   width: 100%;
 }
+
+.cs-new-post-drawer {
+  border-radius: 50px !important;
+  transition: 0.2s;
+}
 /* End */

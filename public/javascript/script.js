@@ -205,3 +205,12 @@ function initDrawer() {
   }
 }
 initDrawer();
+
+// New post button
+var btnNewButton = document.querySelector('.cs-new-post-drawer');
+btnNewButton.addEventListener('mouseover', function() {
+  btnNewButton.classList.replace('mdc-elevation--z2', 'mdc-elevation--z4');
+});
+btnNewButton.addEventListener('mouseout', function() {
+  btnNewButton.classList.replace('mdc-elevation--z4', 'mdc-elevation--z2')
+});
