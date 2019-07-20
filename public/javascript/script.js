@@ -170,7 +170,8 @@ var mustModal = [
   '/blog/manage.+',
   '/',
   '/signin',
-  '/signup'
+  '/signup',
+  '/blog/edit.+'
 ];
 
 function isNeedModal(arr, currLocation) {
