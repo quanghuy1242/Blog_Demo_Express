@@ -223,6 +223,8 @@ function initDrawer() {
   } else {
     drawerHTML.classList.remove('mdc-drawer--modal');
   }
+
+  drawerHTML.style.visibility = 'visible'; // xong thì hiện cái này lên
 }
 initDrawer();
 
