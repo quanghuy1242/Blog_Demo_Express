@@ -1,3 +1,11 @@
+// Trước khi tạo MDC List phải chọn cái uncategorize
+document.querySelectorAll('#cs-select-category li.mdc-list-item').forEach(function(category) {
+  if (category.innerText === 'Uncategorized') {
+    category.classList.add('mdc-list-item--selected');
+    return;
+  }
+})
+
 var categorySelect = new MDCSelect(document.querySelector('.mdc-select.cs-category-selecte'));
 var txtUrlImg = document.querySelector('input[name="imgUrl"]');
 var tagsInput = document.querySelector('input[name="tags-input"]');
@@ -97,3 +105,7 @@ function addNewTag(value) {
 window.onbeforeunload = function() {
   return exit ? 'Bạn có muốn rời khỏi trang này không?' : null;
 }
+
+// Chiều rộng của menu bằng chiều rộng của thằng select input
+document.querySelector('#cs-select-category').style.width = 
+  document.querySelector('#cs-select-category-input').scrollWidth + 'px';
