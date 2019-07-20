@@ -38,6 +38,7 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/signin', function(req, res, next) {
+  if (req.user) { return res.redirect('/'); }
   res.render('signin', {
     title: "Sign in"
   })
@@ -65,6 +66,7 @@ router.get('/logout', function(req, res) {
 });
 
 router.get('/signup', function(req, res) {
+  if (req.user) { return res.redirect('/'); }
   res.render('signup', {
     title: "Sign up"
   });
