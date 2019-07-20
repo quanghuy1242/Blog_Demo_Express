@@ -16,21 +16,23 @@ block b1
           each tag in blog.tag
             .mdc-chip
               .mdc-chip__text= tag
-      if (currentUser && currentUser._id.toString() === blog.user._id.toString())
-        .menu-wrapper
-          button.mdc-icon-button.mdc-button--unelevated.material-icons.post-detail-action#post-detail-action(style="background: transparent;") more_vert
-          .mdc-menu-surface--anchor
-            .mdc-menu.mdc-menu-surface.cs-menu-chuc-nang
-              ul.mdc-list(role="menu")
-                a.mdc-list-item(role="menuitem", href="#")
-                  .mdc-list-item__graphic.material-icons bookmark_border
-                  span.mdc-list-item__text Save
-                a.mdc-list-item(role="menuitem", href="/blog/edit/" + blog._id)
-                  .mdc-list-item__graphic.material-icons edit
-                  span.mdc-list-item__text Edit
-                a.mdc-list-item(role="menuitem", onClick="openAlert(event)", data-click='delete', data-post-id=blog._id)
-                  .mdc-list-item__graphic.material-icons delete
-                  span.mdc-list-item__text Delete
+      .action-wrapper
+        button#btn-list-post.mdc-icon-button.mdc-button--unelevated.material-icons.post-detail-action(style="background: transparent; align-self: center;") vertical_split
+        if (currentUser && currentUser._id.toString() === blog.user._id.toString())
+          .menu-wrapper
+            button.mdc-icon-button.mdc-button--unelevated.material-icons.post-detail-action#post-detail-action(style="background: transparent;") more_vert
+            .mdc-menu-surface--anchor
+              .mdc-menu.mdc-menu-surface.cs-menu-chuc-nang
+                ul.mdc-list(role="menu")
+                  a.mdc-list-item(role="menuitem", href="#")
+                    .mdc-list-item__graphic.material-icons bookmark_border
+                    span.mdc-list-item__text Save
+                  a.mdc-list-item(role="menuitem", href="/blog/edit/" + blog._id)
+                    .mdc-list-item__graphic.material-icons edit
+                    span.mdc-list-item__text Edit
+                  a.mdc-list-item(role="menuitem", onClick="openAlert(event)", data-click='delete', data-post-id=blog._id)
+                    .mdc-list-item__graphic.material-icons delete
+                    span.mdc-list-item__text Delete
     .cs-post-title-background(style=blog.imgUrl ? 'background-image: url(' + blog.imgUrl + ')' : 'background-color: var(--mdc-theme-primary, #398791)')
     .cs-post-title-overlay(style=!blog.imgUrl ? 'opacity: 0' : '')
 
@@ -50,5 +52,15 @@ block b1
             form(action="", method="post", id="dialog-form")
               button.mdc-button.mdc-dialog__button(type="submit", data-mdc-dialog-action="accept") OK
       .mdc-dialog__scrim
+
+  #dialog-list-post.mdc-dialog.mdc-dialog--scrollable(role='alertdialog')
+    .mdc-dialog__scrim
+    .mdc-dialog__container
+      .mdc-dialog__surface(style="width: 500px; height: 100vh")
+        h2.mdc-dialog__title(style="border-color: rgba(0,0,0,.12);") Collection
+        section.mdc-dialog__content(style="padding-top: 0.5rem; padding-bottom: 0.5rem;")
+          p Nội dung nằm đây
+        footer.mdc-dialog__actions(style="border-color: rgba(0,0,0,.12);")
+          button.mdc-button.mdc-dialog__button(type='button', data-mdc-dialog-action='close') Close
 
   script(src="/javascript/postDetail/postDetail.js")
