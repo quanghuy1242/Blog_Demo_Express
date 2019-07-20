@@ -34,7 +34,7 @@ html(lang="en")
       .mdc-top-app-bar--fixed-adjust
         .drawer-frame-root
           aside.mdc-drawer(style="z-index: 3; visibility: hidden")
-            .mdc-drawer__header
+            .mdc-drawer__header(style="border-bottom: 1px solid rgba(0,0,0,.12); padding-bottom: 0.5rem")
               if (currentUser)
                 h3.mdc-drawer__title= currentUser.name()
                 h6.mdc-drawer__subtitle Thông tin cá nhân
@@ -44,7 +44,6 @@ html(lang="en")
 
             .mdc-drawer__content
               nav#menu-list.mdc-list
-                hr.mdc-list-divider
 
                 if (currentUser)
                   a.mdc-list-item.cs-new-post-drawer.mdc-elevation--z2(href='/blog/add')
