@@ -212,20 +212,12 @@ function initDrawer() {
     topAppBar.listen('MDCTopAppBar:nav', function() {
       drawer.open = !drawer.open;
     });
-
-    // Khi drawer mở thì set overflow của body thành hidden
-    // khỏi nhảy lung tung
-    drawer.listen('MDCDrawer:opened', function() {
-      document.body.style.overflow = "hidden";
-    });
-    drawer.listen('MDCDrawer:closed', function() {
-      document.body.style.overflow = "initial";
-    });
   } else {
     drawerHTML.classList.remove('mdc-drawer--modal');
   }
 
   drawerHTML.style.visibility = 'visible'; // xong thì hiện cái này lên
+  document.querySelector('.main-content').style.visibility = 'visible';
 }
 initDrawer();
 
