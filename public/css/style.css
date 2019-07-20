@@ -10,13 +10,12 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(57, 136, 146, 0.562);
-  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.295);
 }
 
 /* Old MS browser fix */
