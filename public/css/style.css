@@ -500,7 +500,7 @@ footer.main-footer {
 
 .cs-post-create-wrapper .cs-image-preview-text-wrapper {
   position: absolute;
-  z-index: 49;
+  z-index: 4;
 }
 
 .cs-post-create-wrapper .cs-image-preview {
@@ -509,7 +509,7 @@ footer.main-footer {
   height: 100%;
   background-size: 120%;
   background-position: 20%;
-  z-index: 50;
+  z-index: 5;
 }
 /* End Post create */
 
