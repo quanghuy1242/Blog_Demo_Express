@@ -64,3 +64,9 @@ block b1
           button.mdc-button.mdc-dialog__button(type='button', data-mdc-dialog-action='close') Close
 
   script(src="/javascript/postDetail/postDetail.js")
+  script.
+    var dataFromServer = '!{blog._id}';
+    // đoạn này sẽ được chạy ở server !{JSON.stringify(blog._id)}
+    // hoac = JSON.parse('!{JSON.stringify(blog._id)}');
+    // dấu chấm chỗ script. để pug khỏi cảnh báo
+    console.log(dataFromServer);
