@@ -9,14 +9,14 @@ body {
   margin: 0;
 }
 
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.295);
-}
+}*/
 
 /* Old MS browser fix */
 /* Nút unelevated khi click còn màu cũ */
@@ -80,14 +80,6 @@ footer.main-footer {
 
 /* Mobile css */
 @media only screen and (max-width: 599px) {
-	::-webkit-scrollbar {
-	  width: unset;
-	  height: unset;
-	}
-
-	::-webkit-scrollbar-thumb {
-	  background-color: unset;
-	}
   .container {
     margin: 0 1rem;
   }
