@@ -753,6 +753,14 @@ footer.main-footer {
   width: 30%;
 }
 
+/* Problem with menu when click outside */
+@supports (-webkit-overflow-scrolling: touch) {
+  body {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
 @media only screen and (max-width: 599px) {
   .cs-blog-wrapper {
     flex-direction: column-reverse;
