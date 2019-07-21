@@ -70,8 +70,24 @@ footer.main-footer {
   overflow: auto;
 }
 
+.app-bar {
+	-webkit-transform: translateZ(0);
+	will-change: transform;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translate3d(0, 0, 0);
+	-webkit-perspective: 1000;
+}
+
 /* Mobile css */
 @media only screen and (max-width: 599px) {
+	::-webkit-scrollbar {
+	  width: unset;
+	  height: unset;
+	}
+
+	::-webkit-scrollbar-thumb {
+	  background-color: unset;
+	}
   .container {
     margin: 0 1rem;
   }
@@ -746,6 +762,7 @@ footer.main-footer {
     /* flex-direction: row; */
     display: inline-flex;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     /* min-width: calc(300px * 3); */
   }
 
@@ -770,6 +787,7 @@ footer.main-footer {
 
   .cs-category-wrapper-2 {
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .cs-blog-wrapper .category-item-wrapper {
@@ -825,6 +843,7 @@ footer.main-footer {
 .main-content {
   overflow: auto;
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .cs-new-post-drawer {
