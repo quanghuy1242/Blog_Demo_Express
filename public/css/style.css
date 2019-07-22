@@ -70,13 +70,13 @@ footer.main-footer {
   overflow: auto;
 }
 
-.app-bar {
+/* .app-bar {
 	-webkit-transform: translateZ(0);
 	will-change: transform;
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translate3d(0, 0, 0);
 	-webkit-perspective: 1000;
-}
+} */
 
 /* Mobile css */
 @media only screen and (max-width: 599px) {
