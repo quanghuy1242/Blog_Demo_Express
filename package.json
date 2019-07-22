@@ -4,8 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "prestart": "babel public/javascript/src -d public/javascript/dist -s",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "build": "babel public/javascript/src -w -d public/javascript/dist -s"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +34,9 @@
     "remove-markdown": "^0.3.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "eslint": "^5.16.0",
     "nodemon": "^1.19.1"
   },
