@@ -1,23 +1,23 @@
 // Trước khi tạo MDC List phải chọn cái uncategorize
-document.querySelectorAll('#cs-select-category li.mdc-list-item').forEach(function(category) {
+document.querySelectorAll('#cs-select-category li.mdc-list-item').forEach(category => {
   if (category.innerText === 'Uncategorized') {
     category.classList.add('mdc-list-item--selected');
     return;
   }
 })
 
-var categorySelect = new MDCSelect(document.querySelector('.mdc-select.cs-category-selecte'));
-var txtUrlImg = document.querySelector('input[name="imgUrl"]');
-var tagsInput = document.querySelector('input[name="tags-input"]');
-var tags = document.querySelector('input[name="tags"]');
-var imgPreview = document.querySelector('.cs-image-preview');
-var chipSetEl = document.querySelector('.mdc-chip-set');
-var chipSet = new MDCChipSet(chipSetEl);
-var switchPublic = new MDCSwitch(document.querySelector('.mdc-switch'));
-var isPublicGetted = document.querySelector('input[name="isPublicGetted"]');
-var exit = true;
+const categorySelect = new MDCSelect(document.querySelector('.mdc-select.cs-category-selecte'));
+const txtUrlImg = document.querySelector('input[name="imgUrl"]');
+const tagsInput = document.querySelector('input[name="tags-input"]');
+const tags = document.querySelector('input[name="tags"]');
+const imgPreview = document.querySelector('.cs-image-preview');
+const chipSetEl = document.querySelector('.mdc-chip-set');
+const chipSet = new MDCChipSet(chipSetEl);
+const switchPublic = new MDCSwitch(document.querySelector('.mdc-switch'));
+const isPublicGetted = document.querySelector('input[name="isPublicGetted"]');
+let exit = true;
 
-document.querySelector('form').addEventListener('submit', function(e) {
+document.querySelector('form').addEventListener('submit', e => {
   if (categorySelect.value === "") {
     alert('Vui lòng chọn danh mục');
     e.preventDefault();
@@ -25,26 +25,24 @@ document.querySelector('form').addEventListener('submit', function(e) {
 
   // Thêm tagid vào thẻ input tags
   var tagsListGl = [];
-  chipSet.chips.forEach(function(chip) {
-    tagsListGl.push(chip.id);
-  });
+  chipSet.chips.forEach(chip => tagsListGl.push(chip.id));
   tags.value = tagsListGl.join(';');
   // Thoát mà không cảnh báo
   exit = false;
 });
 
-document.querySelector('form').addEventListener('keypress', function(e) {
+document.querySelector('form').addEventListener('keypress', e => {
   if (e.key === 'Enter' || e.keyCode === 13) {
     if (e.target.nodeName === 'TEXTAREA') { return; }
     e.preventDefault();
   }
 })
 
-txtUrlImg.addEventListener('keyup', function(e) {
+txtUrlImg.addEventListener('keyup', e => {
   imgPreview.style.backgroundImage = "url(" + e.target.value + ")";
 });
 
-tagsInput.addEventListener('keyup', function(event) {
+tagsInput.addEventListener('keyup', event => {
   if (event.key === 'Enter' || event.keyCode === 13) {
     if (chipSet.chips.length === 5) {
       alert('Bạn chỉ có thể nhập tối đa 5 thẻ vào bài viết!');
@@ -54,11 +52,9 @@ tagsInput.addEventListener('keyup', function(event) {
       alert('Không chứa kí tự đặc biệt, kí tự dấu, viết liền');
       return;
     }
-    var userValue = event.target.value.toLowerCase();
+    const userValue = event.target.value.toLowerCase();
 
-    var check = chipSet.chips.find(function(chip) {
-      return chip.id === userValue;
-    });
+    const check = chipSet.chips.find(chip => chip.id === userValue);
     if (check) {
       alert('Tag này đã tồn tại!');
       return;
@@ -70,7 +66,7 @@ tagsInput.addEventListener('keyup', function(event) {
 });
 
 if (tags.value) {
-  var tagsList = tags.value.split(';');
+  const tagsList = tags.value.split(';');
   tagsList.forEach(tagId => {
     addNewTag(tagId);
   });

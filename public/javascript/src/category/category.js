@@ -1,32 +1,30 @@
 //#region Khai báo
-var btnAdd = document.querySelector('#btnAdd');
-var btnUpdate = document.querySelector('#btnUpdate');
-var btnDelete = document.querySelector('#btnDelete');
-var btnRefresh = document.querySelector('#btnRefresh');
+const btnAdd = document.querySelector('#btnAdd');
+const btnUpdate = document.querySelector('#btnUpdate');
+const btnDelete = document.querySelector('#btnDelete');
+const btnRefresh = document.querySelector('#btnRefresh');
 
-var isAdd = false;
-var listCategoriesHTML = document.querySelector('#list-category');
+let isAdd = false;
+const listCategoriesHTML = document.querySelector('#list-category');
 
 var hostName = window.location.protocol + '//' + window.location.host
 
-var txtNameId = new MDCTextField(document.querySelector('#txtNameID.mdc-text-field'));
-var txtName = new MDCTextField(document.querySelector('#txtName.mdc-text-field'));
-var txtUrlImage = new MDCTextField(document.querySelector('#txtUrlImage.mdc-text-field'));
-var txtDescription = new MDCTextField(document.querySelector('#txtDesription.mdc-text-field'));
+const txtNameId = new MDCTextField(document.querySelector('#txtNameID.mdc-text-field'));
+const txtName = new MDCTextField(document.querySelector('#txtName.mdc-text-field'));
+const txtUrlImage = new MDCTextField(document.querySelector('#txtUrlImage.mdc-text-field'));
+const txtDescription = new MDCTextField(document.querySelector('#txtDesription.mdc-text-field'));
 
 // Item đang được click, find() trả về phần tử đầu tiên tìm thấy
 var selectedItem = null;
 
 // List 
 var listCategories = new MDCList(listCategoriesHTML);
-listCategories.listElements.map(function(element) {
-  new MDCRipple(element);
-});
+listCategories.listElements.map(element => new MDCRipple(element));
 //#endregion
 
 //#region Đăng kí xự kiện
 // Nút thêm mới một danh mục
-btnAdd.addEventListener('click', function() {
+btnAdd.addEventListener('click', () => {
   btnUpdate.innerText = "Thêm";
   btnDelete.style.display = "none";
   clear();
@@ -34,7 +32,7 @@ btnAdd.addEventListener('click', function() {
 });
 
 // Nút cập nhật/thêm một danh mục
-btnUpdate.addEventListener('click', function() {
+btnUpdate.addEventListener('click', () => {
   if (isAdd) { // Add new category
     if (!txtNameId.value || !txtName.value || !txtUrlImage.value || !txtDescription.value) {
       alert('Bạn không thể bỏ trống trường nào!');
@@ -46,7 +44,7 @@ btnUpdate.addEventListener('click', function() {
       name: txtName.value,
       urlImage: txtUrlImage.value,
       description: txtDescription.value
-    }).then(function(res) {
+    }).then(res => {
       // Trả lại nút cập nhật
       btnDelete.style.display = "initial";
       btnUpdate.innerText = "Cập nhật";
@@ -56,7 +54,7 @@ btnUpdate.addEventListener('click', function() {
       // click vô li vừa được thêm
       listCategoriesHTML.childNodes[listCategoriesHTML.childElementCount - 1].click();
       alert('Thành công');
-    }).catch(function(err) {
+    }).catch(err => {
       alert('Đã xảy ra một lỗi');
       console.log(err);
     }) 
@@ -71,7 +69,7 @@ btnUpdate.addEventListener('click', function() {
       li => Array.from(li.classList).includes('mdc-list-item--selected')
     );
     // Cái nào đang được click?
-    var nameId = selectedItem.getAttribute('data-nameId');
+    const nameId = selectedItem.getAttribute('data-nameId');
     // put lên
     axios.put(hostName + '/api/category/' + nameId, {
       name: txtName.value,
