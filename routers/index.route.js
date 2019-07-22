@@ -135,10 +135,14 @@ router.get('/change-password', authenticate.ensureAuthenticated, (req, res, next
 })
 
 router.post('/change-password', authenticate.ensureAuthenticated, (req, res, next) => {
+  if (req.body.retypePassword !== req.body.newPassword) {
+    req.flash("error", "Mật khẩu không khớp!");
+    return res.redirect('/change-password');
+  }
   req.user.checkPassword(req.body.oldPassword, (err, isMatch) => {
     if (err) return next(err);
     if (!isMatch) {
-      req.flash("error", "Mật khẩu không khớp!");
+      req.flash("error", "Sai mật khẩu!");
       return res.redirect('/change-password');
     } else {
       req.user.password = req.body.newPassword;
