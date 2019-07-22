@@ -49,52 +49,51 @@ if (document.querySelector('.markdown-body')) {
 	twemoji.parse(document.querySelector('.markdown-body'));
 }
 
+
 // Load markdown
 if (window.markdownitEmoji) {
-  let md = window.markdownit().use(window.markdownitEmoji);
-}
-
-if (document.querySelector('#content')) {
-  window.onload = function() {
-    // Markdown render
-    let contentHTML = document.querySelector('#content');
-    let previewHTML = document.querySelector('#preview');
-    let isLeftScrollTop = false;
-    let isRightScrollTop = false;
-  
-    function loadPreview() {
-      previewHTML.innerHTML = md.render(contentHTML.value || "") + '<div style="height: 300px"></div>';
-      twemoji.parse(document.querySelector('.markdown-body'));
-    }
-  
-    loadPreview();
-  
-    contentHTML.addEventListener('keyup', function() {
+  const md = window.markdownit().use(window.markdownitEmoji);
+  if (document.querySelector('#content')) {
+    window.onload = function() {
+      // Markdown render
+      let contentHTML = document.querySelector('#content');
+      let previewHTML = document.querySelector('#preview');
+      let isLeftScrollTop = false;
+      let isRightScrollTop = false;
+    
+      function loadPreview() {
+        previewHTML.innerHTML = md.render(contentHTML.value || "") + '<div style="height: 300px"></div>';
+        twemoji.parse(document.querySelector('.markdown-body'));
+      }
+    
       loadPreview();
-    })
-  
-    contentHTML.addEventListener('scroll', function() {
-      if (isRightScrollTop) {
-        return isRightScrollTop = false;
-      }
-      let percent = this.scrollTop / (this.scrollHeight - this.clientHeight);
-      let a = previewHTML.scrollHeight - previewHTML.clientHeight;
-      previewHTML.scrollTop = percent * a;
-      isLeftScrollTop = true;
-    });
-  
-    previewHTML.addEventListener('scroll', function() {
-      if (isLeftScrollTop) {
-        return isLeftScrollTop = false;
-      }
-      let percent = this.scrollTop / (this.scrollHeight - this.clientHeight);
-      let a = contentHTML.scrollHeight - contentHTML.clientHeight;
-      contentHTML.scrollTop = percent * a;
-      isRightScrollTop = true;
-    })
+    
+      contentHTML.addEventListener('keyup', function() {
+        loadPreview();
+      })
+    
+      contentHTML.addEventListener('scroll', function() {
+        if (isRightScrollTop) {
+          return isRightScrollTop = false;
+        }
+        let percent = this.scrollTop / (this.scrollHeight - this.clientHeight);
+        let a = previewHTML.scrollHeight - previewHTML.clientHeight;
+        previewHTML.scrollTop = percent * a;
+        isLeftScrollTop = true;
+      });
+    
+      previewHTML.addEventListener('scroll', function() {
+        if (isLeftScrollTop) {
+          return isLeftScrollTop = false;
+        }
+        let percent = this.scrollTop / (this.scrollHeight - this.clientHeight);
+        let a = contentHTML.scrollHeight - contentHTML.clientHeight;
+        contentHTML.scrollTop = percent * a;
+        isRightScrollTop = true;
+      })
+    }
   }
 }
-
 
 // Search
 let searchDialog = new MDCDialog(document.querySelector('.mdc-dialog.search'));
