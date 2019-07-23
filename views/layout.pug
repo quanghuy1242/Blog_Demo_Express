@@ -21,7 +21,7 @@ html(lang="en")
     .drawer-frame-app-content
       header#app-bar.mdc-top-app-bar.mdc-top-app-bar--fixed.mdc-elevation--z5.app-bar
         .mdc-top-app-bar__row
-          section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start
+          section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start(style="flex-grow: 0")
             button.mdc-top-app-bar__navigation-icon.mdc-icon-button.material-icons.mdc-top-app-bar__navigation-icon--unbounded menu
             a.mdc-button.mdc-button--unelevated.mdc-top-app-bar__title.nav-logo(href="/") Learn About Me
             if (currentUser && currentUser.role === 'admin')
@@ -29,6 +29,11 @@ html(lang="en")
 
           section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-end
             button#btnSearch.mdc-button.mdc-button--unelevated Search
+
+          section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-center-abs
+            .search-box
+              input.search-box-input(type="text")
+              button.mdc-icon-button.material-icons.search-button search
             
           
       .mdc-top-app-bar--fixed-adjust

@@ -2,8 +2,11 @@
 cssVars();
 
 // Ripple
-document.querySelectorAll('.mdc-button, .mdc-card__primary-action, .mdc-fab, .mdc-ripple-surface, .mdc-list-item').forEach(element => {
-  mdc.ripple.MDCRipple.attachTo(element);
+document.querySelectorAll('.mdc-button, .mdc-icon-button, .mdc-card__primary-action, .mdc-fab, .mdc-ripple-surface, .mdc-list-item').forEach(element => {
+  const rippe = mdc.ripple.MDCRipple.attachTo(element);
+  if (element.classList.contains('mdc-icon-button')) {
+    rippe.unbounded = true;
+  }
 })
 
 // Snackbar
@@ -228,3 +231,10 @@ if (btnNewButton) {
     btnNewButton.classList.replace('mdc-elevation--z4', 'mdc-elevation--z2')
   });
 }
+
+// Search
+const buttonSearch = document.querySelector('button.search-button');
+const inputSearch = document.querySelector('input.search-box-input');
+buttonSearch.addEventListener('click', () => {
+  // inputSearch.focus();
+});
