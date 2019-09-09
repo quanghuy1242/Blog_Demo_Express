@@ -225,10 +225,10 @@ initDrawer();
 let btnNewButton = document.querySelector('.cs-new-post-drawer');
 if (btnNewButton) {
   btnNewButton.addEventListener('mouseover', function() {
-    btnNewButton.classList.replace('mdc-elevation--z2', 'mdc-elevation--z4');
+    btnNewButton.classList.replace('mdc-elevation--z3', 'mdc-elevation--z5');
   });
   btnNewButton.addEventListener('mouseout', function() {
-    btnNewButton.classList.replace('mdc-elevation--z4', 'mdc-elevation--z2')
+    btnNewButton.classList.replace('mdc-elevation--z5', 'mdc-elevation--z3')
   });
 }
 

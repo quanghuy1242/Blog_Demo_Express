@@ -853,6 +853,7 @@ footer.main-footer {
 .cs-new-post-drawer {
   border-radius: 50px !important;
   transition: 0.2s;
+  height: 50px !important;
 }
 /* End */
 
