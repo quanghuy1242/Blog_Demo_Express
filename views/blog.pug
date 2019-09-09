@@ -28,14 +28,14 @@ block b1
       if (page)
         .pagination-wrapper
           if (page.prev !== -1)
-            a.mdc-button.mdc-button--outlined.middle-button(href=`${originalUrl}?page=${page.prev}`) Prev
+            a.mdc-button.mdc-button--raised(href=`${originalUrl}?page=${page.prev}`) Prev
           else 
-            button.mdc-button.mdc-button--outlined.middle-button(disabled="true") prev
-          button.mdc-button.mdc-button--outlined.middle-button= page.now
+            button.mdc-button.mdc-button--raised(disabled="true") prev
+          button.mdc-button.mdc-button--raised= page.now
           if (page.next !== -1)
-            a.mdc-button.mdc-button--outlined.last-button(href=`${originalUrl}?page=${page.next}`) Next
+            a.mdc-button.mdc-button--raised(href=`${originalUrl}?page=${page.next}`) Next
           else 
-            button.mdc-button.mdc-button--outlined.last-button(disabled="true") Next
+            button.mdc-button.mdc-button--raised(disabled="true") Next
 
       if (currentUser)
         .mdc-dialog.non-search(role="alertdialog")

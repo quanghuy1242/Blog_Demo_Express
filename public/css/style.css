@@ -237,6 +237,10 @@ footer.main-footer {
   /* width: 60px; */
 }
 
+.pagination-wrapper .mdc-button:not(:last-child) {
+  margin: 0rem 0.5rem 0rem 0rem;
+}
+
 .pagination-wrapper .middle-button {
   border-right: none;
   border-radius: 0;
