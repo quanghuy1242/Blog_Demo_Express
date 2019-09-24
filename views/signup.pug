@@ -12,6 +12,9 @@ block b1
             .mdc-notched-outline__notch
               label.mdc-floating-label Email 
             .mdc-notched-outline__trailing
+        if (error && error.name)
+          .mdc-text-field-helper-line
+            .mdc-text-field-helper-text.mdc-text-field-helper-text-error= error.name
 
         .mdc-text-field.mdc-text-field--outlined(style="margin-bottom: 0")
           input.mdc-text-field__input(type="password", required="true", name="password", value=errorInfo ? errorInfo.password : '')
@@ -20,6 +23,9 @@ block b1
             .mdc-notched-outline__notch
               label.mdc-floating-label Password
             .mdc-notched-outline__trailing
+        if (error && error.password)
+          .mdc-text-field-helper-line
+            .mdc-text-field-helper-text.mdc-text-field-helper-text-error= error.password
 
         .mdc-form-field
           .mdc-checkbox
