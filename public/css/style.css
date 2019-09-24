@@ -437,6 +437,7 @@ footer.main-footer {
 
 .cs-auth-wrapper .cs-auth-action {
   display: flex;
+  margin-top: 1rem;
 }
 
 .spacer {
