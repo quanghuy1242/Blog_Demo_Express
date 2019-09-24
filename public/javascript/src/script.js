@@ -185,7 +185,7 @@ function isNeedModal(arr, currLocation) {
 }
 
 function initDrawer() {
-  const isMobile = window.matchMedia("(max-width: 599px)").matches;
+  const isMobile = window.matchMedia("(max-width: 900px)").matches;
   let drawerHTML = document.querySelector('.mdc-drawer');
   let menuList = MDCList.attachTo(document.querySelector('#menu-list')); // Menu list trong drawer
   menuList.wrapFocus = true;
