@@ -1,6 +1,8 @@
 ﻿// load polyfill
 cssVars();
 
+const hostName = window.location.protocol + '//' + window.location.host;
+
 // Ripple
 document.querySelectorAll('.mdc-button, .mdc-icon-button, .mdc-card__primary-action, .mdc-fab, .mdc-ripple-surface, .mdc-list-item').forEach(element => {
   const rippe = mdc.ripple.MDCRipple.attachTo(element);
@@ -235,6 +237,35 @@ if (btnNewButton) {
 // Search
 const buttonSearch = document.querySelector('button.search-button');
 const inputSearch = document.querySelector('input.search-box-input');
-buttonSearch.addEventListener('click', () => {
-  // inputSearch.focus();
-});
+
+const processOnSearch = () => {
+  const value = inputSearch.value;
+  const patternDate = /m:(\d+)|d:(\d+)|y:(\d+)/g;
+  let stringURI = '/blog/';
+  if (!value.length) return;
+  if(patternDate.test(value)) { // Nếu value theo kiểu 'm:10 d:5 y:2015'
+    const matchs = value.match(patternDate).join(',');
+    const stringMatchs = "{" + matchs.replace(/(\w+:)|(\w+ :)/g, s => {
+      return `"${s.substring(0, s.length-1)}":`;
+    }) + "}"; // Tách rồi nối thành JSON
+    const obj = JSON.parse(stringMatchs);
+    if (!obj.y) { return; } // Không có năm thì thoát
+    stringURI += `${obj.y}/`;
+    if (obj.m) {
+      stringURI += `${obj.m}/`;
+      if (obj.d) { stringURI += `${obj.d}/`; }
+    } else {
+      if (obj.d) return; // Có tháng mà không có ngày
+    }
+    window.location.href = hostName + stringURI;
+  } else {
+    window.location.href = `${hostName}/blog/search?q=${value}`;
+  }
+};
+
+buttonSearch.addEventListener('click', processOnSearch);
+inputSearch.addEventListener('keyup', event => {
+  if (event.key === 'Enter') {
+    processOnSearch();
+  }
+})

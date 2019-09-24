@@ -21,18 +21,18 @@ html(lang="en")
     .drawer-frame-app-content
       header#app-bar.mdc-top-app-bar.mdc-top-app-bar--fixed.mdc-elevation--z5.app-bar
         .mdc-top-app-bar__row
-          section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start(style="flex-grow: 0")
+          section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start(style="flex-grow: 0; z-index: 3")
             button.mdc-top-app-bar__navigation-icon.mdc-icon-button.material-icons.mdc-top-app-bar__navigation-icon--unbounded menu
             a.mdc-button.mdc-button--unelevated.mdc-top-app-bar__title.nav-logo(href="/") Learn About Me
-            if (currentUser && currentUser.role === 'admin')
-              a.mdc-button.cs-button-white.hidden-mobile(href="/blog/manage/category") Management
+            //- if (currentUser && currentUser.role === 'admin')
+            //-   a.mdc-button.cs-button-white.hidden-mobile(href="/blog/manage/category") Management
 
-          section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-end
+          section.btn-search-section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-end
             button#btnSearch.mdc-button.mdc-button--unelevated Search
 
           section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-center-abs
             .search-box
-              input.search-box-input(type="text")
+              input.search-box-input(type="text", placeholder="Nhập 'd:25 m:11 y:2019' để filter...")
               button.mdc-icon-button.material-icons.search-button search
             
           
@@ -67,6 +67,10 @@ html(lang="en")
                 a.mdc-list-item(href='#')
                   i.material-icons.mdc-list-item__graphic(aria-hidden='true') chat
                   span.mdc-list-item__text Chat Room
+                if (currentUser && currentUser.role === 'admin')
+                  a.mdc-list-item(href="/blog/manage/category")
+                    i.material-icons.mdc-list-item__graphic(aria-hidden='true') chrome_reader_mode
+                    span.mdc-list-item__text Management
 
                 hr.mdc-list-divider
 
