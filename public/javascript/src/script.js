@@ -24,21 +24,21 @@ if (document.querySelector('.mdc-dialog.non-search')) {
   let dialog = new MDCDialog(document.querySelector('.mdc-dialog.non-search'));
   dialog.scrimClickAction = '';
   dialog.escapeKeyAction = '';
-}
 
-function openAlert(event) {
-  dialog.open();
-  let detailClick = event.target.getAttribute('data-click');
-  let formAction = document.querySelector('#dialog-form');
-  let postId = event.target.getAttribute('data-post-id');
-  let contentTitle = document.querySelector('.mdc-dialog .mdc-dialog__content');
-  if (detailClick === 'delete') {
-    contentTitle.innerText = "Bạn có chắc chắn xoá bài viết này?";
-    formAction.setAttribute('action', `/blog/delete/ + ${postId}`);
-  }
-  if (detailClick === 'unpin') {
-    contentTitle.innerText = "Bạn có chắc chắn unpin viết này?";
-    formAction.setAttribute('action', `/blog/unpin/ + ${postId}`);
+  function openAlert(event) {
+    dialog.open();
+    let detailClick = event.target.getAttribute('data-click');
+    let formAction = document.querySelector('#dialog-form');
+    let postId = event.target.getAttribute('data-post-id');
+    let contentTitle = document.querySelector('.mdc-dialog .mdc-dialog__content');
+    if (detailClick === 'delete') {
+      contentTitle.innerText = "Bạn có chắc chắn xoá bài viết này?";
+      formAction.setAttribute('action', `/blog/delete/ + ${postId}`);
+    }
+    if (detailClick === 'unpin') {
+      contentTitle.innerText = "Bạn có chắc chắn unpin viết này?";
+      formAction.setAttribute('action', `/blog/unpin/ + ${postId}`);
+    }
   }
 }
 
