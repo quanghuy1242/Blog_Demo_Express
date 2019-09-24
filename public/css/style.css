@@ -352,6 +352,19 @@ footer.main-footer {
   margin-bottom: 1.5rem;
 }
 
+.markdown-body {
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media only screen and (min-width: 900px) {
+  .markdown-body {
+    max-width: 850px;
+    padding: 0 30px;
+  }
+}
+
 #post-detail-action {
   color: #fff !important;
 }
