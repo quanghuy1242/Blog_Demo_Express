@@ -5,7 +5,7 @@ block b1
     form.cs-auth-wrapper(action="/signup" method="POST")
       .cs-auth-title.mdc-typography--button ĐĂNG KÍ
       .cs-textfield-form
-        .mdc-text-field.mdc-text-field--outlined
+        .mdc-text-field.mdc-text-field--outlined(class={ "mdc-text-field--invalid": error && error.name })
           input.mdc-text-field__input(type="text", required="true", autofocus="true", name="username", value=errorInfo ? errorInfo.username : '')
           .mdc-notched-outline
             .mdc-notched-outline__leading
@@ -16,7 +16,7 @@ block b1
           .mdc-text-field-helper-line
             .mdc-text-field-helper-text.mdc-text-field-helper-text-error= error.name
 
-        .mdc-text-field.mdc-text-field--outlined(style="margin-bottom: 0")
+        .mdc-text-field.mdc-text-field--outlined(style="margin-bottom: 0", class={ "mdc-text-field--invalid": error && error.password })
           input.mdc-text-field__input(type="password", required="true", name="password", value=errorInfo ? errorInfo.password : '')
           .mdc-notched-outline
             .mdc-notched-outline__leading
