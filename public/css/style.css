@@ -352,6 +352,10 @@ footer.main-footer {
   margin-bottom: 1.5rem;
 }
 
+.post-detail-content .markdown-body {
+  max-width: 800px;
+}
+
 #post-detail-action {
   color: #fff !important;
 }
