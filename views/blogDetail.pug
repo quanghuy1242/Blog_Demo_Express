@@ -38,6 +38,17 @@ block b1
 
   .container.post-detail-content
     .markdown-body!= blog.content
+    
+    .post-detail-information
+      .information-item
+        .information-item-name.mdc-typography--button Information
+        .information-item-content
+          if (blog.modified)
+            .latest-modified.post-detail-subtitle.mdc-typography--subtitle1= `Latest Modified: ${blog.modified}`
+
+      .information-item
+        .information-item-name.mdc-typography--button Share
+        .information-item-content
 
     +comment()
 

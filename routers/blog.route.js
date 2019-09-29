@@ -144,7 +144,8 @@ router.post('/edit/:blogId', authenticate.ensureAuthenticated, function (req, re
           category: req.body.category,
           imgUrl: req.body.imgUrl,
           tag: req.body.tags ? tagsList : [],
-          isPublic: req.body.isPublic === 'on'
+          isPublic: req.body.isPublic === 'on',
+          latestModified: Date.now()
         }
       },
       function (err, response) {

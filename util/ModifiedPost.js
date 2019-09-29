@@ -15,6 +15,9 @@ class ModifiedPost {
     for (let i in blogsInProcess) {
       blogsInProcess[i].previewConent = removeMd(blogsInProcess[i].content.split('\n')[0]);
       blogsInProcess[i].time = moment(blogsInProcess[i].dateCreated).format("DD/MM/YYYY");
+      if (blogsInProcess[i].latestModified) {
+        blogsInProcess[i].modified = moment(blogsInProcess[i].latestModified).format("DD/MM/YYYY");
+      }
       blogsInProcess[i].content = md.render(blogsInProcess[i].content).split('\n').join('');
       blogsInProcess[i].titleWithoutAccentAndSpace = StringProcess.toUrlString(blogsInProcess[i].title);
     }

@@ -10,7 +10,8 @@ let blogSchema = mongoose.Schema({
   category: { type: Schema.Types.ObjectId, ref: 'Category' },
   imgUrl: { type: String },
   tag: { type: [String] },
-  isPublic: { type: Boolean, default: true }
+  isPublic: { type: Boolean, default: true },
+  latestModified: { type: Date }
 });
 
 let Blog = mongoose.model("Blog", blogSchema);

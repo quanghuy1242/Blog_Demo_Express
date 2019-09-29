@@ -381,6 +381,24 @@ footer.main-footer {
   justify-content: center;
 }
 
+.post-detail-information {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  margin-top: 25px;
+}
+
+.post-detail-information > .information-item:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.post-detail-information > .information-item {
+  margin: 0 0.5rem;
+}
+
+.post-detail-information .information-item-content {
+  margin-left: 1rem;
+}
+
 @media only screen and (max-width: 599px) {
   .action-wrapper {
     flex-direction: column;
