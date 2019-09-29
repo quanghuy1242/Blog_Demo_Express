@@ -8,7 +8,8 @@ let userSchema = mongoose.Schema({
   createAt: { type: Date, default: Date.now },
   displayName: String,
   bio: String,
-  role: String
+  role: String,
+  latestSignIn: { type: Date }
 });
 
 userSchema.methods.name = function() {

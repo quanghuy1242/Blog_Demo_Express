@@ -38,7 +38,8 @@ router.get('/:username', function (req, res, next) {
           blogs: blogs,
           user: user,
           title: user.name(),
-          date: moment(user.createAt).format("DD/MM/YYYY")
+          date: moment(user.createAt).format("DD/MM/YYYY"),
+          ...user.latestSignIn && { latestSignIn: moment(user.latestSignIn).format("DD/MM/YYYY") }
         })
       })
   })

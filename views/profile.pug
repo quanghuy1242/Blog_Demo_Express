@@ -12,6 +12,8 @@ block b1
               .cs-card-header
                 h2.user-card.cs-card__title.mdc-typography--button= user.name()
                 h3.cs-card__subtitle.mdc-typography--subtitle2= 'Ngày gia nhập: ' + date
+                if (latestSignIn)
+                  h3.cs-card__subtitle.mdc-typography--subtitle2= 'Đăng nhập gần nhất: ' + latestSignIn
             .cs-card__content.mdc-card__actions.mdc-typography--body2= user.bio ? user.bio : 'Chưa có bio'
           //- if (currentUser && currentUser.id === user.id)
           //-   .mdc-card__actions

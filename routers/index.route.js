@@ -48,6 +48,11 @@ router.post('/signin', passport.authenticate('login', {
   failureRedirect: '/signin',
   failureFlash: true
 }), (req, res, next) => {
+  User.findOneAndUpdate(
+    { username: req.user.username },
+    { $set: { latestSignIn: Date.now() } },
+    (err, res) => {}
+  ) // Cập nhật lần đăng nhập gần nhất
   const payload = {
     username: req.user.username,
     id: req.user._id,
