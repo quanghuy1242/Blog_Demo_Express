@@ -19,7 +19,11 @@ const categoryRoute = require('./routers/category.route');
 
 const app = express();
 
-mongoose.connect(process.env.MONGODB_URL, { useCreateIndex: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URL, {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useFindAndModify: true
+});
 setupPassport();
 
 app.set('port', process.env.PORT || 3000);
