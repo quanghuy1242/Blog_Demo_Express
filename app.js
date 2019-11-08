@@ -22,7 +22,8 @@ const app = express();
 mongoose.connect(process.env.MONGODB_URL, {
   useCreateIndex: true,
   useNewUrlParser: true,
-  useFindAndModify: true
+  useFindAndModify: true,
+  useUnifiedTopology: true
 });
 setupPassport();
 
