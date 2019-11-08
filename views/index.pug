@@ -9,10 +9,14 @@ block b1
       .mdc-typography--overline Share your experiences
     .cs-large-panel-action
       if (currentUser)
-        a#btnMenuCaNhan.mdc-button.cs-button-white(style="margin: 0", href="/blog/add") Share a thought
+        qh-tooltip(content="Đăng một bài đăng")
+          a#btnMenuCaNhan.mdc-button.cs-button-white(style="margin: 0", href="/blog/add") Share a thought
       else
-        a.mdc-button.mdc-button--raised.cs-button(href="/signin") Login
-        a.mdc-button.mdc-button--raised.cs-button(href="/signup") Register
+        qh-tooltip(content="Đăng nhập vào hệ thống")
+          a.mdc-button.mdc-button--raised.cs-button(href="/signin") Login
+
+        qh-tooltip(content="Đăng kí tài khoản mới")
+          a.mdc-button.mdc-button--raised.cs-button(href="/signup") Register
 
   .cs-home-wrapper
     .cs-category-highlight

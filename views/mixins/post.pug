@@ -24,16 +24,20 @@ mixin renderPost(blogs)
         .cs-card__content.mdc-card__actions.mdc-typography--body2= blog.previewConent
       .mdc-card__actions
         .mdc-card__action-buttons
-          button.mdc-button.mdc-card__action.mdc-card__action--button
-            i.material-icons.mdc-button__icon thumb_up
-            .mdc-button__label 0
-          button.mdc-button.mdc-card__action.mdc-card__action--button
-            i.material-icons.mdc-button__icon mode_comment
-            .mdc-button__label 0
+          qh-tooltip(content="Thích bài viết")
+            button.mdc-button.mdc-card__action.mdc-card__action--button
+              i.material-icons.mdc-button__icon thumb_up
+              .mdc-button__label 0
+
+          qh-tooltip(content="Bình luận")
+            button.mdc-button.mdc-card__action.mdc-card__action--button
+              i.material-icons.mdc-button__icon mode_comment
+              .mdc-button__label 0
           //- a.mdc-button.mdc-card__action.mdc-card__action--button(href=`/blog/${blog.titleWithoutAccentAndSpace}/${blog._id}`) More
         .mdc-card__action-icons
           .menu-wrapper
-            button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.btn-action(onClick="openMenu(event)", data-click=blog._id) more_vert
+            qh-tooltip(content="More options")
+              button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.btn-action(onClick="openMenu(event)", data-click=blog._id) more_vert
             .mdc-menu-surface--anchor
               .mdc-menu.mdc-menu-surface.cs-menu-post(data-id=blog._id)
                 ul.mdc-list(role="menu")
@@ -57,13 +61,17 @@ mixin renderPost(blogs)
           if (currentUser && currentUser._id.toString() === blog.user._id.toString())
             if (blog.isPin)
               if (currentUser.role === 'admin')
-                button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.pinTag-active(onClick="openAlert(event)", data-click='unpin', data-post-id=blog._id, title="Pinned") local_offer
+                qh-tooltip(content="Pin")
+                  button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.pinTag-active(onClick="openAlert(event)", data-click='unpin', data-post-id=blog._id, title="Pinned") local_offer
               else 
-                button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.pinTag-active local_offer
+                qh-tooltip(content="Unpined")
+                  button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.pinTag-active local_offer
             else
               if (currentUser.role === 'admin')
                 form(action="/blog/pin/" + blog._id, method="post")
-                  button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.pinTag(type="submit") local_offer
+                  qh-tooltip(content="Pin")
+                    button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.pinTag(type="submit") local_offer
           else 
             if (blog.isPin)
-              button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.pinTag-active local_offer
+              qh-tooltip(content="Pinned")
+                button.material-icons.mdc-icon-button.mdc-card__action.mdc-card__action--icon.pinTag-active local_offer

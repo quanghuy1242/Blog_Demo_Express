@@ -29,7 +29,7 @@
   flex-direction: row;
 }
 
-.cs-large-panel .cs-large-panel-action a:not(:last-child) {
+.cs-large-panel .cs-large-panel-action > :not(:last-child) {
   margin-right: 0.5rem;
 }
 
