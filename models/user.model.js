@@ -9,7 +9,8 @@ let userSchema = mongoose.Schema({
   displayName: String,
   bio: String,
   role: String,
-  latestSignIn: { type: Date }
+  latestSignIn: { type: Date },
+  isVerified: { type: Boolean, default: false },
 });
 
 userSchema.methods.name = function() {
