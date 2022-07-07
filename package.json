@@ -24,7 +24,7 @@
     "jsonwebtoken": "^8.5.1",
     "markdown-it": "^8.4.2",
     "markdown-it-emoji": "^1.4.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.28",
     "mongoose": "^5.9.5",
     "passport": "^0.4.1",
